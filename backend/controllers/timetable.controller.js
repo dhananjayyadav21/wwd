@@ -31,8 +31,8 @@ const addTimetableController = async (req, res) => {
   try {
     const { semester, branch } = req.body;
 
-    if (!semester || !branch) {
-      return ApiResponse.badRequest("Semester and branch are required").send(
+    if (!branch) {
+      return ApiResponse.badRequest("Branch are required").send(
         res
       );
     }
@@ -41,7 +41,7 @@ const addTimetableController = async (req, res) => {
       return ApiResponse.badRequest("Timetable file is required").send(res);
     }
 
-    let timetable = await Timetable.findOne({ semester, branch });
+    let timetable = await Timetable.findOne({ branch });
 
     if (timetable) {
       timetable = await Timetable.findByIdAndUpdate(

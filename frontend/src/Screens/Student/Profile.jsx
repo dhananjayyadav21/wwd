@@ -84,12 +84,7 @@ const Profile = ({ profileData }) => {
               </label>
               <p className="text-gray-900">{formatDate(profileData.dob)}</p>
             </div>
-            <div>
-              <label className="text-sm font-medium text-gray-500">
-                Semester
-              </label>
-              <p className="text-gray-900">{profileData.semester}</p>
-            </div>
+            {/* Semester removed from profile display */}
           </div>
         </div>
 

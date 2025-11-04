@@ -29,7 +29,7 @@ const Material = () => {
     try {
       setDataLoading(true);
       const response = await axiosWrapper.get(
-        `/subject?semester=${userData.semester}&branch=${userData.branchId._id}`,
+        `/subject?branch=${userData.branchId._id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -55,7 +55,6 @@ const Material = () => {
     try {
       setDataLoading(true);
       const queryParams = new URLSearchParams({
-        semester: userData.semester,
         branch: userData.branchId._id,
       });
 

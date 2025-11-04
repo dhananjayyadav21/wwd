@@ -15,7 +15,6 @@ const Exam = () => {
   const [data, setData] = useState({
     name: "",
     date: "",
-    semester: "",
     examType: "mid",
     timetableLink: "",
     totalMarks: "",
@@ -38,10 +37,7 @@ const Exam = () => {
   const getExamsHandler = async () => {
     try {
       setDataLoading(true);
-      let link = "/exam";
-      if (userData.semester) {
-        link = `/exam?semester=${userData.semester}`;
-      }
+      const link = "/exam";
       const response = await axiosWrapper.get(link, {
         headers: {
           "Content-Type": "application/json",
@@ -73,7 +69,6 @@ const Exam = () => {
     if (
       !data.name ||
       !data.date ||
-      !data.semester ||
       !data.examType ||
       !data.totalMarks
     ) {
@@ -92,7 +87,6 @@ const Exam = () => {
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("date", data.date);
-      formData.append("semester", data.semester);
       formData.append("examType", data.examType);
       formData.append("totalMarks", data.totalMarks);
       if (isEditing) {
@@ -130,7 +124,6 @@ const Exam = () => {
     setData({
       name: "",
       date: "",
-      semester: "",
       examType: "mid",
       timetableLink: "",
       totalMarks: "",
@@ -149,7 +142,6 @@ const Exam = () => {
     setData({
       name: exam.name,
       date: new Date(exam.date).toISOString().split("T")[0],
-      semester: exam.semester,
       examType: exam.examType,
       timetableLink: exam.timetableLink,
       totalMarks: exam.totalMarks,
@@ -201,7 +193,7 @@ const Exam = () => {
               <tr className="bg-blue-500 text-white">
                 <th className="py-4 px-6 text-left font-semibold">Exam Name</th>
                 <th className="py-4 px-6 text-left font-semibold">Date</th>
-                <th className="py-4 px-6 text-left font-semibold">Semester</th>
+                {/* Semester column removed */}
                 <th className="py-4 px-6 text-left font-semibold">Exam Type</th>
                 <th className="py-4 px-6 text-left font-semibold">
                   Total Marks
@@ -221,7 +213,7 @@ const Exam = () => {
                     <td className="py-4 px-6">
                       {new Date(item.date).toLocaleDateString()}
                     </td>
-                    <td className="py-4 px-6">{item.semester}</td>
+                    {/* Semester value removed from UI */}
                     <td className="py-4 px-6">
                       {item.examType === "mid" ? "Mid Term" : "End Term"}
                     </td>
@@ -300,27 +292,7 @@ const Exam = () => {
                     required
                   />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Semester
-                  </label>
-                  <select
-                    name="semester"
-                    value={data.semester}
-                    onChange={(e) =>
-                      setData({ ...data, semester: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  >
-                    <option value="">Select Semester</option>
-                    {[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => (
-                      <option key={sem} value={sem}>
-                        Semester {sem}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                {/* Semester removed from Exam form */}
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>

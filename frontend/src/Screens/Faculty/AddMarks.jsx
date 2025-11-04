@@ -12,7 +12,7 @@ const AddMarks = () => {
   const [subjects, setSubjects] = useState([]);
   const [selectedBranch, setSelectedBranch] = useState(null);
   const [selectedSubject, setSelectedSubject] = useState(null);
-  const [selectedSemester, setSelectedSemester] = useState(null);
+  // semester removed from frontend UI
   const [exams, setExams] = useState([]);
   const [selectedExam, setSelectedExam] = useState(null);
   const [masterMarksData, setMasterMarksData] = useState([]);
@@ -28,8 +28,6 @@ const AddMarks = () => {
     } else if (name === "subject") {
       const subject = subjects.find((s) => s._id === value);
       setSelectedSubject(subject);
-    } else if (name === "semester") {
-      setSelectedSemester(value);
     } else if (name === "exam") {
       const exam = exams.find((e) => e._id === value);
       setSelectedExam(exam);
@@ -90,14 +88,12 @@ const AddMarks = () => {
   const fetchExams = async () => {
     try {
       toast.loading("Loading exams...");
-      const response = await axiosWrapper.get(
-        `/exam?semester=${selectedSemester}`,
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        }
-      );
+      // Fetch all exams (semester removed from frontend)
+      const response = await axiosWrapper.get(`/exam`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
       if (response.data.success) {
         setExams(response.data.data);
       } else {
@@ -120,7 +116,7 @@ const AddMarks = () => {
     setStudents([]);
     try {
       const response = await axiosWrapper.get(
-        `/marks/students?branch=${selectedBranch?._id}&subject=${selectedSubject?._id}&semester=${selectedSemester}&examId=${selectedExam?._id}`,
+        `/marks/students?branch=${selectedBranch?._id}&subject=${selectedSubject?._id}&examId=${selectedExam?._id}`,
         {
           headers: { Authorization: `Bearer ${userToken}` },
         }
@@ -161,7 +157,7 @@ const AddMarks = () => {
     setMasterMarksData([]);
     try {
       const response = await axiosWrapper.get(
-        `/marks?semester=${selectedSemester}&examId=${selectedExam?._id}`,
+        `/marks?examId=${selectedExam?._id}`,
         {
           headers: { Authorization: `Bearer ${userToken}` },
         }
@@ -221,7 +217,6 @@ const AddMarks = () => {
           marks: marksToSubmit,
           examId: selectedExam?._id,
           subjectId: selectedSubject?._id,
-          semester: selectedSemester,
         },
         {
           headers: { Authorization: `Bearer ${userToken}` },
@@ -267,12 +262,6 @@ const AddMarks = () => {
     }
   }, [selectedBranch]);
 
-  useEffect(() => {
-    if (selectedSemester) {
-      fetchExams();
-    }
-  }, [selectedSemester]);
-
   return (
     <div className="w-full mx-auto mt-10 flex justify-center items-start flex-col mb-10">
       <div className="flex justify-between items-center w-full">
@@ -282,28 +271,11 @@ const AddMarks = () => {
       {showSearch && (
         <div className="w-full bg-white rounded-lg p-6 mb-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-[90%] mx-auto">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Semester
-              </label>
-              <select
-                name="semester"
-                value={selectedSemester || ""}
-                onChange={handleInputChange}
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="">Select Semester</option>
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => (
-                  <option key={sem} value={sem}>
-                    Semester {sem}
-                  </option>
-                ))}
-              </select>
-            </div>
+            {/* Semester selection removed from UI */}
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Branch
+                Batch
               </label>
               <select
                 name="branch"
@@ -311,7 +283,7 @@ const AddMarks = () => {
                 onChange={handleInputChange}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                <option value="">Select Branch</option>
+                <option value="">Select Batch</option>
                 {branches?.map((branch) => (
                   <option key={branch._id} value={branch._id}>
                     {branch.name}
@@ -329,9 +301,8 @@ const AddMarks = () => {
                 value={selectedSubject?._id || ""}
                 onChange={handleInputChange}
                 disabled={!selectedBranch}
-                className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  !selectedBranch ? "bg-gray-100 cursor-not-allowed" : ""
-                }`}
+                className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${!selectedBranch ? "bg-gray-100 cursor-not-allowed" : ""
+                  }`}
               >
                 <option value="">Select Subject</option>
                 {subjects?.map((subject) => (
@@ -342,7 +313,7 @@ const AddMarks = () => {
               </select>
               {!selectedBranch && (
                 <p className="text-xs text-gray-500 mt-1">
-                  Please select a branch first
+                  Please select a Batch first
                 </p>
               )}
             </div>
@@ -356,9 +327,8 @@ const AddMarks = () => {
                 value={selectedExam?._id || ""}
                 onChange={handleInputChange}
                 disabled={!selectedSubject}
-                className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  !selectedSubject ? "bg-gray-100 cursor-not-allowed" : ""
-                }`}
+                className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${!selectedSubject ? "bg-gray-100 cursor-not-allowed" : ""
+                  }`}
               >
                 <option value="">Select Exam</option>
                 {exams?.map((exam) => (
@@ -378,13 +348,7 @@ const AddMarks = () => {
           <div className="mt-6 flex justify-center w-[10%] mx-auto">
             <CustomButton
               type="submit"
-              disabled={
-                dataLoading ||
-                !selectedBranch ||
-                !selectedSubject ||
-                !selectedExam ||
-                !selectedSemester
-              }
+              disabled={dataLoading || !selectedBranch || !selectedSubject || !selectedExam}
               variant="primary"
               onClick={handleSearch}
             >
@@ -401,12 +365,8 @@ const AddMarks = () => {
             <div className="flex flex-col gap-4 w-[90%] mx-auto">
               <div className="grid grid-cols-4 gap-4">
                 <div className="border p-3 rounded-md shadow">
-                  <span className="text-sm text-gray-500">
-                    Branch and Semester:
-                  </span>
-                  <p className="text-gray-800">
-                    {selectedBranch?.branchId} - Semester {selectedSemester}
-                  </p>
+                  <span className="text-sm text-gray-500">Batch:</span>
+                  <p className="text-gray-800">{selectedBranch?.name || ""}</p>
                 </div>
 
                 <div className="border p-3 rounded-md shadow">

@@ -17,7 +17,6 @@ const marksSchema = new mongoose.Schema({
   },
   semester: {
     type: Number,
-    required: true,
   },
   examId: {
     type: mongoose.Schema.Types.ObjectId,

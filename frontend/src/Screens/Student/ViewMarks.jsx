@@ -7,22 +7,17 @@ import { useSelector } from "react-redux";
 const ViewMarks = () => {
   const userData = useSelector((state) => state.userData);
   const [dataLoading, setDataLoading] = useState(false);
-  const [selectedSemester, setSelectedSemester] = useState(
-    userData?.semester || 1
-  );
+  // semester removed from frontend UI
   const [marks, setMarks] = useState([]);
   const userToken = localStorage.getItem("userToken");
 
-  const fetchMarks = async (semester) => {
+  const fetchMarks = async () => {
     setDataLoading(true);
     toast.loading("Loading marks...");
     try {
-      const response = await axiosWrapper.get(
-        `/marks/student?semester=${semester}`,
-        {
-          headers: { Authorization: `Bearer ${userToken}` },
-        }
-      );
+      const response = await axiosWrapper.get(`/marks/student`, {
+        headers: { Authorization: `Bearer ${userToken}` },
+      });
 
       if (response.data.success) {
         setMarks(response.data.data);
@@ -38,14 +33,10 @@ const ViewMarks = () => {
   };
 
   useEffect(() => {
-    fetchMarks(userData?.semester || 1);
+    fetchMarks();
   }, []);
 
-  const handleSemesterChange = (e) => {
-    const semester = e.target.value;
-    setSelectedSemester(semester);
-    fetchMarks(semester);
-  };
+  // semester selection removed from UI
 
   const midTermMarks = marks.filter((mark) => mark.examId.examType === "mid");
   const endTermMarks = marks.filter((mark) => mark.examId.examType === "end");
@@ -54,20 +45,7 @@ const ViewMarks = () => {
     <div className="w-full mx-auto mt-10 flex justify-center items-start flex-col mb-10">
       <div className="flex justify-between items-center w-full mb-6">
         <Heading title="View Marks" />
-        <div className="flex items-center gap-4">
-          <label className="text-sm font-medium text-gray-700">Semester:</label>
-          <select
-            value={selectedSemester || ""}
-            onChange={handleSemesterChange}
-            className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => (
-              <option key={sem} value={sem}>
-                Semester {sem}
-              </option>
-            ))}
-          </select>
-        </div>
+        {/* Semester filter removed from View Marks UI */}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">

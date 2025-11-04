@@ -13,7 +13,6 @@ const Student = () => {
   const [searchParams, setSearchParams] = useState({
     enrollmentNo: "",
     name: "",
-    semester: "",
     branch: "",
   });
   const [students, setStudents] = useState([]);
@@ -32,7 +31,6 @@ const Student = () => {
     middleName: "",
     lastName: "",
     phone: "",
-    semester: "",
     branchId: "",
     gender: "",
     dob: "",
@@ -94,7 +92,6 @@ const Student = () => {
     if (
       !searchParams.enrollmentNo &&
       !searchParams.name &&
-      !searchParams.semester &&
       !searchParams.branch
     ) {
       toast.error("Please select at least one filter");
@@ -225,7 +222,6 @@ const Student = () => {
       middleName: student.middleName || "",
       lastName: student.lastName || "",
       phone: student.phone || "",
-      semester: student.semester || "",
       branchId: student.branchId?._id || "",
       gender: student.gender || "",
       dob: student.dob?.split("T")[0] || "",
@@ -265,7 +261,7 @@ const Student = () => {
       if (response.data.success) {
         toast.success("Student has been deleted successfully");
         setIsDeleteConfirmOpen(false);
-        searchStudents({ preventDefault: () => {} });
+        searchStudents({ preventDefault: () => { } });
       } else {
         toast.error(response.data.message);
       }
@@ -281,7 +277,6 @@ const Student = () => {
       middleName: "",
       lastName: "",
       phone: "",
-      semester: "",
       branchId: "",
       gender: "",
       dob: "",
@@ -348,28 +343,11 @@ const Student = () => {
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Semester
-                </label>
-                <select
-                  name="semester"
-                  value={searchParams.semester}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="">Select Semester</option>
-                  {[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => (
-                    <option key={sem} value={sem}>
-                      Semester {sem}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {/* Semester filter removed */}
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Branch
+                  Batch
                 </label>
                 <select
                   name="branch"
@@ -423,8 +401,8 @@ const Student = () => {
                       <th className="px-6 py-3 border-b text-left">Profile</th>
                       <th className="px-6 py-3 border-b text-left">Name</th>
                       <th className="px-6 py-3 border-b text-left">E. No</th>
-                      <th className="px-6 py-3 border-b text-left">Semester</th>
-                      <th className="px-6 py-3 border-b text-left">Branch</th>
+                      {/* Semester column removed */}
+                      <th className="px-6 py-3 border-b text-left">Batch</th>
                       <th className="px-6 py-3 border-b text-left">Email</th>
                       <th className="px-6 py-3 border-b text-center">
                         Actions
@@ -452,9 +430,7 @@ const Student = () => {
                         <td className="px-6 py-4 border-b">
                           {student.enrollmentNo}
                         </td>
-                        <td className="px-6 py-4 border-b">
-                          {student.semester}
-                        </td>
+                        {/* Semester cell removed */}
                         <td className="px-6 py-4 border-b">
                           {student.branchId?.name}
                         </td>
@@ -491,7 +467,7 @@ const Student = () => {
         <div className="flex justify-center items-center flex-col w-full mt-24">
           <CgDanger className="w-16 h-16 text-yellow-500 mb-4" />
           <p className="text-center text-lg">
-            Please add branches before adding a student.
+            Please add batches before adding a student.
           </p>
         </div>
       )}
@@ -574,30 +550,11 @@ const Student = () => {
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Semester
-                  </label>
-                  <select
-                    value={formData.semester}
-                    onChange={(e) =>
-                      handleFormInputChange("semester", e.target.value)
-                    }
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  >
-                    <option value="">Select Semester</option>
-                    {[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => (
-                      <option key={sem} value={sem}>
-                        Semester {sem}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                {/* Semester field removed from Add/Edit Student form */}
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Branch
+                    Batch
                   </label>
                   <select
                     value={formData.branchId}
@@ -607,7 +564,7 @@ const Student = () => {
                     className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required
                   >
-                    <option value="">Select Branch</option>
+                    <option value="">Select Batch</option>
                     {branches?.map((branch) => (
                       <option key={branch._id} value={branch._id}>
                         {branch.name}

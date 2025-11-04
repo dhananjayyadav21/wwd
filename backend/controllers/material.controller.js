@@ -36,7 +36,7 @@ const addMaterialController = async (req, res) => {
   try {
     const { title, subject, semester, branch, type } = req.body;
 
-    if (!title || !subject || !semester || !branch || !type) {
+    if (!title || !subject || !branch || !type) {
       return ApiResponse.badRequest("All fields are required").send(res);
     }
 

@@ -28,7 +28,6 @@ const studentDetailsSchema = new mongoose.Schema(
     },
     semester: {
       type: Number,
-      required: true,
     },
     branchId: {
       type: mongoose.Schema.Types.ObjectId,

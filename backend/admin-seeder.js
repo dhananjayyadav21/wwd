@@ -9,24 +9,24 @@ const seedData = async () => {
     // Clear existing admin data
     await adminDetails.deleteMany({});
 
-    const password = "admin123";
+    const password = "admin.dhananjay@iit";
     const employeeId = 123456;
 
     const adminDetail = {
       employeeId: employeeId,
-      firstName: "Sundar",
-      middleName: "R",
-      lastName: "Pichai",
-      email: "admin@gmail.com",
-      phone: "1234567890",
+      firstName: "Dhananjay",
+      middleName: "S",
+      lastName: "Yadav",
+      email: "admindhananjay@gmail.com",
+      phone: "9769565004",
       profile: "Faculty_Profile_123456.jpg",
-      address: "123 College Street",
-      city: "College City",
-      state: "State",
-      pincode: "123456",
+      address: "Thane",
+      city: "Mumbai",
+      state: "Maharashtra",
+      pincode: "400605",
       country: "India",
       gender: "male",
-      dob: new Date("1990-01-01"),
+      dob: new Date("2004-07-18"),
       designation: "System Administrator",
       joiningDate: new Date(),
       salary: 50000,
@@ -34,8 +34,8 @@ const seedData = async () => {
       isSuperAdmin: true,
       emergencyContact: {
         name: "Emergency Contact",
-        relationship: "Spouse",
-        phone: "9876543210",
+        relationship: "Brother",
+        phone: "9769565004",
       },
       bloodGroup: "O+",
       password: password,

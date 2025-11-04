@@ -21,14 +21,12 @@ const Material = () => {
   const [formData, setFormData] = useState({
     title: "",
     subject: "",
-    semester: "",
     branch: "",
     type: "notes",
   });
   const [file, setFile] = useState(null);
   const [filters, setFilters] = useState({
     subject: "",
-    semester: "",
     branch: "",
     type: "",
   });
@@ -148,7 +146,6 @@ const Material = () => {
     setFormData({
       title: "",
       subject: "",
-      semester: "",
       branch: "",
       type: "notes",
     });
@@ -204,7 +201,6 @@ const Material = () => {
     setFormData({
       title: material.title,
       subject: material.subject._id,
-      semester: material.semester,
       branch: material.branch._id,
       type: material.type,
     });
@@ -262,7 +258,7 @@ const Material = () => {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Filter by Branch
+              Filter by Batch
             </label>
             <select
               name="branch"
@@ -279,24 +275,7 @@ const Material = () => {
             </select>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Filter by Semester
-            </label>
-            <select
-              name="semester"
-              value={filters.semester}
-              onChange={handleFilterChange}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="">All Semesters</option>
-              {[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => (
-                <option key={sem} value={sem}>
-                  Semester {sem}
-                </option>
-              ))}
-            </select>
-          </div>
+          {/* Semester filter removed */}
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -331,8 +310,8 @@ const Material = () => {
                 <th className="py-4 px-6 text-left font-semibold">File</th>
                 <th className="py-4 px-6 text-left font-semibold">Title</th>
                 <th className="py-4 px-6 text-left font-semibold">Subject</th>
-                <th className="py-4 px-6 text-left font-semibold">Semester</th>
-                <th className="py-4 px-6 text-left font-semibold">Branch</th>
+                {/* Semester column removed */}
+                <th className="py-4 px-6 text-left font-semibold">Batch</th>
                 <th className="py-4 px-6 text-left font-semibold">Type</th>
                 <th className="py-4 px-6 text-left font-semibold">Actions</th>
               </tr>
@@ -354,7 +333,7 @@ const Material = () => {
                   </td>
                   <td className="py-4 px-6">{material.title}</td>
                   <td className="py-4 px-6">{material.subject.name}</td>
-                  <td className="py-4 px-6">{material.semester}</td>
+                  {/* Semester cell removed */}
                   <td className="py-4 px-6">{material.branch.name}</td>
                   <td className="py-4 px-6 capitalize">{material.type}</td>
                   <td className="py-4 px-6">
@@ -440,7 +419,7 @@ const Material = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Branch
+                    Batch
                   </label>
                   <select
                     name="branch"
@@ -458,25 +437,7 @@ const Material = () => {
                   </select>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Semester
-                  </label>
-                  <select
-                    name="semester"
-                    value={formData.semester}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  >
-                    <option value="">Select Semester</option>
-                    {[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => (
-                      <option key={sem} value={sem}>
-                        Semester {sem}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                {/* Semester field removed from Material form */}
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -540,8 +501,8 @@ const Material = () => {
                   {dataLoading
                     ? "Processing..."
                     : editingMaterial
-                    ? "Update Material"
-                    : "Add Material"}
+                      ? "Update Material"
+                      : "Add Material"}
                 </CustomButton>
               </div>
             </form>

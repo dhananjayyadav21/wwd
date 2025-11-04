@@ -9,7 +9,6 @@ const StudentFinder = () => {
   const [searchParams, setSearchParams] = useState({
     enrollmentNo: "",
     name: "",
-    semester: "",
     branch: "",
   });
   const [students, setStudents] = useState([]);
@@ -135,28 +134,11 @@ const StudentFinder = () => {
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Semester
-              </label>
-              <select
-                name="semester"
-                value={searchParams.semester}
-                onChange={handleInputChange}
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="">Select Semester</option>
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => (
-                  <option key={sem} value={sem}>
-                    Semester {sem}
-                  </option>
-                ))}
-              </select>
-            </div>
+            {/* Semester filter removed */}
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Branch
+                Batch
               </label>
               <select
                 name="branch"
@@ -212,8 +194,8 @@ const StudentFinder = () => {
                     <th className="px-6 py-3 border-b text-left">
                       Enrollment No
                     </th>
-                    <th className="px-6 py-3 border-b text-left">Semester</th>
-                    <th className="px-6 py-3 border-b text-left">Branch</th>
+                    {/* Semester column removed */}
+                    <th className="px-6 py-3 border-b text-left">Batch</th>
                     <th className="px-6 py-3 border-b text-left">Email</th>
                   </tr>
                 </thead>
@@ -242,7 +224,7 @@ const StudentFinder = () => {
                       <td className="px-6 py-4 border-b">
                         {student.enrollmentNo}
                       </td>
-                      <td className="px-6 py-4 border-b">{student.semester}</td>
+                      {/* Semester cell removed */}
                       <td className="px-6 py-4 border-b">
                         {student.branchId?.name}
                       </td>
@@ -330,13 +312,10 @@ const StudentFinder = () => {
                       {selectedStudent.enrollmentNo}
                     </p>
                     <p>
-                      <span className="font-medium">Branch:</span>{" "}
+                      <span className="font-medium">Batch:</span>{" "}
                       {selectedStudent.branchId?.name}
                     </p>
-                    <p>
-                      <span className="font-medium">Semester:</span>{" "}
-                      {selectedStudent.semester}
-                    </p>
+                    {/* Semester removed from student details */}
                   </div>
                 </div>
 

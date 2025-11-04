@@ -15,7 +15,6 @@ const Subject = () => {
     name: "",
     code: "",
     branch: "",
-    semester: "",
     credits: "",
   });
   const [subject, setSubject] = useState([]);
@@ -85,7 +84,6 @@ const Subject = () => {
       !data.name ||
       !data.code ||
       !data.branch ||
-      !data.semester ||
       !data.credits
     ) {
       toast.dismiss();
@@ -134,7 +132,6 @@ const Subject = () => {
       name: "",
       code: "",
       branch: "",
-      semester: "",
       credits: "",
     });
     setShowModal(false);
@@ -152,7 +149,6 @@ const Subject = () => {
       name: subject.name,
       code: subject.code,
       branch: subject.branch?._id,
-      semester: subject.semester,
       credits: subject.credits,
     });
     setSelectedSubjectId(subject._id);
@@ -206,7 +202,7 @@ const Subject = () => {
         <div className="flex justify-center items-center flex-col w-full mt-24">
           <CgDanger className="w-16 h-16 text-yellow-500 mb-4" />
           <p className="text-center text-lg">
-            Please add branches before adding a subject.
+            Please add batches before adding a subject.
           </p>
         </div>
       )}
@@ -223,10 +219,7 @@ const Subject = () => {
                 <tr className="bg-blue-500 text-white">
                   <th className="py-4 px-6 text-left font-semibold">Name</th>
                   <th className="py-4 px-6 text-left font-semibold">Code</th>
-                  <th className="py-4 px-6 text-left font-semibold">Branch</th>
-                  <th className="py-4 px-6 text-left font-semibold">
-                    Semester
-                  </th>
+                  <th className="py-4 px-6 text-left font-semibold">Batch</th>
                   <th className="py-4 px-6 text-left font-semibold">Credits</th>
                   <th className="py-4 px-6 text-center font-semibold">
                     Actions
@@ -240,7 +233,6 @@ const Subject = () => {
                       <td className="py-4 px-6">{item.name}</td>
                       <td className="py-4 px-6">{item.code}</td>
                       <td className="py-4 px-6">{item.branch?.name}</td>
-                      <td className="py-4 px-6">{item.semester}</td>
                       <td className="py-4 px-6">{item.credits}</td>
                       <td className="py-4 px-6 text-center flex justify-center gap-4">
                         <CustomButton
@@ -308,7 +300,7 @@ const Subject = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Branch
+                  Batch
                 </label>
                 <select
                   value={data.branch}
@@ -316,7 +308,7 @@ const Subject = () => {
                   className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 >
-                  <option value="">Select Branch</option>
+                  <option value="">Select Batch</option>
                   {branch.map((item) => (
                     <option key={item._id} value={item._id}>
                       {item.name}
@@ -325,26 +317,7 @@ const Subject = () => {
                 </select>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Semester
-                </label>
-                <select
-                  value={data.semester}
-                  onChange={(e) =>
-                    setData({ ...data, semester: e.target.value })
-                  }
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                >
-                  <option value="">Select Semester</option>
-                  {[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => (
-                    <option key={sem} value={sem}>
-                      Semester {sem}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {/* Semester field removed from Subject form */}
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">

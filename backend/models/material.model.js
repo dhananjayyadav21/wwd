@@ -22,7 +22,6 @@ const Material = new mongoose.Schema(
     },
     semester: {
       type: Number,
-      required: true,
     },
     branch: {
       type: mongoose.Schema.Types.ObjectId,

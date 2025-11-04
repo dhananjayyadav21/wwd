@@ -11,7 +11,6 @@ const examSchema = new mongoose.Schema({
   },
   semester: {
     type: Number,
-    required: true,
   },
   examType: {
     type: String,

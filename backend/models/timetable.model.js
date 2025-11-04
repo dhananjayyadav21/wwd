@@ -13,7 +13,6 @@ const TimeTable = new mongoose.Schema(
     },
     semester: {
       type: Number,
-      required: true,
     },
   },
   { timestamps: true }

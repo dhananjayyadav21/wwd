@@ -45,7 +45,7 @@ const addMarksController = async (req, res) => {
   try {
     const { studentId, semester, branch, marks } = req.body;
 
-    if (!studentId || !semester || !branch || !marks || !Array.isArray(marks)) {
+    if (!studentId || !branch || !marks || !Array.isArray(marks)) {
       return res.status(400).json({
         success: false,
         message: "Invalid input data",
@@ -60,7 +60,7 @@ const addMarksController = async (req, res) => {
       });
     }
 
-    let existingMarks = await Marks.findOne({ student: studentId, semester });
+    let existingMarks = await Marks.findOne({ student: studentId });
 
     if (existingMarks) {
       existingMarks.marks = marks;
@@ -118,11 +118,11 @@ const addBulkMarksController = async (req, res) => {
   try {
     const { marks, examId, subjectId, semester } = req.body;
 
-    if (!marks || !Array.isArray(marks) || !examId || !subjectId || !semester) {
+    if (!marks || !Array.isArray(marks) || !examId || !subjectId) {
       return res.status(400).json({
         success: false,
         message:
-          "Invalid input data. Required: marks array, examId, subjectId, and semester",
+          "Invalid input data. Required: marks array, examId, subjectId",
       });
     }
 
@@ -169,11 +169,11 @@ const getStudentsWithMarksController = async (req, res) => {
   try {
     const { branch, subject, semester, examId } = req.query;
 
-    if (!branch || !subject || !semester || !examId) {
+    if (!branch || !subject || !examId) {
       return res.status(400).json({
         success: false,
         message:
-          "Missing required parameters: branch, subject, semester, and examId are required",
+          "Missing required parameters: branch, subject, and examId are required",
       });
     }
 
@@ -226,16 +226,8 @@ const getStudentMarksController = async (req, res) => {
     const { semester } = req.query;
     const studentId = req.userId;
 
-    if (!semester) {
-      return res.status(400).json({
-        success: false,
-        message: "Semester is required",
-      });
-    }
-
     const marks = await Marks.find({
       studentId,
-      semester: Number(semester),
     })
       .populate("subjectId", "name")
       .populate("examId", "name examType totalMarks");
@@ -244,7 +236,7 @@ const getStudentMarksController = async (req, res) => {
       return res.status(200).json({
         success: true,
         data: [],
-        message: "No marks found for this semester",
+        message: "No marks found",
       });
     }
 

@@ -475,7 +475,7 @@ const Faculty = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Branch
+                    Batch
                   </label>
                   <select
                     value={data.branchId}
@@ -485,7 +485,7 @@ const Faculty = () => {
                     className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required
                   >
-                    <option value="">Select Branch</option>
+                    <option value="">Select Batch</option>
                     {branch.map((item) => (
                       <option key={item._id} value={item._id}>
                         {item.name}

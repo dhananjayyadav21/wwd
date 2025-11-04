@@ -297,7 +297,7 @@ const searchStudentsController = async (req, res) => {
     const { enrollmentNo, name, semester, branch } = req.body;
     let query = {};
 
-    if (!enrollmentNo && !name && !semester && !branch) {
+    if (!enrollmentNo && !name && !branch) {
       return ApiResponse.badRequest("Select at least one filter").send(res);
     }
 

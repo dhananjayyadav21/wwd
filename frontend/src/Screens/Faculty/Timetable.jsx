@@ -18,7 +18,6 @@ const AddTimetableModal = ({
 }) => {
   const [formData, setFormData] = useState({
     branch: initialData?.branch || "",
-    semester: initialData?.semester || "",
     file: null,
     previewUrl: initialData?.file || "",
   });
@@ -56,7 +55,7 @@ const AddTimetableModal = ({
 
         <div className="space-y-4">
           <div>
-            <label className="block mb-2">Branch</label>
+            <label className="block mb-2">Batch</label>
             <select
               value={formData.branch}
               onChange={(e) =>
@@ -73,23 +72,7 @@ const AddTimetableModal = ({
             </select>
           </div>
 
-          <div>
-            <label className="block mb-2">Semester</label>
-            <select
-              value={formData.semester}
-              onChange={(e) =>
-                setFormData({ ...formData, semester: e.target.value })
-              }
-              className="w-full px-4 py-2 border rounded-md"
-            >
-              <option value="">Select Semester</option>
-              {[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => (
-                <option key={sem} value={sem}>
-                  Semester {sem}
-                </option>
-              ))}
-            </select>
-          </div>
+          {/* Semester removed from Timetable modal */}
 
           <div>
             <label className="block mb-2">Timetable File</label>
@@ -183,7 +166,6 @@ const Timetable = () => {
 
     const submitData = new FormData();
     submitData.append("branch", formData.branch);
-    submitData.append("semester", formData.semester);
     if (formData.file) {
       submitData.append("file", formData.file);
     }
@@ -270,8 +252,7 @@ const Timetable = () => {
           <thead>
             <tr className="bg-blue-500 text-white">
               <th className="py-4 px-6 text-left font-semibold">View</th>
-              <th className="py-4 px-6 text-left font-semibold">Branch</th>
-              <th className="py-4 px-6 text-left font-semibold">Semester</th>
+              <th className="py-4 px-6 text-left font-semibold">Batch</th>
               <th className="py-4 px-6 text-left font-semibold">Created At</th>
               <th className="py-4 px-6 text-center font-semibold">Actions</th>
             </tr>
@@ -290,7 +271,6 @@ const Timetable = () => {
                   </a>
                 </td>
                 <td className="py-4 px-6">{item.branch.name}</td>
-                <td className="py-4 px-6">{item.semester}</td>
                 <td className="py-4 px-6">
                   {new Date(item.createdAt).toLocaleDateString()}
                 </td>

@@ -17,7 +17,6 @@ const Subject = new mongoose.Schema(
     },
     semester: {
       type: Number,
-      required: true,
     },
     credits: {
       type: Number,

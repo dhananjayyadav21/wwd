@@ -164,7 +164,7 @@ const Branch = () => {
           <div className="bg-white rounded-lg w-[500px] max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center p-6 border-b">
               <h2 className="text-xl font-semibold">
-                {isEditing ? "Edit Branch" : "Add New Branch"}
+                {isEditing ? "Edit Batch" : "Add New Batch"}
               </h2>
               <button
                 onClick={() => setShowAddForm(false)}
@@ -180,7 +180,7 @@ const Branch = () => {
                   htmlFor="name"
                   className="block text-sm font-medium text-gray-700 mb-2"
                 >
-                  Branch Name
+                  Batch Name
                 </label>
                 <input
                   type="text"
@@ -196,7 +196,7 @@ const Branch = () => {
                   htmlFor="branchId"
                   className="block text-sm font-medium text-gray-700 mb-2"
                 >
-                  Branch ID
+                  Batch ID
                 </label>
                 <input
                   type="text"
@@ -231,9 +231,9 @@ const Branch = () => {
             <thead>
               <tr className="bg-blue-500 text-white">
                 <th className="py-4 px-6 text-left font-semibold">
-                  Branch Name
+                  Batch Name
                 </th>
-                <th className="py-4 px-6 text-left font-semibold">Branch ID</th>
+                <th className="py-4 px-6 text-left font-semibold">Batch ID</th>
                 <th className="py-4 px-6 text-left font-semibold">
                   Created At
                 </th>
@@ -270,7 +270,7 @@ const Branch = () => {
               ) : (
                 <tr>
                   <td colSpan="4" className="text-center text-base pt-10">
-                    No branches found.
+                    No batches found.
                   </td>
                 </tr>
               )}
@@ -282,7 +282,7 @@ const Branch = () => {
         isOpen={isDeleteConfirmOpen}
         onClose={() => setIsDeleteConfirmOpen(false)}
         onConfirm={confirmDelete}
-        message="Are you sure you want to delete this branch?"
+        message="Are you sure you want to delete this Batch?"
       />
     </div>
   );

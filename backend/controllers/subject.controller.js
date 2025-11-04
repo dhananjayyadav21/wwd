@@ -20,7 +20,7 @@ const getSubjectController = async (req, res) => {
 const addSubjectController = async (req, res) => {
   const { name, code, branch, semester, credits } = req.body;
 
-  if (!name || !code || !branch || !semester || !credits) {
+  if (!name || !code || !branch || !credits) {
     return ApiResponse.error("All fields are required", 400).send(res);
   }
 

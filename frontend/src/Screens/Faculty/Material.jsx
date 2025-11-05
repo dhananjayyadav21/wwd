@@ -175,8 +175,12 @@ const Material = () => {
       if (editingMaterial) {
         await axiosWrapper.put(
           `/material/${editingMaterial._id}`,
-          formDataToSend
-        );
+          formDataToSend, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+          },
+        });
         toast.success("Material updated successfully");
       } else {
         await axiosWrapper.post("/material", formDataToSend, {
@@ -327,6 +331,7 @@ const Material = () => {
                   <th className="py-3 px-4 text-left font-semibold">Subject</th>
                   <th className="py-3 px-4 text-left font-semibold">Batch</th>
                   <th className="py-3 px-4 text-left font-semibold">Type</th>
+                  <th className="py-3 px-4 text-left font-semibold">Date</th>
                   <th className="py-3 px-4 text-left font-semibold">File</th>
                   <th className="py-3 px-4 text-left font-semibold">Actions</th>
                 </tr>
@@ -338,6 +343,7 @@ const Material = () => {
                     <td className="py-4 px-4 text-gray-700">{material.subject.name}</td>
                     <td className="py-4 px-4 text-gray-700">{material.branch.name}</td>
                     <td className="py-4 px-4 text-gray-700 capitalize">{material.type}</td>
+                    <td className="py-4 px-4 text-gray-700 capitalize">{material.date ? new Date(material.date).toISOString().split("T")[0] : "Not Available"}</td>
                     <td className="py-4 px-4">
                       <CustomButton
                         variant="primary"

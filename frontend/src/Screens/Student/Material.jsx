@@ -130,6 +130,7 @@ const Material = () => {
                 <th className="py-3 px-4 text-left font-semibold">Title</th>
                 <th className="py-3 px-4 text-left font-semibold">Subject</th>
                 <th className="py-3 px-4 text-left font-semibold">Type</th>
+                <th className="py-3 px-4 text-left font-semibold">Date</th>
               </tr>
             </thead>
             <tbody>
@@ -154,6 +155,7 @@ const Material = () => {
                     <td className="py-3 px-4">{material.title}</td>
                     <td className="py-3 px-4">{material.subject.name}</td>
                     <td className="py-3 px-4 capitalize">{material.type}</td>
+                    <td className="py-3 px-4 capitalize">{material.date ? new Date(material.date).toISOString().split("T")[0] : "Not Available"}</td>
                   </tr>
                 ))
               ) : (

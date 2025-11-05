@@ -33,6 +33,10 @@ const Material = new mongoose.Schema(
       enum: ["notes", "assignment", "syllabus", "other"],
       required: true,
     },
+    date: {
+      type: Date,
+      default: Date.now,
+    },
   },
   { timestamps: true }
 );

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { FiUpload, FiEdit2, FiTrash2 } from "react-icons/fi";
+import { FiUpload, FiEdit2, FiTrash2, FiSearch } from "react-icons/fi";
 import Heading from "../../components/Heading";
 import { AiOutlineClose } from "react-icons/ai";
 import toast from "react-hot-toast";
@@ -9,6 +9,7 @@ import DeleteConfirm from "../../components/DeleteConfirm";
 import CustomButton from "../../components/CustomButton";
 import { MdLink } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
+
 const Material = () => {
   const [materials, setMaterials] = useState([]);
   const [subjects, setSubjects] = useState([]);
@@ -31,6 +32,8 @@ const Material = () => {
     type: "",
   });
   const [error, setError] = useState(null);
+
+  // --- Logic remains identical ---
 
   useEffect(() => {
     fetchSubjects();
@@ -225,27 +228,38 @@ const Material = () => {
     }
   };
 
-  return (
-    <div className="w-full mx-auto mt-10 flex justify-center items-start flex-col mb-10">
-      <div className="flex justify-between items-center w-full">
-        <Heading title="Material Management" />
-        <CustomButton onClick={() => setShowModal(true)}>
-          <IoMdAdd className="text-2xl" />
-        </CustomButton>
-      </div>
+  // --- Modified Layout ---
 
-      {/* Filters */}
-      <div className="w-full mt-4">
-        <div className="grid grid-cols-4 gap-4">
+  return (
+    <div className="max-w-7xl mx-auto p-4 md:p-8">
+      {/* Header and Add Button */}
+      <header className="flex justify-between items-center mb-6 md:mb-8">
+        <Heading title="Material Management 📚" />
+        <CustomButton onClick={() => {
+          setShowModal(true);
+          resetForm(); // Ensure form is reset for new material
+        }} className="flex items-center space-x-2 bg-gray-900 hover:bg-gray-800 text-white rounded-lg px-4 py-2 transition duration-200">
+          <IoMdAdd className="text-xl" />
+          <span className="hidden sm:inline">Add Material</span>
+        </CustomButton>
+      </header>
+
+      {/* Filters Section */}
+      <section className="bg-white p-4 rounded-lg shadow-md mb-8">
+        <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+          <FiSearch className="mr-2 text-blue-500" /> Filter Materials
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {/* Subject Filter */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Filter by Subject
+              Subject
             </label>
             <select
               name="subject"
               value={filters.subject}
               onChange={handleFilterChange}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
             >
               <option value="">All Subjects</option>
               {subjects.map((subject) => (
@@ -256,15 +270,16 @@ const Material = () => {
             </select>
           </div>
 
+          {/* Branch Filter */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Filter by Batch
+              Batch/Branch
             </label>
             <select
               name="branch"
               value={filters.branch}
               onChange={handleFilterChange}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
             >
               <option value="">All Branches</option>
               {branches.map((branch) => (
@@ -275,17 +290,16 @@ const Material = () => {
             </select>
           </div>
 
-          {/* Semester filter removed */}
-
+          {/* Type Filter */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Filter by Type
+              Material Type
             </label>
             <select
               name="type"
               value={filters.type}
               onChange={handleFilterChange}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
             >
               <option value="">All Types</option>
               <option value="notes">Notes</option>
@@ -295,79 +309,131 @@ const Material = () => {
             </select>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Materials Table */}
-      <div className="w-full mt-8 overflow-x-auto">
+      {/* Materials List/Table */}
+      <section className="w-full">
         {materials.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
-            No materials found
+          <div className="text-center py-12 bg-white rounded-lg shadow-md text-gray-500">
+            No materials found matching the filters.
           </div>
         ) : (
-          <table className="text-sm min-w-full bg-white">
-            <thead>
-              <tr className="bg-blue-500 text-white">
-                <th className="py-4 px-6 text-left font-semibold">File</th>
-                <th className="py-4 px-6 text-left font-semibold">Title</th>
-                <th className="py-4 px-6 text-left font-semibold">Subject</th>
-                {/* Semester column removed */}
-                <th className="py-4 px-6 text-left font-semibold">Batch</th>
-                <th className="py-4 px-6 text-left font-semibold">Type</th>
-                <th className="py-4 px-6 text-left font-semibold">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {materials.map((material) => (
-                <tr key={material._id} className="border-b hover:bg-blue-50">
-                  <td className="py-4 px-6">
-                    <CustomButton
-                      variant="primary"
-                      onClick={() => {
-                        window.open(
-                          `${process.env.REACT_APP_MEDIA_LINK}/${material.file}`
-                        );
-                      }}
-                    >
-                      <MdLink className="text-xl" />
-                    </CustomButton>
-                  </td>
-                  <td className="py-4 px-6">{material.title}</td>
-                  <td className="py-4 px-6">{material.subject.name}</td>
-                  {/* Semester cell removed */}
-                  <td className="py-4 px-6">{material.branch.name}</td>
-                  <td className="py-4 px-6 capitalize">{material.type}</td>
-                  <td className="py-4 px-6">
-                    <div className="flex gap-4">
-                      <CustomButton
-                        variant="secondary"
-                        onClick={() => handleEdit(material)}
-                      >
-                        <FiEdit2 />
-                      </CustomButton>
-                      <CustomButton
-                        variant="danger"
-                        onClick={() => {
-                          setSelectedMaterialId(material._id);
-                          setIsDeleteConfirmOpen(true);
-                        }}
-                      >
-                        <FiTrash2 />
-                      </CustomButton>
-                    </div>
-                  </td>
+          <div className="overflow-x-auto hidden lg:block rounded-lg shadow-md">
+            {/* Table View for large screens */}
+            <table className="min-w-full text-sm">
+              <thead className="bg-blue-600 text-white">
+                <tr>
+                  <th className="py-3 px-4 text-left font-semibold">Title</th>
+                  <th className="py-3 px-4 text-left font-semibold">Subject</th>
+                  <th className="py-3 px-4 text-left font-semibold">Batch</th>
+                  <th className="py-3 px-4 text-left font-semibold">Type</th>
+                  <th className="py-3 px-4 text-left font-semibold">File</th>
+                  <th className="py-3 px-4 text-left font-semibold">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {materials.map((material) => (
+                  <tr key={material._id} className="hover:bg-blue-50 transition duration-150">
+                    <td className="py-4 px-4 font-medium text-gray-900">{material.title}</td>
+                    <td className="py-4 px-4 text-gray-700">{material.subject.name}</td>
+                    <td className="py-4 px-4 text-gray-700">{material.branch.name}</td>
+                    <td className="py-4 px-4 text-gray-700 capitalize">{material.type}</td>
+                    <td className="py-4 px-4">
+                      <CustomButton
+                        variant="primary"
+                        onClick={() => {
+                          window.open(
+                            `${process.env.REACT_APP_MEDIA_LINK}/${material.file}`
+                          );
+                        }}
+                        className="!p-2 !text-sm flex items-center space-x-1"
+                      >
+                        <MdLink className="text-lg" />
+                        <span className="hidden sm:inline">View</span>
+                      </CustomButton>
+                    </td>
+                    <td className="py-4 px-4">
+                      <div className="flex gap-2">
+                        <CustomButton
+                          variant="secondary"
+                          onClick={() => handleEdit(material)}
+                          className="!p-2 !text-lg"
+                        >
+                          <FiEdit2 />
+                        </CustomButton>
+                        <CustomButton
+                          variant="danger"
+                          onClick={() => {
+                            setSelectedMaterialId(material._id);
+                            setIsDeleteConfirmOpen(true);
+                          }}
+                          className="!p-2 !text-lg"
+                        >
+                          <FiTrash2 />
+                        </CustomButton>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
-      </div>
+
+        {/* Card View for small/medium screens */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:hidden">
+          {materials.map((material) => (
+            <div key={material._id} className="bg-white p-4 rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition duration-300">
+              <h4 className="text-lg font-bold text-blue-600 mb-2">{material.title}</h4>
+              <div className="space-y-1 text-sm text-gray-700">
+                <p><strong>Subject:</strong> {material.subject.name}</p>
+                <p><strong>Batch:</strong> {material.branch.name}</p>
+                <p><strong>Type:</strong> <span className="capitalize">{material.type}</span></p>
+              </div>
+              <div className="mt-4 flex justify-between items-center gap-2">
+                <CustomButton
+                  variant="primary"
+                  onClick={() => {
+                    window.open(
+                      `${process.env.REACT_APP_MEDIA_LINK}/${material.file}`
+                    );
+                  }}
+                  className="flex items-center space-x-1 !py-2 !px-3"
+                >
+                  <MdLink className="text-xl" />
+                  <span>View File</span>
+                </CustomButton>
+                <div className="flex gap-2">
+                  <CustomButton
+                    variant="secondary"
+                    onClick={() => handleEdit(material)}
+                    className="!p-2"
+                  >
+                    <FiEdit2 className="text-xl" />
+                  </CustomButton>
+                  <CustomButton
+                    variant="danger"
+                    onClick={() => {
+                      setSelectedMaterialId(material._id);
+                      setIsDeleteConfirmOpen(true);
+                    }}
+                    className="!p-2"
+                  >
+                    <FiTrash2 className="text-xl" />
+                  </CustomButton>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* Add/Edit Material Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg p-6 max-w-2xl w-full">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-xl p-6 shadow-2xl max-w-lg w-full transform transition-all duration-300 scale-100">
+            <div className="flex justify-between items-center mb-6 border-b pb-3">
+              <h2 className="text-2xl font-bold text-gray-800">
                 {editingMaterial ? "Edit Material" : "Add New Material"}
               </h2>
               <CustomButton
@@ -376,14 +442,16 @@ const Material = () => {
                   resetForm();
                 }}
                 variant="secondary"
+                className="!p-2 text-gray-500 hover:text-gray-800"
               >
                 <AiOutlineClose size={24} />
               </CustomButton>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-5">
+              {/* Title */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-semibold text-gray-700 mb-1">
                   Title
                 </label>
                 <input
@@ -391,21 +459,24 @@ const Material = () => {
                   name="title"
                   value={formData.title}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter material title"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              {/* Subject, Branch, Type in a Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {/* Subject */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">
                     Subject
                   </label>
                   <select
                     name="subject"
                     value={formData.subject}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required
                   >
                     <option value="">Select Subject</option>
@@ -417,15 +488,16 @@ const Material = () => {
                   </select>
                 </div>
 
+                {/* Batch */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">
                     Batch
                   </label>
                   <select
                     name="branch"
                     value={formData.branch}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required
                   >
                     <option value="">Select Branch</option>
@@ -437,17 +509,16 @@ const Material = () => {
                   </select>
                 </div>
 
-                {/* Semester field removed from Material form */}
-
+                {/* Type */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">
                     Type
                   </label>
                   <select
                     name="type"
                     value={formData.type}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required
                   >
                     <option value="notes">Notes</option>
@@ -458,46 +529,49 @@ const Material = () => {
                 </div>
               </div>
 
+              {/* File Upload */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-semibold text-gray-700 mb-1">
                   Material File
                 </label>
-                <div className="flex items-center space-x-4">
-                  <label className="flex-1 px-4 py-2 border rounded-md cursor-pointer hover:bg-gray-50">
-                    <span className="flex items-center justify-center">
-                      <FiUpload className="mr-2" />
-                      {file ? file.name : "Choose File"}
+                <div className="flex items-center space-x-3">
+                  <label className="flex-1 flex items-center justify-center px-4 py-3 border-2 border-dashed border-blue-400 text-blue-600 bg-blue-50 rounded-lg cursor-pointer hover:bg-blue-100 transition duration-150">
+                    <FiUpload className="mr-2 text-xl" />
+                    <span className="truncate">
+                      {file ? file.name : (editingMaterial && !file) ? "Select a new file (optional)" : "Choose File"}
                     </span>
                     <input
                       type="file"
                       onChange={handleFileChange}
                       className="hidden"
-                      required={!editingMaterial}
+                      required={!editingMaterial && !file}
                     />
                   </label>
                   {file && (
                     <CustomButton
                       onClick={() => setFile(null)}
                       variant="danger"
-                      className="!p-2"
+                      className="!p-3 !text-lg"
                     >
-                      <AiOutlineClose size={20} />
+                      <AiOutlineClose />
                     </CustomButton>
                   )}
                 </div>
               </div>
 
-              <div className="flex justify-end space-x-4 mt-6">
+              {/* Form Actions */}
+              <div className="flex justify-end space-x-3 pt-4 border-t">
                 <CustomButton
                   onClick={() => {
                     setShowModal(false);
                     resetForm();
                   }}
                   variant="secondary"
+                  className="!py-2 !px-4"
                 >
                   Cancel
                 </CustomButton>
-                <CustomButton type="submit" disabled={dataLoading}>
+                <CustomButton type="submit" disabled={dataLoading} className="!py-2 !px-4">
                   {dataLoading
                     ? "Processing..."
                     : editingMaterial
@@ -509,6 +583,8 @@ const Material = () => {
           </div>
         </div>
       )}
+
+      {/* Delete Confirmation Modal */}
       <DeleteConfirm
         isOpen={isDeleteConfirmOpen}
         onClose={() => setIsDeleteConfirmOpen(false)}

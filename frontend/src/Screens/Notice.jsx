@@ -175,11 +175,10 @@ const Notice = () => {
                   <div className="p-6">
                     <div className="flex justify-between items-start mb-4">
                       <h3
-                        className={`text-lg font-semibold line-clamp-2 group flex items-start ${
-                          notice.link
-                            ? "cursor-pointer hover:text-blue-600"
-                            : ""
-                        }`}
+                        className={`text-lg font-semibold line-clamp-2 group flex items-start ${notice.link
+                          ? "cursor-pointer hover:text-blue-600"
+                          : ""
+                          }`}
                         onClick={() => notice.link && window.open(notice.link)}
                       >
                         {notice.title}
@@ -189,28 +188,28 @@ const Notice = () => {
                       </h3>
                       {(router.pathname === "/faculty" ||
                         router.pathname === "/admin") && (
-                        <div className="flex gap-2 ml-2 flex-shrink-0">
-                          <CustomButton
-                            onClick={() => {
-                              setSelectedNoticeId(notice._id);
-                              setIsDeleteConfirmOpen(true);
-                            }}
-                            variant="danger"
-                            className="!p-1.5 rounded-full"
-                            title="Delete Notice"
-                          >
-                            <MdDeleteOutline size={18} />
-                          </CustomButton>
-                          <CustomButton
-                            onClick={() => handleEdit(notice)}
-                            variant="secondary"
-                            className="!p-1.5 rounded-full"
-                            title="Edit Notice"
-                          >
-                            <MdEditNote size={18} />
-                          </CustomButton>
-                        </div>
-                      )}
+                          <div className="flex gap-2 ml-2 flex-shrink-0">
+                            <CustomButton
+                              onClick={() => {
+                                setSelectedNoticeId(notice._id);
+                                setIsDeleteConfirmOpen(true);
+                              }}
+                              variant="danger"
+                              className="!p-1.5 rounded-full"
+                              title="Delete Notice"
+                            >
+                              <MdDeleteOutline size={18} />
+                            </CustomButton>
+                            <CustomButton
+                              onClick={() => handleEdit(notice)}
+                              variant="secondary"
+                              className="!p-1.5 rounded-full"
+                              title="Edit Notice"
+                            >
+                              <MdEditNote size={18} />
+                            </CustomButton>
+                          </div>
+                        )}
                     </div>
 
                     <p className="text-gray-600 text-sm line-clamp-3 mb-4">
@@ -243,7 +242,7 @@ const Notice = () => {
       {/* Modal UI */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white rounded-lg w-[500px] max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-lg w-[500px] max-h-[66vh] overflow-y-auto">
             <div className="flex justify-between items-center p-6 border-b">
               <h2 className="text-xl font-semibold">
                 {editingNotice ? "Edit Notice" : "Add New Notice"}

@@ -22,7 +22,7 @@ const loginAdminController = async (req, res, next) => {
     }
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
+      expiresIn: "48h",
     });
 
     return ApiResponse.success({ token }, "Login successful").send(res);

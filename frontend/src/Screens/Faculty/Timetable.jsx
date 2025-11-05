@@ -39,7 +39,7 @@ const AddTimetableModal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-2">
       <div className="bg-white p-8 rounded-lg w-[500px] max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold">
@@ -250,7 +250,7 @@ const Timetable = () => {
       <div className="mt-8 w-full">
         <table className="text-sm min-w-full bg-white">
           <thead>
-            <tr className="bg-blue-500 text-white">
+            <tr className="bg-gray-900 text-white">
               <th className="py-4 px-6 text-left font-semibold">View</th>
               <th className="py-4 px-6 text-left font-semibold">Batch</th>
               <th className="py-4 px-6 text-left font-semibold">Created At</th>

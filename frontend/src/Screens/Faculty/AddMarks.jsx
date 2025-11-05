@@ -263,97 +263,80 @@ const AddMarks = () => {
   }, [selectedBranch]);
 
   return (
-    <div className="w-full mx-auto mt-10 flex justify-center items-start flex-col mb-10">
+    <div className="w-full max-w-7xl mx-auto mt-10 flex flex-col gap-6">
       <div className="flex justify-between items-center w-full">
         <Heading title="Add Marks" />
       </div>
 
       {showSearch && (
-        <div className="w-full bg-white rounded-lg p-6 mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-[90%] mx-auto">
-            {/* Semester selection removed from UI */}
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Batch
-              </label>
+        <div className="w-full bg-white rounded-lg p-6 mb-8 shadow-md">
+          <div className="flex flex-col md:flex-row md:items-end gap-4">
+            {/* Batch */}
+            <div className="flex-1 min-w-[150px]">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Batch</label>
               <select
                 name="branch"
                 value={selectedBranch?._id || ""}
                 onChange={handleInputChange}
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">Select Batch</option>
                 {branches?.map((branch) => (
-                  <option key={branch._id} value={branch._id}>
-                    {branch.name}
-                  </option>
+                  <option key={branch._id} value={branch._id}>{branch.name}</option>
                 ))}
               </select>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Subjects
-              </label>
+            {/* Subject */}
+            <div className="flex-1 min-w-[150px]">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
               <select
                 name="subject"
                 value={selectedSubject?._id || ""}
                 onChange={handleInputChange}
                 disabled={!selectedBranch}
-                className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${!selectedBranch ? "bg-gray-100 cursor-not-allowed" : ""
-                  }`}
+                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${!selectedBranch ? "bg-gray-100 cursor-not-allowed" : ""}`}
               >
-                <option value="">Select Subject</option>
+                <option value="">{!selectedBranch ? (
+                  <p className="text-xs text-gray-500">Please select a Batch first</p>
+                ) : <p>Select Subject</p>}</option>
                 {subjects?.map((subject) => (
-                  <option key={subject._id} value={subject._id}>
-                    {subject.name}
-                  </option>
+                  <option key={subject._id} value={subject._id}>{subject.name}</option>
                 ))}
               </select>
-              {!selectedBranch && (
-                <p className="text-xs text-gray-500 mt-1">
-                  Please select a Batch first
-                </p>
-              )}
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Exam
-              </label>
+            {/* Exam */}
+            <div className="flex-1 min-w-[150px]">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Exam</label>
               <select
                 name="exam"
                 value={selectedExam?._id || ""}
                 onChange={handleInputChange}
                 disabled={!selectedSubject}
-                className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${!selectedSubject ? "bg-gray-100 cursor-not-allowed" : ""
-                  }`}
+                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${!selectedSubject ? "bg-gray-100 cursor-not-allowed" : ""}`}
               >
-                <option value="">Select Exam</option>
+                <option value="">{!selectedSubject ? (
+                  <p className="text-xs text-gray-500 mt-1">Please select a subject first</p>
+                ) : <p>Select Exam</p>}</option>
                 {exams?.map((exam) => (
-                  <option key={exam._id} value={exam._id}>
-                    {exam.name}
-                  </option>
+                  <option key={exam._id} value={exam._id}>{exam.name}</option>
                 ))}
               </select>
-              {!selectedSubject && (
-                <p className="text-xs text-gray-500 mt-1">
-                  Please select a subject first
-                </p>
-              )}
             </div>
-          </div>
 
-          <div className="mt-6 flex justify-center w-[10%] mx-auto">
-            <CustomButton
-              type="submit"
-              disabled={dataLoading || !selectedBranch || !selectedSubject || !selectedExam}
-              variant="primary"
-              onClick={handleSearch}
-            >
-              {dataLoading ? "Searching..." : "Search"}
-            </CustomButton>
+            {/* Search Button */}
+            <div className="flex-none">
+              <CustomButton
+                type="submit"
+                disabled={dataLoading || !selectedBranch || !selectedSubject || !selectedExam}
+                variant="primary"
+                onClick={handleSearch}
+                className="w-full md:w-auto"
+              >
+                {dataLoading ? "Searching..." : "Search"}
+              </CustomButton>
+            </div>
           </div>
         </div>
       )}

@@ -26,17 +26,12 @@ const Faculty = () => {
     joiningDate: "",
     salary: "",
     status: "active",
-    emergencyContact: {
-      name: "",
-      relationship: "",
-      phone: "",
-    },
+    emergencyContact: { name: "", relationship: "", phone: "" },
     bloodGroup: "",
     branchId: "",
   });
 
   const [branch, setBranches] = useState([]);
-
   const [faculty, setFaculty] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
@@ -55,22 +50,13 @@ const Faculty = () => {
     try {
       setDataLoading(true);
       const response = await axiosWrapper.get(`/branch`, {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
+        headers: { Authorization: `Bearer ${userToken}` },
       });
-      if (response.data.success) {
-        setBranches(response.data.data);
-      } else {
-        toast.error(response.data.message);
-      }
+      if (response.data.success) setBranches(response.data.data);
+      else toast.error(response.data.message);
     } catch (error) {
-      if (error.response?.status === 404) {
-        setBranches([]);
-      } else {
-        console.error(error);
-        toast.error(error.response?.data?.message || "Error fetching subjects");
-      }
+      if (error.response?.status === 404) setBranches([]);
+      else toast.error(error.response?.data?.message || "Error fetching branches");
     } finally {
       setDataLoading(false);
     }
@@ -80,21 +66,13 @@ const Faculty = () => {
     try {
       toast.loading("Loading faculty...");
       const response = await axiosWrapper.get(`/faculty`, {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
+        headers: { Authorization: `Bearer ${userToken}` },
       });
-      if (response.data.success) {
-        setFaculty(response.data.data);
-      } else {
-        toast.error(response.data.message);
-      }
+      if (response.data.success) setFaculty(response.data.data);
+      else toast.error(response.data.message);
     } catch (error) {
-      if (error.response?.status === 404) {
-        setFaculty([]);
-      } else {
-        toast.error(error.response?.data?.message || "Error fetching faculty");
-      }
+      if (error.response?.status === 404) setFaculty([]);
+      else toast.error(error.response?.data?.message || "Error fetching faculty");
     } finally {
       toast.dismiss();
     }
@@ -112,52 +90,25 @@ const Faculty = () => {
       for (const key in data) {
         if (key === "emergencyContact") {
           for (const subKey in data.emergencyContact) {
-            formData.append(
-              `emergencyContact[${subKey}]`,
-              data.emergencyContact[subKey]
-            );
+            formData.append(`emergencyContact[${subKey}]`, data.emergencyContact[subKey]);
           }
-        } else {
-          formData.append(key, data[key]);
-        }
+        } else formData.append(key, data[key]);
       }
+      if (file) formData.append("file", file);
 
-      if (file) {
-        formData.append("file", file);
-      }
-
-      let response;
-      if (isEditing) {
-        response = await axiosWrapper.patch(
-          `/faculty/${selectedFacultyId}`,
-          formData,
-          {
-            headers,
-          }
-        );
-      } else {
-        response = await axiosWrapper.post(`/faculty/register`, formData, {
-          headers,
-        });
-      }
+      const response = isEditing
+        ? await axiosWrapper.patch(`/faculty/${selectedFacultyId}`, formData, { headers })
+        : await axiosWrapper.post(`/faculty/register`, formData, { headers });
 
       toast.dismiss();
       if (response.data.success) {
-        if (!isEditing) {
-          toast.success(
-            `Faculty created successfully! Default password: faculty123`
-          );
-        } else {
-          toast.success(response.data.message);
-        }
+        toast.success(isEditing ? "Faculty updated successfully" : "Faculty added successfully (Password: faculty123)");
         resetForm();
         getFacultyHandler();
-      } else {
-        toast.error(response.data.message);
-      }
+      } else toast.error(response.data.message);
     } catch (error) {
       toast.dismiss();
-      toast.error(error.response?.data?.message || "Error");
+      toast.error(error.response?.data?.message || "Error occurred");
     }
   };
 
@@ -184,11 +135,7 @@ const Faculty = () => {
       joiningDate: faculty.joiningDate?.split("T")[0] || "",
       salary: faculty.salary || "",
       status: faculty.status || "active",
-      emergencyContact: {
-        name: faculty.emergencyContact?.name || "",
-        relationship: faculty.emergencyContact?.relationship || "",
-        phone: faculty.emergencyContact?.phone || "",
-      },
+      emergencyContact: faculty.emergencyContact || { name: "", relationship: "", phone: "" },
       bloodGroup: faculty.bloodGroup || "",
       branchId: faculty.branchId || "",
     });
@@ -199,28 +146,19 @@ const Faculty = () => {
 
   const confirmDelete = async () => {
     try {
-      toast.loading("Deleting Faculty");
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userToken}`,
-      };
-      const response = await axiosWrapper.delete(
-        `/faculty/${selectedFacultyId}`,
-        {
-          headers,
-        }
-      );
+      toast.loading("Deleting Faculty...");
+      const response = await axiosWrapper.delete(`/faculty/${selectedFacultyId}`, {
+        headers: { Authorization: `Bearer ${userToken}` },
+      });
       toast.dismiss();
       if (response.data.success) {
-        toast.success("Faculty has been deleted successfully");
+        toast.success("Faculty deleted successfully");
         setIsDeleteConfirmOpen(false);
         getFacultyHandler();
-      } else {
-        toast.error(response.data.message);
-      }
+      } else toast.error(response.data.message);
     } catch (error) {
       toast.dismiss();
-      toast.error(error.response?.data?.message || "Error");
+      toast.error(error.response?.data?.message || "Error deleting faculty");
     }
   };
 
@@ -242,11 +180,7 @@ const Faculty = () => {
       joiningDate: "",
       salary: "",
       status: "active",
-      emergencyContact: {
-        name: "",
-        relationship: "",
-        phone: "",
-      },
+      emergencyContact: { name: "", relationship: "", phone: "" },
       bloodGroup: "",
       branchId: "",
     });
@@ -255,445 +189,207 @@ const Faculty = () => {
     setSelectedFacultyId(null);
   };
 
-  const handleInputChange = (field, value) => {
-    setData({ ...data, [field]: value });
-  };
-
-  const handleEmergencyContactChange = (field, value) => {
-    setData({
-      ...data,
-      emergencyContact: { ...data.emergencyContact, [field]: value },
-    });
-  };
+  const handleInputChange = (field, value) => setData({ ...data, [field]: value });
+  const handleEmergencyContactChange = (field, value) =>
+    setData({ ...data, emergencyContact: { ...data.emergencyContact, [field]: value } });
 
   return (
-    <div className="w-full mx-auto mt-10 flex justify-center items-start flex-col mb-10 relative">
-      <div className="flex justify-between items-center w-full">
+    <div className="w-full mx-auto mt-10 flex flex-col items-start mb-10 relative">
+      <div className="flex justify-between items-center w-full mb-6">
         <Heading title="Faculty Management" />
-        <CustomButton
-          onClick={() => {
-            if (showAddForm) {
-              resetForm();
-            } else {
-              setShowAddForm(true);
-            }
-          }}
+        <button
+          onClick={() => (showAddForm ? resetForm() : setShowAddForm(true))}
+          className="bg-gray-900 hover:bg-gray-800 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:rotate-90"
         >
-          <IoMdAdd className="text-2xl" />
-        </CustomButton>
+          {showAddForm ? <IoMdClose className="text-2xl" /> : <IoMdAdd className="text-2xl" />}
+        </button>
       </div>
 
       {dataLoading && <Loading />}
 
+      {/* Add/Edit Form Modal */}
       {showAddForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-8 w-[90%] max-w-4xl max-h-[90vh] overflow-y-auto relative">
+        <div className="fixed inset-0 flex justify-center items-center bg-black/50 z-50 backdrop-blur-sm">
+          <div className="bg-white/90 backdrop-blur-md shadow-2xl rounded-md my-4 p-8 w-[98%] md:w-[80%] lg:w-[60%] max-h-[68vh] overflow-y-auto relative">
             <button
               onClick={resetForm}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 p-1 rounded-full hover:bg-gray-100 transition-colors"
+              className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 transition-all"
             >
-              <IoMdClose className="text-2xl" />
+              <IoMdClose className="text-3xl" />
             </button>
-            <h2 className="text-2xl font-semibold mb-6">
+
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-3">
               {isEditing ? "Edit Faculty" : "Add New Faculty"}
             </h2>
+
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 addFacultyHandler();
               }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-6"
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Profile Photo
-                  </label>
+              {/* Inputs */}
+              {[
+                ["First Name", "firstName"],
+                ["Last Name", "lastName"],
+                ["Email", "email", "email"],
+                ["Phone", "phone", "tel"],
+                ["Designation", "designation"],
+                ["Salary", "salary", "number"],
+                ["City", "city"],
+                ["State", "state"],
+                ["Country", "country"],
+              ].map(([label, field, type = "text"]) => (
+                <div key={field} className="flex flex-col">
+                  <label className="text-sm font-medium text-gray-700 mb-1">{label}</label>
                   <input
-                    type="file"
-                    onChange={(e) => setFile(e.target.files[0])}
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    accept="image/*"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    First Name
-                  </label>
-                  <input
-                    type="text"
-                    value={data.firstName}
-                    onChange={(e) =>
-                      handleInputChange("firstName", e.target.value)
-                    }
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    type={type}
+                    value={data[field]}
+                    onChange={(e) => handleInputChange(field, e.target.value)}
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all text-gray-800 placeholder-gray-400"
+                    placeholder={`Enter ${label.toLowerCase()}`}
                     required
                   />
                 </div>
+              ))}
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Last Name
-                  </label>
-                  <input
-                    type="text"
-                    value={data.lastName}
-                    onChange={(e) =>
-                      handleInputChange("lastName", e.target.value)
-                    }
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  />
-                </div>
+              {/* Gender */}
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">Gender</label>
+                <select
+                  value={data.gender}
+                  onChange={(e) => handleInputChange("gender", e.target.value)}
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all"
+                  required
+                >
+                  <option value="">Select Gender</option>
+                  {["Male", "Female", "Other"].map((g) => (
+                    <option key={g} value={g.toLowerCase()}>
+                      {g}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    value={data.email}
-                    onChange={(e) => handleInputChange("email", e.target.value)}
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  />
-                </div>
+              {/* Batch */}
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">Batch</label>
+                <select
+                  value={data.branchId}
+                  onChange={(e) => handleInputChange("branchId", e.target.value)}
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all"
+                  required
+                >
+                  <option value="">Select Batch</option>
+                  {branch.map((b) => (
+                    <option key={b._id} value={b._id}>
+                      {b.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Phone
-                  </label>
-                  <input
-                    type="tel"
-                    value={data.phone}
-                    onChange={(e) => handleInputChange("phone", e.target.value)}
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  />
-                </div>
+              {/* Address */}
+              <div className="md:col-span-2 flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">Address</label>
+                <input
+                  type="text"
+                  value={data.address}
+                  onChange={(e) => handleInputChange("address", e.target.value)}
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all"
+                  placeholder="Enter complete address"
+                  required
+                />
+              </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Gender
-                  </label>
-                  <select
-                    value={data.gender}
-                    onChange={(e) =>
-                      handleInputChange("gender", e.target.value)
-                    }
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  >
-                    <option value="">Select Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Date of Birth
-                  </label>
-                  <input
-                    type="date"
-                    value={data.dob}
-                    onChange={(e) => handleInputChange("dob", e.target.value)}
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Blood Group
-                  </label>
-                  <select
-                    value={data.bloodGroup}
-                    onChange={(e) =>
-                      handleInputChange("bloodGroup", e.target.value)
-                    }
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  >
-                    <option value="">Select Blood Group</option>
-                    <option value="A+">A+</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B-">B-</option>
-                    <option value="AB+">AB+</option>
-                    <option value="AB-">AB-</option>
-                    <option value="O+">O+</option>
-                    <option value="O-">O-</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Designation
-                  </label>
-                  <input
-                    type="text"
-                    value={data.designation}
-                    onChange={(e) =>
-                      handleInputChange("designation", e.target.value)
-                    }
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Joining Date
-                  </label>
-                  <input
-                    type="date"
-                    value={data.joiningDate}
-                    onChange={(e) =>
-                      handleInputChange("joiningDate", e.target.value)
-                    }
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Salary
-                  </label>
-                  <input
-                    type="number"
-                    value={data.salary}
-                    onChange={(e) =>
-                      handleInputChange("salary", e.target.value)
-                    }
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Batch
-                  </label>
-                  <select
-                    value={data.branchId}
-                    onChange={(e) =>
-                      handleInputChange("branchId", e.target.value)
-                    }
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  >
-                    <option value="">Select Batch</option>
-                    {branch.map((item) => (
-                      <option key={item._id} value={item._id}>
-                        {item.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Address
-                  </label>
-                  <input
-                    type="text"
-                    value={data.address}
-                    onChange={(e) =>
-                      handleInputChange("address", e.target.value)
-                    }
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    City
-                  </label>
-                  <input
-                    type="text"
-                    value={data.city}
-                    onChange={(e) => handleInputChange("city", e.target.value)}
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    State
-                  </label>
-                  <input
-                    type="text"
-                    value={data.state}
-                    onChange={(e) => handleInputChange("state", e.target.value)}
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Pincode
-                  </label>
-                  <input
-                    type="text"
-                    value={data.pincode}
-                    onChange={(e) =>
-                      handleInputChange("pincode", e.target.value)
-                    }
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Country
-                  </label>
-                  <input
-                    type="text"
-                    value={data.country}
-                    onChange={(e) =>
-                      handleInputChange("country", e.target.value)
-                    }
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  />
-                </div>
-
-                <div className="md:col-span-2">
-                  <h3 className="text-lg font-semibold mb-4">
-                    Emergency Contact
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Name
-                      </label>
-                      <input
-                        type="text"
-                        value={data.emergencyContact.name}
-                        onChange={(e) =>
-                          handleEmergencyContactChange("name", e.target.value)
-                        }
-                        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        required
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Relationship
-                      </label>
-                      <input
-                        type="text"
-                        value={data.emergencyContact.relationship}
-                        onChange={(e) =>
-                          handleEmergencyContactChange(
-                            "relationship",
-                            e.target.value
-                          )
-                        }
-                        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        required
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Phone
-                      </label>
-                      <input
-                        type="tel"
-                        value={data.emergencyContact.phone}
-                        onChange={(e) =>
-                          handleEmergencyContactChange("phone", e.target.value)
-                        }
-                        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        required
-                      />
-                    </div>
-                  </div>
+              {/* Emergency Contact */}
+              <div className="md:col-span-2">
+                <h3 className="text-lg font-semibold mt-4 mb-3 text-gray-800 border-b pb-1">
+                  Emergency Contact
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {["name", "relationship", "phone"].map((f) => (
+                    <input
+                      key={f}
+                      type={f === "phone" ? "tel" : "text"}
+                      placeholder={`Enter ${f.charAt(0).toUpperCase() + f.slice(1)}`}
+                      value={data.emergencyContact[f]}
+                      onChange={(e) => handleEmergencyContactChange(f, e.target.value)}
+                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all"
+                      required
+                    />
+                  ))}
                 </div>
               </div>
 
-              <div className="mt-8 flex justify-between items-center gap-4">
-                <div>
-                  <p className="text-sm">
-                    Default password will be{" "}
-                    <span className="font-bold">faculty123</span>
-                  </p>
-                </div>
-                <div className="flex gap-4">
-                  <CustomButton
-                    type="button"
-                    variant="secondary"
-                    onClick={resetForm}
-                  >
-                    Cancel
-                  </CustomButton>
-                  <CustomButton type="submit" variant="primary">
-                    {isEditing ? "Update Faculty" : "Add Faculty"}
-                  </CustomButton>
-                </div>
+              {/* Buttons */}
+              <div className="md:col-span-2 flex flex-col sm:flex-row justify-end gap-3 mt-8">
+                <CustomButton
+                  variant="secondary"
+                  onClick={resetForm}
+                  className="w-full sm:w-auto"
+                >
+                  Cancel
+                </CustomButton>
+                <CustomButton
+                  variant="primary"
+                  type="submit"
+                  className="w-full sm:w-auto"
+                >
+                  {isEditing ? "Update Faculty" : "Add Faculty"}
+                </CustomButton>
               </div>
             </form>
+
           </div>
         </div>
       )}
 
+      {/* Faculty List */}
       {!dataLoading && !showAddForm && (
-        <div className="mt-8 w-full">
-          <table className="text-sm min-w-full bg-white">
-            <thead>
-              <tr className="bg-blue-500 text-white">
+        <div className="w-full bg-white rounded-md shadow-md overflow-hidden mt-6">
+          <table className="min-w-full text-sm">
+            <thead className="bg-gradient-to-r from-gray-900 to-gray-600 text-white">
+              <tr>
                 <th className="py-4 px-6 text-left font-semibold">Name</th>
                 <th className="py-4 px-6 text-left font-semibold">Email</th>
                 <th className="py-4 px-6 text-left font-semibold">Phone</th>
-                <th className="py-4 px-6 text-left font-semibold">
-                  Employee ID
-                </th>
-                <th className="py-4 px-6 text-left font-semibold">
-                  Designation
-                </th>
+                <th className="py-4 px-6 text-left font-semibold">Designation</th>
                 <th className="py-4 px-6 text-center font-semibold">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {faculty && faculty.length > 0 ? (
-                faculty.map((item, index) => (
-                  <tr key={index} className="border-b hover:bg-blue-50">
+              {faculty.length > 0 ? (
+                faculty.map((item, i) => (
+                  <tr
+                    key={i}
+                    className="border-b hover:bg-blue-50 transition-all duration-200"
+                  >
                     <td className="py-4 px-6">{`${item.firstName} ${item.lastName}`}</td>
                     <td className="py-4 px-6">{item.email}</td>
                     <td className="py-4 px-6">{item.phone}</td>
-                    <td className="py-4 px-6">{item.employeeId}</td>
                     <td className="py-4 px-6">{item.designation}</td>
-                    <td className="py-4 px-6 text-center flex justify-center gap-4">
-                      <CustomButton
-                        variant="secondary"
-                        className="!p-2"
+                    <td className="py-4 px-6 text-center flex justify-center gap-3">
+                      <button
                         onClick={() => editFacultyHandler(item)}
+                        className="p-2 rounded-lg bg-blue-100 hover:bg-blue-200 text-blue-700 transition-all"
                       >
                         <MdEdit />
-                      </CustomButton>
-                      <CustomButton
-                        variant="danger"
-                        className="!p-2"
+                      </button>
+                      <button
                         onClick={() => deleteFacultyHandler(item._id)}
+                        className="p-2 rounded-lg bg-red-100 hover:bg-red-200 text-red-700 transition-all"
                       >
                         <MdOutlineDelete />
-                      </CustomButton>
+                      </button>
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6" className="text-center text-base pt-10">
-                    No Faculty found.
+                  <td colSpan="5" className="text-center py-6 text-gray-500">
+                    No faculty found.
                   </td>
                 </tr>
               )}
@@ -701,6 +397,7 @@ const Faculty = () => {
           </table>
         </div>
       )}
+
       <DeleteConfirm
         isOpen={isDeleteConfirmOpen}
         onClose={() => setIsDeleteConfirmOpen(false)}

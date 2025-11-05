@@ -11,7 +11,7 @@ const CustomButton = ({
   const getVariantClasses = () => {
     switch (variant) {
       case "primary":
-        return "bg-blue-500 text-white hover:bg-blue-600";
+        return "bg-gray-900 text-white hover:bg-gray-800";
       case "secondary":
         return "bg-gray-500 text-white hover:bg-gray-600";
       case "danger":

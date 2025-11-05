@@ -19,7 +19,7 @@ const Exam = () => {
     timetableLink: "",
     totalMarks: "",
   });
-  const [exams, setExams] = useState();
+  const [exams, setExams] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
   const [selectedExamId, setSelectedExamId] = useState(null);
@@ -37,8 +37,7 @@ const Exam = () => {
   const getExamsHandler = async () => {
     try {
       setDataLoading(true);
-      const link = "/exam";
-      const response = await axiosWrapper.get(link, {
+      const response = await axiosWrapper.get("/exam", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("userToken")}`,
@@ -52,58 +51,39 @@ const Exam = () => {
     } catch (error) {
       if (error.response?.status === 404) {
         setExams([]);
-        return;
+      } else {
+        toast.error(error.response?.data?.message || "Error fetching exams");
       }
-      console.error(error);
-      toast.error(error.response?.data?.message || "Error fetching exams");
     } finally {
       setDataLoading(false);
     }
   };
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
+  const handleFileChange = (e) => setFile(e.target.files[0]);
 
   const addExamHandler = async () => {
-    if (
-      !data.name ||
-      !data.date ||
-      !data.examType ||
-      !data.totalMarks
-    ) {
-      toast.dismiss();
-      toast.error("Please fill all the fields");
+    if (!data.name || !data.date || !data.examType || !data.totalMarks) {
+      toast.error("Please fill all fields");
       return;
     }
     try {
       setProcessLoading(true);
-      toast.loading(isEditing ? "Updating Exam" : "Adding Exam");
+      toast.loading(isEditing ? "Updating Exam..." : "Adding Exam...");
       const headers = {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${localStorage.getItem("userToken")}`,
       };
-      let response;
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("date", data.date);
       formData.append("examType", data.examType);
       formData.append("totalMarks", data.totalMarks);
-      if (isEditing) {
-        formData.append("file", file);
-        response = await axiosWrapper.patch(
-          `/exam/${selectedExamId}`,
-          formData,
-          {
-            headers: headers,
-          }
-        );
-      } else {
-        formData.append("file", file);
-        response = await axiosWrapper.post(`/exam`, formData, {
-          headers: headers,
-        });
-      }
+      if (file) formData.append("file", file);
+
+      const response = isEditing
+        ? await axiosWrapper.patch(`/exam/${selectedExamId}`, formData, { headers })
+        : await axiosWrapper.post("/exam", formData, { headers });
+
       toast.dismiss();
       if (response.data.success) {
         toast.success(response.data.message);
@@ -114,7 +94,7 @@ const Exam = () => {
       }
     } catch (error) {
       toast.dismiss();
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Error saving exam");
     } finally {
       setProcessLoading(false);
     }
@@ -128,12 +108,13 @@ const Exam = () => {
       timetableLink: "",
       totalMarks: "",
     });
+    setFile(null);
     setShowModal(false);
     setIsEditing(false);
     setSelectedExamId(null);
   };
 
-  const deleteExamHandler = async (id) => {
+  const deleteExamHandler = (id) => {
     setIsDeleteConfirmOpen(true);
     setSelectedExamId(id);
   };
@@ -153,17 +134,15 @@ const Exam = () => {
 
   const confirmDelete = async () => {
     try {
-      toast.loading("Deleting Exam");
-      const headers = {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-      };
+      toast.loading("Deleting Exam...");
       const response = await axiosWrapper.delete(`/exam/${selectedExamId}`, {
-        headers: headers,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+        },
       });
       toast.dismiss();
       if (response.data.success) {
-        toast.success("Exam has been deleted successfully");
+        toast.success("Exam deleted successfully");
         setIsDeleteConfirmOpen(false);
         getExamsHandler();
       } else {
@@ -171,66 +150,65 @@ const Exam = () => {
       }
     } catch (error) {
       toast.dismiss();
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Delete failed");
     }
   };
 
   return (
-    <div className="w-full mx-auto mt-10 flex justify-center items-start flex-col mb-10">
-      <div className="flex justify-between items-center w-full">
+    <div className="w-full mx-auto mt-10 flex flex-col mb-10 px-1 sm:px-6 lg:px-8">
+      <div className="flex flex-row justify-between items-center w-full gap-4">
         <Heading title="Exam Details" />
-        {!dataLoading && loginType !== "Student" && (
+        {loginType !== "Student" && (
           <CustomButton onClick={() => setShowModal(true)}>
             <IoMdAdd className="text-2xl" />
           </CustomButton>
         )}
       </div>
 
-      {!dataLoading ? (
-        <div className="mt-8 w-full">
-          <table className="text-sm min-w-full bg-white">
-            <thead>
-              <tr className="bg-blue-500 text-white">
-                <th className="py-4 px-6 text-left font-semibold">Exam Name</th>
-                <th className="py-4 px-6 text-left font-semibold">Date</th>
-                {/* Semester column removed */}
-                <th className="py-4 px-6 text-left font-semibold">Exam Type</th>
-                <th className="py-4 px-6 text-left font-semibold">
-                  Total Marks
-                </th>
+      {dataLoading ? (
+        <Loading />
+      ) : (
+        <div className="mt-8 w-full overflow-x-auto bg-white shadow rounded-md">
+          <table className="min-w-full text-sm text-gray-700">
+            <thead className="bg-black text-white">
+              <tr>
+                <th className="py-3 px-4 text-left font-semibold">Exam Name</th>
+                <th className="py-3 px-4 text-left font-semibold">Date</th>
+                <th className="py-3 px-4 text-left font-semibold">Type</th>
+                <th className="py-3 px-4 text-left font-semibold">Total Marks</th>
                 {loginType !== "Student" && (
-                  <th className="py-4 px-6 text-center font-semibold">
-                    Actions
-                  </th>
+                  <th className="py-3 px-4 text-center font-semibold">Actions</th>
                 )}
               </tr>
             </thead>
             <tbody>
-              {exams && exams.length > 0 ? (
-                exams.map((item, index) => (
-                  <tr key={index} className="border-b hover:bg-blue-50">
-                    <td className="py-4 px-6">{item.name}</td>
-                    <td className="py-4 px-6">
-                      {new Date(item.date).toLocaleDateString()}
+              {exams?.length > 0 ? (
+                exams.map((exam, index) => (
+                  <tr
+                    key={index}
+                    className="border-b hover:bg-blue-50 transition duration-200"
+                  >
+                    <td className="py-3 px-4">{exam.name}</td>
+                    <td className="py-3 px-4">
+                      {new Date(exam.date).toLocaleDateString()}
                     </td>
-                    {/* Semester value removed from UI */}
-                    <td className="py-4 px-6">
-                      {item.examType === "mid" ? "Mid Term" : "End Term"}
+                    <td className="py-3 px-4 capitalize">
+                      {exam.examType === "mid" ? "Mid Term" : "End Term"}
                     </td>
-                    <td className="py-4 px-6">{item.totalMarks}</td>
+                    <td className="py-3 px-4">{exam.totalMarks}</td>
                     {loginType !== "Student" && (
-                      <td className="py-4 px-6 text-center flex justify-center gap-4">
+                      <td className="py-3 px-4 text-center flex justify-center gap-3">
                         <CustomButton
                           variant="secondary"
                           className="!p-2"
-                          onClick={() => editExamHandler(item)}
+                          onClick={() => editExamHandler(exam)}
                         >
                           <MdEdit />
                         </CustomButton>
                         <CustomButton
                           variant="danger"
                           className="!p-2"
-                          onClick={() => deleteExamHandler(item._id)}
+                          onClick={() => deleteExamHandler(exam._id)}
                         >
                           <MdOutlineDelete />
                         </CustomButton>
@@ -240,33 +218,38 @@ const Exam = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5x" className="text-center text-base pt-10">
-                    No Exams found.
+                  <td
+                    colSpan={loginType !== "Student" ? 5 : 4}
+                    className="text-center py-6 text-gray-500"
+                  >
+                    No exams found.
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
         </div>
-      ) : (
-        <Loading />
       )}
 
       {/* Add/Edit Exam Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg p-6 max-w-2xl w-full">
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-lg sm:max-w-2xl">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">
+              <h2 className="text-2xl font-semibold text-gray-800">
                 {isEditing ? "Edit Exam" : "Add New Exam"}
               </h2>
-              <CustomButton onClick={resetForm} variant="secondary">
-                <AiOutlineClose size={24} />
+              <CustomButton
+                onClick={resetForm}
+                variant="secondary"
+                className="!p-2"
+              >
+                <AiOutlineClose size={22} />
               </CustomButton>
             </div>
 
-            <div className="space-y-4">
-              <div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Exam Name
                 </label>
@@ -274,68 +257,58 @@ const Exam = () => {
                   type="text"
                   value={data.name}
                   onChange={(e) => setData({ ...data, name: e.target.value })}
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
+                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Date
-                  </label>
-                  <input
-                    type="date"
-                    value={data.date}
-                    onChange={(e) => setData({ ...data, date: e.target.value })}
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  />
-                </div>
-                {/* Semester removed from Exam form */}
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Exam Type
-                  </label>
-                  <select
-                    value={data.examType}
-                    onChange={(e) =>
-                      setData({ ...data, examType: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  >
-                    <option value="mid">Mid Term</option>
-                    <option value="end">End Term</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Total Marks
-                  </label>
-                  <input
-                    type="number"
-                    value={data.totalMarks}
-                    onChange={(e) =>
-                      setData({ ...data, totalMarks: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  />
-                </div>
-              </div>
               <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Date
+                </label>
+                <input
+                  type="date"
+                  value={data.date}
+                  onChange={(e) => setData({ ...data, date: e.target.value })}
+                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Exam Type
+                </label>
+                <select
+                  value={data.examType}
+                  onChange={(e) => setData({ ...data, examType: e.target.value })}
+                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+                >
+                  <option value="mid">Mid Term</option>
+                  <option value="end">End Term</option>
+                </select>
+              </div>
+
+              <div className="col-span-2 md:col-span-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Total Marks
+                </label>
+                <input
+                  type="number"
+                  value={data.totalMarks}
+                  onChange={(e) =>
+                    setData({ ...data, totalMarks: e.target.value })
+                  }
+                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+                />
+              </div>
+
+              <div className="col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Timetable File
                 </label>
-                <div className="flex items-center space-x-4">
-                  <label className="flex-1 px-4 py-2 border rounded-md cursor-pointer hover:bg-gray-50">
-                    <span className="flex items-center justify-center">
-                      <FiUpload className="mr-2" />
-                      {file ? file.name : "Choose File"}
-                    </span>
+                <div className="flex flex-wrap items-center gap-3">
+                  <label className="flex-1 px-4 py-2 border rounded-md cursor-pointer hover:bg-gray-50 flex items-center justify-center">
+                    <FiUpload className="mr-2" />
+                    {file ? file.name : "Choose File"}
                     <input
                       type="file"
                       onChange={handleFileChange}
@@ -354,18 +327,18 @@ const Exam = () => {
                   )}
                 </div>
               </div>
+            </div>
 
-              <div className="flex justify-end space-x-4 mt-6">
-                <CustomButton onClick={resetForm} variant="secondary">
-                  Cancel
-                </CustomButton>
-                <CustomButton
-                  onClick={addExamHandler}
-                  disabled={processLoading}
-                >
-                  {isEditing ? "Update Exam" : "Add Exam"}
-                </CustomButton>
-              </div>
+            <div className="flex justify-end gap-3 mt-6">
+              <CustomButton onClick={resetForm} variant="secondary">
+                Cancel
+              </CustomButton>
+              <CustomButton
+                onClick={addExamHandler}
+                disabled={processLoading}
+              >
+                {isEditing ? "Update Exam" : "Add Exam"}
+              </CustomButton>
             </div>
           </div>
         </div>

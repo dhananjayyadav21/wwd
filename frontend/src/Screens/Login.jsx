@@ -15,7 +15,7 @@ const USER_TYPES = {
 
 const LoginForm = ({ selected, onSubmit, formData, setFormData }) => (
   <form
-    className="w-full p-8 bg-white rounded-2xl shadow-xl border border-gray-200"
+    className="w-full p-8 bg-white rounded-xl shadow-xl border border-gray-200"
     onSubmit={onSubmit}
   >
     <div className="mb-6">
@@ -29,7 +29,7 @@ const LoginForm = ({ selected, onSubmit, formData, setFormData }) => (
         type="email"
         id="email"
         required
-        className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
         value={formData.email}
         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
       />
@@ -45,14 +45,14 @@ const LoginForm = ({ selected, onSubmit, formData, setFormData }) => (
         type="password"
         id="password"
         required
-        className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
         value={formData.password}
         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
       />
     </div>
     <div className="flex items-center justify-between mb-6">
       <Link
-        className="text-sm text-blue-600 hover:underline"
+        className="text-sm text-gray-900 hover:underline"
         to="/forget-password"
       >
         Forgot Password?
@@ -75,8 +75,8 @@ const UserTypeSelector = ({ selected, onSelect }) => (
         key={type}
         onClick={() => onSelect(type)}
         className={`px-5 py-2 text-sm font-medium rounded-full transition duration-200 ${selected === type
-            ? "bg-blue-600 text-white shadow"
-            : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+          ? "bg-gray-900 text-white shadow"
+          : "bg-gray-100 text-gray-800 hover:bg-gray-200"
           }`}
       >
         {type}
@@ -148,8 +148,8 @@ const Login = () => {
   }, [type]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-gray-100 via-white to-gray-100 flex items-center justify-center px-4">
-      <div className="w-full max-w-2xl lg:w-1/2 px-6 py-12">
+    <div className="min-h-screen bg-gradient-to-tr from-gray-100 via-white to-gray-100 flex items-center justify-center px-2">
+      <div className="w-full max-w-2xl lg:w-1/2 px-2 py-12">
         <h1 className="text-4xl font-bold text-gray-800 text-center mb-6">
           {selected} Login
         </h1>

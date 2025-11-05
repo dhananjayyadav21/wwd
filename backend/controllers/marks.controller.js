@@ -118,7 +118,7 @@ const addBulkMarksController = async (req, res) => {
   try {
     const { marks, examId, subjectId, semester } = req.body;
 
-    if (!marks || !Array.isArray(marks) || !examId || !subjectId) {
+    if (!marks || !Array.isArray(marks) || !examId) {
       return res.status(400).json({
         success: false,
         message:
@@ -131,8 +131,6 @@ const addBulkMarksController = async (req, res) => {
       const existingMark = await Marks.findOne({
         studentId: markData.studentId,
         examId,
-        subjectId,
-        semester,
       });
 
       if (existingMark) {
@@ -143,8 +141,6 @@ const addBulkMarksController = async (req, res) => {
         const newMark = await Marks.create({
           studentId: markData.studentId,
           examId,
-          subjectId,
-          semester,
           marksObtained: markData.obtainedMarks,
         });
         results.push(newMark);

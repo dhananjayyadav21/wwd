@@ -348,89 +348,75 @@ const AddMarks = () => {
       {/* Marks Entry Section */}
       {!showSearch && masterMarksData && masterMarksData.length > 0 && (
         <div className="w-full bg-white rounded-lg p-6">
+          {/* Exam Info */}
           <div className="space-y-4 w-full mb-6">
-            <div className="flex flex-col gap-4 w-[90%] mx-auto">
-              <div className="grid grid-cols-4 gap-4">
-                <div className="border p-3 rounded-md shadow">
-                  <span className="text-sm text-gray-500">Batch:</span>
-                  <p className="text-gray-800">{selectedBranch?.name || ""}</p>
-                </div>
-
-                <div className="border p-3 rounded-md shadow">
-                  <span className="text-sm text-gray-500">Exam:</span>
-                  <p className="text-gray-800">
-                    {selectedExam?.name || "Not Selected"}
-                  </p>
-                </div>
-                <div className="border p-3 rounded-md shadow">
-                  <span className="text-sm text-gray-500">Exam Type:</span>
-                  <p className="text-gray-800">
-                    {selectedExam?.examType === "mid" ? "Mid Term" : "End Term"}
-                  </p>
-                </div>
-                <div className="border p-3 rounded-md shadow">
-                  <span className="text-sm text-gray-500">Subject:</span>
-                  <p className="text-gray-800">
-                    {selectedSubject?.name || "Not Selected"}
-                  </p>
-                </div>
+            <div className="flex flex-col gap-4 w-full">
+              {/* Top Info Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {[
+                  { label: "Batch", value: selectedBranch?.name || "" },
+                  { label: "Exam", value: selectedExam?.name || "Not Selected" },
+                  {
+                    label: "Exam Type",
+                    value:
+                      selectedExam?.examType === "mid" ? "Mid Term" : "End Term",
+                  },
+                  { label: "Subject", value: selectedSubject?.name || "Not Selected" },
+                ].map((item) => (
+                  <div key={item.label} className="border p-3 rounded-md shadow">
+                    <span className="text-sm text-gray-500">{item.label}:</span>
+                    <p className="text-gray-800">{item.value}</p>
+                  </div>
+                ))}
               </div>
 
-              <div className="grid grid-cols-4 gap-4">
-                <div className="border p-3 rounded-md shadow">
-                  <span className="text-sm text-gray-500">Total Marks:</span>
-                  <p className="text-gray-800">
-                    {selectedExam?.totalMarks || "Not Selected"}
-                  </p>
-                </div>
-                <div className="border p-3 rounded-md shadow">
-                  <span className="text-sm text-gray-500">Date:</span>
-                  <p className="text-gray-800">
-                    {selectedExam?.date
+              {/* Bottom Info Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {[
+                  {
+                    label: "Total Marks",
+                    value: selectedExam?.totalMarks || "Not Selected",
+                  },
+                  {
+                    label: "Date",
+                    value: selectedExam?.date
                       ? new Date(selectedExam.date).toLocaleDateString()
-                      : "Not Selected"}
-                  </p>
-                </div>
-                <div className="border p-3 rounded-md shadow">
-                  <span className="text-sm text-gray-500">Time:</span>
-                  <p className="text-gray-800">
-                    {selectedExam?.time || "Not Selected"}
-                  </p>
-                </div>
-                <div className="border p-3 rounded-md shadow">
-                  <span className="text-sm text-gray-500">Students:</span>
-                  <p className="text-gray-800">
-                    {masterMarksData.length || "Not Selected"}
-                  </p>
-                </div>
+                      : "Not Selected",
+                  },
+                  { label: "Time", value: selectedExam?.time || "Not Selected" },
+                  { label: "Students", value: masterMarksData.length || "Not Selected" },
+                ].map((item) => (
+                  <div key={item.label} className="border p-3 rounded-md shadow">
+                    <span className="text-sm text-gray-500">{item.label}:</span>
+                    <p className="text-gray-800">{item.value}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
+          {/* Back Button */}
           <div className="flex justify-end items-center mb-4">
-            <CustomButton
-              variant="secondary"
-              onClick={handleBack}
-              className="text-sm"
-            >
+            <CustomButton variant="secondary" onClick={handleBack} className="text-sm">
               Back to Search
             </CustomButton>
           </div>
 
-          <div className="grid grid-cols-4 gap-4 w-[100%] mx-auto">
+          {/* Student Marks Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
             {masterMarksData.map((student) => (
               <div
                 key={student._id}
-                className="flex items-center justify-between w-full border rounded-md"
+                className="flex flex-col sm:flex-row items-center justify-between w-full border rounded-md p-2"
               >
-                <p className="font-medium text-gray-700 flex items-center justify-center px-3 h-full py-2 rounded-md min-w-[120px] text-center">
-                  {student.enrollmentNo}
+                <p className="font-medium text-gray-700 flex items-center justify-center px-3 py-2 rounded-md min-w-[120px] text-center">
+                  {student.firstName}
                 </p>
                 <input
                   type="number"
                   min={0}
                   max={selectedExam?.totalMarks || 100}
-                  className="px-4 py-2 border rounded-md focus:outline-none bg-gray-50 border-gray-200 focus:ring-2 focus:ring-blue-500 w-full m-2"
+                  className="px-4 py-2 border rounded-md focus:outline-none bg-gray-50 border-gray-200 focus:ring-2 focus:ring-blue-500 flex-1 mt-2 sm:mt-0"
                   value={marksData[student._id] || ""}
                   placeholder="Enter Marks"
                   onChange={(e) =>
@@ -444,7 +430,8 @@ const AddMarks = () => {
             ))}
           </div>
 
-          <div className="flex flex-col items-center gap-4 bottom-0 left-0 right-0 bg-white p-4 border-t mt-10">
+          {/* Consent + Submit */}
+          <div className="flex flex-col items-center gap-4 mt-6 bg-white p-4 border-t">
             <div className="flex items-center gap-2">
               <input
                 type="checkbox"
@@ -468,6 +455,7 @@ const AddMarks = () => {
             </CustomButton>
           </div>
         </div>
+
       )}
     </div>
   );

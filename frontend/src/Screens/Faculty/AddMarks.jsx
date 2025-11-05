@@ -12,7 +12,6 @@ const AddMarks = () => {
   const [subjects, setSubjects] = useState([]);
   const [selectedBranch, setSelectedBranch] = useState(null);
   const [selectedSubject, setSelectedSubject] = useState(null);
-  // semester removed from frontend UI
   const [exams, setExams] = useState([]);
   const [selectedExam, setSelectedExam] = useState(null);
   const [masterMarksData, setMasterMarksData] = useState([]);
@@ -88,7 +87,6 @@ const AddMarks = () => {
   const fetchExams = async () => {
     try {
       toast.loading("Loading exams...");
-      // Fetch all exams (semester removed from frontend)
       const response = await axiosWrapper.get(`/exam`, {
         headers: {
           Authorization: `Bearer ${userToken}`,
@@ -262,8 +260,14 @@ const AddMarks = () => {
     }
   }, [selectedBranch]);
 
+  useEffect(() => {
+    if (selectedBranch) {
+      fetchExams();
+    }
+  }, [selectedBranch]);
+
   return (
-    <div className="w-full max-w-7xl mx-auto mt-10 flex flex-col gap-6">
+    <div className="w-full max-w-7xl mx-auto mt-10 flex flex-col gap-6 p-2">
       <div className="flex justify-between items-center w-full">
         <Heading title="Add Marks" />
       </div>
@@ -288,7 +292,7 @@ const AddMarks = () => {
             </div>
 
             {/* Subject */}
-            <div className="flex-1 min-w-[150px]">
+            {/* <div className="flex-1 min-w-[150px]">
               <label className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
               <select
                 name="subject"
@@ -304,7 +308,7 @@ const AddMarks = () => {
                   <option key={subject._id} value={subject._id}>{subject.name}</option>
                 ))}
               </select>
-            </div>
+            </div> */}
 
             {/* Exam */}
             <div className="flex-1 min-w-[150px]">
@@ -313,7 +317,7 @@ const AddMarks = () => {
                 name="exam"
                 value={selectedExam?._id || ""}
                 onChange={handleInputChange}
-                disabled={!selectedSubject}
+                disabled={!selectedBranch}
                 className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${!selectedSubject ? "bg-gray-100 cursor-not-allowed" : ""}`}
               >
                 <option value="">{!selectedSubject ? (
@@ -329,7 +333,7 @@ const AddMarks = () => {
             <div className="flex-none">
               <CustomButton
                 type="submit"
-                disabled={dataLoading || !selectedBranch || !selectedSubject || !selectedExam}
+                disabled={dataLoading || !selectedBranch || !selectedExam}
                 variant="primary"
                 onClick={handleSearch}
                 className="w-full md:w-auto"

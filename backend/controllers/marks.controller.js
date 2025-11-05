@@ -169,7 +169,7 @@ const getStudentsWithMarksController = async (req, res) => {
   try {
     const { branch, subject, semester, examId } = req.query;
 
-    if (!branch || !subject || !examId) {
+    if (!branch || !examId) {
       return res.status(400).json({
         success: false,
         message:
@@ -179,7 +179,6 @@ const getStudentsWithMarksController = async (req, res) => {
 
     const students = await Student.find({
       branchId: branch,
-      semester: Number(semester),
     }).select("_id enrollmentNo firstName lastName");
 
     if (!students || students.length === 0) {
@@ -193,8 +192,6 @@ const getStudentsWithMarksController = async (req, res) => {
     const marks = await Marks.find({
       studentId: { $in: students.map((s) => s._id) },
       examId,
-      subjectId: subject,
-      semester: Number(semester),
     });
 
     const studentsWithMarks = students.map((student) => {

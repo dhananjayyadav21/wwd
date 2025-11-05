@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-// Assuming 'react-hot-toast' is available in the environment.
+import axiosWrapper from "../utils/AxiosWrapper";
 import { toast } from "react-hot-toast";
-// Removed import for 'axiosWrapper' and 'react-icons/io' to fix compilation errors.
+
 
 const UpdatePasswordLoggedIn = ({ onClose }) => {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -37,21 +37,35 @@ const UpdatePasswordLoggedIn = ({ onClose }) => {
     try {
       const apiUrl = `/api/${userType.toLowerCase()}/change-password`;
 
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${userToken}`,
-        },
-        body: JSON.stringify({
+      // const response = await fetch(apiUrl, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     Authorization: `Bearer ${userToken}`,
+      //   },
+      //   body: JSON.stringify({
+      //     currentPassword,
+      //     newPassword,
+      //   }),
+      // });
+
+      const response = await axiosWrapper.post(
+        `/${userType.toLowerCase()}/change-password`,
+        {
           currentPassword,
           newPassword,
-        }),
-      });
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
 
-      const data = await response.json(); // Parse response data
+      const data = response.data
 
-      if (response.ok && data.success) {
+      if (data.success) {
         toast.success("Password updated successfully");
         // Clear fields on success
         setCurrentPassword("");
@@ -73,7 +87,7 @@ const UpdatePasswordLoggedIn = ({ onClose }) => {
 
   return (
     // Outer Overlay: Fixed position, dark semi-transparent background, full screen
-    <div className="fixed inset-0 min-h-full z-50 flex items-center justify-center px-1 backdrop-blur-sm bg-black/40">
+    <div className="fixed inset-0 min-h-full z-50 flex items-start justify-center p-2 backdrop-blur-sm bg-black/40">
 
       {/* Modal Container: Modern Card Styling with responsiveness */}
       <div className="relative w-full max-w-md mx-auto bg-white rounded-xl shadow-2xl p-6 sm:p-8 transition-all duration-300 transform scale-100 opacity-100">

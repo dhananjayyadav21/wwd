@@ -146,7 +146,7 @@ const Notice = () => {
   };
 
   return (
-    <div className="w-full mx-auto flex justify-center items-start flex-col my-10">
+    <div className="w-full mx-auto p-2 flex justify-center items-start flex-col my-10">
       <div className="relative flex justify-between items-center w-full">
         <Heading title="Notices" />
         {!dataLoading &&

@@ -16,11 +16,10 @@ const UserTypeSelector = ({ selected, onSelect }) => (
       <button
         key={type}
         onClick={() => onSelect(type)}
-        className={`px-5 py-2 text-sm font-medium rounded-full transition duration-200 ${
-          selected === type
-            ? "bg-blue-600 text-white shadow"
-            : "bg-gray-100 text-gray-800 hover:bg-gray-200"
-        }`}
+        className={`px-5 py-2 text-sm font-medium rounded-full transition duration-200 ${selected === type
+          ? "bg-gray-900 text-white shadow"
+          : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+          }`}
       >
         {type}
       </button>
@@ -78,7 +77,7 @@ const ForgetPassword = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-tr from-gray-100 via-white to-gray-100 flex items-center justify-center px-4">
-      <div className="w-full max-w-[40%] px-6 py-12">
+      <div className="w-full sm:w-[80%] md:w-[60%] lg:w-[40%] px-6 py-12">
         <h1 className="text-4xl font-bold text-gray-800 text-center mb-6">
           {selected} Forget Password
         </h1>
@@ -100,12 +99,12 @@ const ForgetPassword = () => {
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               required
-              className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
             />
           </div>
           <CustomButton
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200"
+            className="w-full bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200"
           >
             Send Reset Link
           </CustomButton>

@@ -128,12 +128,12 @@ const Home = () => {
     <>
       <Navbar />
 
-      <div className="w-full mx-auto p-2">
+      <div className="w-full mx-auto">
         {/* ✅ Modern Scrollable Top Menu */}
         <div
           className="
             flex overflow-x-auto sm:overflow-visible
-            gap-3 sm:gap-5 py-4 sm:py-6
+            gap-3 sm:gap-5 py-4 mx-1 sm:py-6
             scrollbar-hide justify-start sm:justify-center
             sticky top-16 z-20
           "
@@ -153,7 +153,7 @@ const Home = () => {
         {/* ✅ Main Content Area */}
         <div
           className="
-            bg-white/70 backdrop-blur-lg md:rounded-2xl md:shadow-lg
+            bg-white/70 backdrop-blur-lg md:rounded-2xl
             sm:p-4 md:p-8 mt-4 sm:mt-6
             min-h-[70vh] transition-all
           "

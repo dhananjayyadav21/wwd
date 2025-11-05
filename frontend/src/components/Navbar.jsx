@@ -19,7 +19,7 @@ const Navbar = () => {
   };
 
   // Determine the Dashboard title
-  const dashboardTitle = router.state?.type || "User"; // Fallback to 'User' if type is not present
+  const dashboardTitle = router.state?.type || "";
 
   return (
     // **Modern Styling:** Soft shadow, slightly rounded, clean background
@@ -38,7 +38,7 @@ const Navbar = () => {
               <RxDashboard className="w-6 h-6" />
             </span>
             {/* Title text styling */}
-            {dashboardTitle} Dashboard
+            {dashboardTitle} WWD
           </div>
 
           {/* Logout Button */}
@@ -50,10 +50,10 @@ const Navbar = () => {
               // Added a small professional touch with a light hover effect on the button wrapper
               className="group"
             >
-              <span className="text-sm sm:text-base">Logout</span>
+              <span className="text-xs sm:text-base">Logout</span>
               {/* Icon Styling: Added margin, ensuring consistent icon size */}
               <span className="ml-2">
-                <FiLogOut className="w-5 h-5" />
+                <FiLogOut className="w-3 h-3  md:w-5 md:h-5" />
               </span>
             </CustomButton>
           </div>

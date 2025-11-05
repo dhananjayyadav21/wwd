@@ -122,6 +122,7 @@ const Login = () => {
       );
 
       const { token } = response.data.data;
+      console.log("token---", token)
       localStorage.setItem("userToken", token);
       localStorage.setItem("userType", selected);
       dispatch(setUserToken(token));

@@ -79,7 +79,7 @@ const Home = () => {
   const getMenuItemClass = (menuId) => {
     const isSelected = selectedMenu === menuId;
     return `
-      flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-sm sm:text-base
+      flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm sm:text-base
       transition-all duration-300 cursor-pointer
       ${isSelected
         ? "bg-gradient-to-r from-blue-400 to-blue-600 text-white shadow-md scale-105"
@@ -115,9 +115,9 @@ const Home = () => {
     <>
       <Navbar />
 
-      <div className="w-full mx-auto p-2">
+      <div className="w-full mx-auto">
         {/* ✅ Modern Scrollable Top Menu */}
-        <div className="flex overflow-x-auto sm:overflow-visible gap-3 sm:gap-5 py-4 sm:py-6 scrollbar-hide justify-start sm:justify-center sticky top-16 z-20">
+        <div className="flex overflow-x-auto sm:overflow-visible gap-3 sm:gap-5 py-4 mx-1 sm:py-6 scrollbar-hide justify-start sm:justify-center sticky top-16 z-20">
           {MENU_ITEMS.map((item) => (
             <button
               key={item.id}

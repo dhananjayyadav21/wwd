@@ -65,7 +65,7 @@ const Subject = () => {
   };
 
   const addSubjectHandler = async () => {
-    if (!data.name || !data.code || !data.branch || !data.semester || !data.credits) {
+    if (!data.name || !data.code || !data.branch || !data.credits) {
       toast.error("Please fill all fields");
       return;
     }
@@ -178,7 +178,6 @@ const Subject = () => {
                     <th className="py-3 px-4">Name</th>
                     <th className="py-3 px-4">Code</th>
                     <th className="py-3 px-4">Branch</th>
-                    <th className="py-3 px-4">Semester</th>
                     <th className="py-3 px-4">Credits</th>
                     <th className="py-3 px-4 text-center">Actions</th>
                   </tr>
@@ -189,7 +188,6 @@ const Subject = () => {
                       <td className="py-3 px-4">{item.name}</td>
                       <td className="py-3 px-4">{item.code}</td>
                       <td className="py-3 px-4">{item.branch?.name}</td>
-                      <td className="py-3 px-4">{item.semester}</td>
                       <td className="py-3 px-4">{item.credits}</td>
                       <td className="py-3 px-4 flex justify-center gap-3">
                         <button

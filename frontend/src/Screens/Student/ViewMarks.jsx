@@ -42,7 +42,7 @@ const ViewMarks = () => {
   const endTermMarks = marks.filter((mark) => mark.examId.examType === "end");
 
   return (
-    <div className="w-full mx-auto mt-10 flex justify-center items-start flex-col mb-10">
+    <div className="w-full mx-auto p-2 mt-10 flex justify-center items-start flex-col mb-10">
       <div className="flex justify-between items-center w-full mb-6">
         <Heading title="View Marks" />
         {/* Semester filter removed from View Marks UI */}

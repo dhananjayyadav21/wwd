@@ -3,7 +3,7 @@ const ApiResponse = require("../utils/ApiResponse");
 
 const getMaterialsController = async (req, res) => {
   try {
-    const { subject, faculty, semester, branch, type } = req.query;
+    const { subject, faculty, semester, branch, type, fromDate, toDate } = req.query;
     let query = {};
 
     if (subject) query.subject = subject;
@@ -11,6 +11,13 @@ const getMaterialsController = async (req, res) => {
     if (semester) query.semester = semester;
     if (branch) query.branch = branch;
     if (type) query.type = type;
+
+    // Date filter
+    if (fromDate || toDate) {
+      query.createdAt = {};
+      if (fromDate) query.createdAt.$gte = new Date(fromDate);
+      if (toDate) query.createdAt.$lte = new Date(toDate);
+    }
 
     const materials = await Material.find(query)
       .populate("subject")

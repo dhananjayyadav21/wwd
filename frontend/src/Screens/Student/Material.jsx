@@ -12,7 +12,10 @@ const Material = () => {
   const [subjects, setSubjects] = useState([]);
   const [dataLoading, setDataLoading] = useState(false);
   const userData = useSelector((state) => state.userData);
-  const [filters, setFilters] = useState({ subject: "", type: "" });
+  const [filters, setFilters] = useState({
+    subject: "", type: "", fromDate: "",
+    toDate: "",
+  });
 
   useEffect(() => {
     fetchSubjects();
@@ -46,13 +49,15 @@ const Material = () => {
 
   const fetchMaterials = async () => {
     try {
-      setDataLoading(true);
-      const queryParams = new URLSearchParams({ branch: userData.branchId._id });
-      if (filters.subject) queryParams.append("subject", filters.subject);
-      if (filters.type) queryParams.append("type", filters.type);
+      toast.loading("Loading materials...");
+      const queryParams = new URLSearchParams();
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value) queryParams.append(key, value);
+      });
 
       const response = await axiosWrapper.get(`/material?${queryParams}`, {
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("userToken")}`,
         },
       });
@@ -60,10 +65,15 @@ const Material = () => {
         setMaterials(response.data.data);
       }
     } catch (error) {
-      setMaterials([]);
-      toast.error(error?.response?.data?.message || "Failed to load materials");
+      if (error.response?.status === 404) {
+        setMaterials([]);
+      } else {
+        toast.error(
+          error?.response?.data?.message || "Failed to load materials"
+        );
+      }
     } finally {
-      setDataLoading(false);
+      toast.dismiss();
     }
   };
 
@@ -114,6 +124,30 @@ const Material = () => {
               <option value="syllabus">Syllabus</option>
               <option value="other">Other</option>
             </select>
+          </div>
+
+          {/* From Date */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">From Date</label>
+            <input
+              type="date"
+              name="fromDate"
+              value={filters.fromDate}
+              onChange={handleFilterChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* To Date */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">To Date</label>
+            <input
+              type="date"
+              name="toDate"
+              value={filters.toDate}
+              onChange={handleFilterChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
           </div>
         </div>
       )}

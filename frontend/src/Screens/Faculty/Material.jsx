@@ -30,6 +30,8 @@ const Material = () => {
     subject: "",
     branch: "",
     type: "",
+    fromDate: "",
+    toDate: "",
   });
   const [error, setError] = useState(null);
 
@@ -253,7 +255,7 @@ const Material = () => {
         <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
           <FiSearch className="mr-2 text-blue-500" /> Filter Materials
         </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4">
           {/* Subject Filter */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -311,6 +313,30 @@ const Material = () => {
               <option value="syllabus">Syllabus</option>
               <option value="other">Other</option>
             </select>
+          </div>
+
+          {/* From Date */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">From Date</label>
+            <input
+              type="date"
+              name="fromDate"
+              value={filters.fromDate}
+              onChange={handleFilterChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* To Date */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">To Date</label>
+            <input
+              type="date"
+              name="toDate"
+              value={filters.toDate}
+              onChange={handleFilterChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
           </div>
         </div>
       </section>

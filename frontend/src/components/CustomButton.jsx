@@ -4,7 +4,7 @@ const CustomButton = ({
   children,
   onClick,
   type = "button",
-  disabled = false,
+  disabled,
   className = "",
   variant = "primary",
 }) => {

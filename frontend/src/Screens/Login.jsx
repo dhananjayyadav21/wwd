@@ -13,7 +13,7 @@ const USER_TYPES = {
   ADMIN: "Admin",
 };
 
-const LoginForm = ({ selected, onSubmit, formData, setFormData }) => (
+const LoginForm = ({ selected, onSubmit, formData, setFormData, isLoading }) => (
   <form
     className="w-full p-8 bg-white rounded-xl shadow-xl border border-gray-200"
     onSubmit={onSubmit}
@@ -60,10 +60,10 @@ const LoginForm = ({ selected, onSubmit, formData, setFormData }) => (
     </div>
     <CustomButton
       type="submit"
-      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200 flex justify-center items-center gap-2"
+      className="w-full bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200 flex justify-center items-center gap-2 disabled:cursor-not-allowed"
+      disabled={isLoading}
     >
-      Login
-      <FiLogIn className="text-lg" />
+      {isLoading ? "Login....." : <>Login <FiLogIn className="text-lg" /></>}
     </CustomButton>
   </form>
 );
@@ -89,6 +89,7 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(false);
   const type = searchParams.get("type");
 
   const [formData, setFormData] = useState({
@@ -106,6 +107,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     toast.loading("Login...");
 
     if (!formData.email || !formData.password) {
@@ -132,6 +134,8 @@ const Login = () => {
       toast.dismiss();
       console.error(error);
       toast.error(error.response?.data?.message || "Login failed");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -158,6 +162,7 @@ const Login = () => {
         <UserTypeSelector selected={selected} onSelect={handleUserTypeSelect} />
         <LoginForm
           selected={selected}
+          isLoading={isLoading}
           onSubmit={handleSubmit}
           formData={formData}
           setFormData={setFormData}

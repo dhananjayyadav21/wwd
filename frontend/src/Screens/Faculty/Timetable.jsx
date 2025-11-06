@@ -39,8 +39,8 @@ const AddTimetableModal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-2">
-      <div className="bg-white p-8 rounded-lg w-[500px] max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+      <div className="bg-white p-8 rounded-lg w-[full] max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold">
             {initialData ? "Edit Timetable" : "Add New Timetable"}
@@ -239,54 +239,61 @@ const Timetable = () => {
   };
 
   return (
-    <div className="w-full mx-auto mt-10 flex justify-center items-start flex-col mb-10 relative">
-      <div className="flex justify-between items-center w-full">
+    <div className="w-full mx-auto mt-10 flex flex-col justify-center items-start mb-10 relative px-2 sm:px-6 lg:px-8">
+      {/* Header Section */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center w-full gap-4">
         <Heading title="Timetable Management" />
-        <CustomButton onClick={() => setShowAddModal(true)}>
+        <CustomButton onClick={() => setShowAddModal(true)} className="self-end sm:self-auto">
           <IoMdAdd className="text-2xl" />
         </CustomButton>
       </div>
 
-      <div className="mt-8 w-full">
-        <table className="text-sm min-w-full bg-white">
+      {/* Table Section */}
+      <div className="mt-8 w-full overflow-x-auto">
+        <table className="min-w-full bg-white text-sm border rounded-lg shadow-sm">
           <thead>
             <tr className="bg-gray-900 text-white">
-              <th className="py-4 px-6 text-left font-semibold">View</th>
-              <th className="py-4 px-6 text-left font-semibold">Batch</th>
-              <th className="py-4 px-6 text-left font-semibold">Created At</th>
-              <th className="py-4 px-6 text-center font-semibold">Actions</th>
+              <th className="py-3 px-4 sm:py-4 sm:px-6 text-left font-semibold">View</th>
+              <th className="py-3 px-4 sm:py-4 sm:px-6 text-left font-semibold">Batch</th>
+              <th className="py-3 px-4 sm:py-4 sm:px-6 text-left font-semibold">Created At</th>
+              <th className="py-3 px-4 sm:py-4 sm:px-6 text-center font-semibold">Actions</th>
             </tr>
           </thead>
           <tbody>
             {timetables.map((item, index) => (
-              <tr key={index} className="border-b hover:bg-blue-50">
-                <td className="py-4 px-6">
+              <tr
+                key={index}
+                className="border-b hover:bg-blue-50 transition-colors duration-150"
+              >
+                <td className="py-3 px-4 sm:py-4 sm:px-6">
                   <a
-                    className="text-xl"
-                    href={process.env.REACT_APP_MEDIA_LINK + "/" + item.link}
+                    href={`${process.env.REACT_APP_MEDIA_LINK}/${item.link}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 text-lg"
                   >
                     <MdLink />
                   </a>
                 </td>
-                <td className="py-4 px-6">{item.branch.name}</td>
-                <td className="py-4 px-6">
+                <td className="py-3 px-4 sm:py-4 sm:px-6">{item.branch.name}</td>
+                <td className="py-3 px-4 sm:py-4 sm:px-6">
                   {new Date(item.createdAt).toLocaleDateString()}
                 </td>
-                <td className="py-4 px-6 text-center flex justify-center gap-4">
-                  <CustomButton
-                    variant="secondary"
-                    onClick={() => editTimetableHandler(item)}
-                  >
-                    <MdEdit />
-                  </CustomButton>
-                  <CustomButton
-                    variant="danger"
-                    onClick={() => deleteTimetableHandler(item._id)}
-                  >
-                    <MdOutlineDelete />
-                  </CustomButton>
+                <td className="py-3 px-4 sm:py-4 sm:px-6 text-center">
+                  <div className="flex justify-center gap-2 sm:gap-4">
+                    <CustomButton
+                      variant="secondary"
+                      onClick={() => editTimetableHandler(item)}
+                    >
+                      <MdEdit />
+                    </CustomButton>
+                    <CustomButton
+                      variant="danger"
+                      onClick={() => deleteTimetableHandler(item._id)}
+                    >
+                      <MdOutlineDelete />
+                    </CustomButton>
+                  </div>
                 </td>
               </tr>
             ))}
@@ -294,6 +301,7 @@ const Timetable = () => {
         </table>
       </div>
 
+      {/* Modals */}
       <AddTimetableModal
         isOpen={showAddModal}
         onClose={() => {
@@ -312,6 +320,7 @@ const Timetable = () => {
         message="Are you sure you want to delete this timetable?"
       />
     </div>
+
   );
 };
 

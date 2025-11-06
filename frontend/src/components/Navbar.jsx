@@ -23,7 +23,7 @@ const Navbar = () => {
 
   return (
     // **Modern Styling:** Soft shadow, slightly rounded, clean background
-    <nav className="bg-white shadow-lg sticky top-0 z-10 border-b border-gray-100">
+    <nav className="bg-white sticky top-0 z-10 border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         {/* Flex container for content, using 'flex-wrap' for small screens */}
         <div className="flex justify-between items-center gap-4 flex-wrap">

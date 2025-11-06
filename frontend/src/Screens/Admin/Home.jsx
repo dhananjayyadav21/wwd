@@ -128,14 +128,14 @@ const Home = () => {
     <>
       <Navbar />
 
-      <div className="w-full mx-auto">
+      <div className="w-full mx-auto bg-white">
         {/* ✅ Modern Scrollable Top Menu */}
         <div
           className="
             flex overflow-x-auto sm:overflow-visible
-            gap-3 sm:gap-5 py-4 mx-1 sm:py-6
+            gap-3 sm:gap-5 py-4 px-1 sm:py-6
             scrollbar-hide justify-start sm:justify-center
-            sticky top-16 z-20
+            sticky top-14 z-20 bg-white
           "
         >
           {MENU_ITEMS.map((item) => (

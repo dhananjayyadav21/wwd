@@ -126,7 +126,7 @@ const Home = () => {
         </div>
 
         {/* ✅ Main Content Area */}
-        <div className="bg-white/70 backdrop-blur-lg sm:p-4 md:p-8 mt-4 sm:mt-6 min-h-[70vh] transition-all">
+        <div className="bg-white/70 backdrop-blur-lg py-2 sm:p-4 md:p-8 mt-4 sm:mt-6 min-h-[70vh] transition-all">
           {renderContent()}
         </div>
       </div>

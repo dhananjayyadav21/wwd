@@ -106,6 +106,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    toast.loading("Login...");
 
     if (!formData.email || !formData.password) {
       toast.error("Please fill in all fields");

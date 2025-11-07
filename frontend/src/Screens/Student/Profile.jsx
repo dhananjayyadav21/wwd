@@ -26,16 +26,16 @@ const Profile = ({ profileData }) => {
                 : "/assets/user.avif"
             }
             alt="Profile"
-            className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover ring-4 ring-gray-900 ring-offset-2"
+            className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover ring-4 ring-yellow-600 ring-offset-2"
           />
           <div className="text-center sm:text-left">
             <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-1">
               {`${profileData.firstName} ${profileData.middleName} ${profileData.lastName}`}
             </h1>
             <p className="text-sm sm:text-lg text-gray-600 mb-1">
-              {profileData.enrollmentNo}
+              Enrollment No: {profileData.enrollmentNo}
             </p>
-            <p className="text-sm sm:text-lg text-blue-600 font-medium">
+            <p className="text-sm sm:text-lg text-yellow-600 font-medium">
               {profileData.branchId.name}
             </p>
           </div>

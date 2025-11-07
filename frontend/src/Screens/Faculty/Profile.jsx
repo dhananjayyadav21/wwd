@@ -20,9 +20,9 @@ const Profile = ({ profileData }) => {
       <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-6 md:gap-8 mb-8 border-b pb-6">
         <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6">
           <img
-            src={`${process.env.REACT_APP_MEDIA_LINK}/${profileData.profile}`}
+            src={`${process.env.REACT_APP_MEDIA_LINK}/${profileData?.profile}` || "/assets/user.avif"}
             alt="Profile"
-            className="w-32 sm:w-40 h-32 sm:h-40 rounded-full object-cover ring-4 ring-blue-500 ring-offset-2"
+            className="w-32 sm:w-40 h-32 sm:h-40 rounded-full object-cover ring-4 ring-gray-900 ring-offset-2"
           />
           <div className="text-center md:text-left">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-1">
@@ -58,35 +58,35 @@ const Profile = ({ profileData }) => {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <div>
-              <label className="text-sm font-medium text-gray-500">Email</label>
+              <label className="text-sm font-medium text-gray-900">Email</label>
               <p className="text-gray-900">{profileData.email}</p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-500">Phone</label>
+              <label className="text-sm font-medium text-gray-900">Phone</label>
               <p className="text-gray-900">{profileData.phone}</p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-500">Gender</label>
+              <label className="text-sm font-medium text-gray-900">Gender</label>
               <p className="text-gray-900 capitalize">{profileData.gender}</p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-500">Blood Group</label>
+              <label className="text-sm font-medium text-gray-900">Blood Group</label>
               <p className="text-gray-900">{profileData.bloodGroup}</p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-500">Date of Birth</label>
+              <label className="text-sm font-medium text-gray-900">Date of Birth</label>
               <p className="text-gray-900">{formatDate(profileData.dob)}</p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-500">Joining Date</label>
+              <label className="text-sm font-medium text-gray-900">Joining Date</label>
               <p className="text-gray-900">{formatDate(profileData.joiningDate)}</p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-500">Salary</label>
+              <label className="text-sm font-medium text-gray-900">Salary</label>
               <p className="text-gray-900">₹{profileData.salary.toLocaleString()}</p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-500">Status</label>
+              <label className="text-sm font-medium text-gray-900">Status</label>
               <p className="text-gray-900 capitalize">{profileData.status}</p>
             </div>
           </div>
@@ -99,23 +99,23 @@ const Profile = ({ profileData }) => {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <div>
-              <label className="text-sm font-medium text-gray-500">Address</label>
+              <label className="text-sm font-medium text-gray-900">Address</label>
               <p className="text-gray-900">{profileData.address}</p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-500">City</label>
+              <label className="text-sm font-medium text-gray-900">City</label>
               <p className="text-gray-900">{profileData.city}</p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-500">State</label>
+              <label className="text-sm font-medium text-gray-900">State</label>
               <p className="text-gray-900">{profileData.state}</p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-500">Pincode</label>
+              <label className="text-sm font-medium text-gray-900">Pincode</label>
               <p className="text-gray-900">{profileData.pincode}</p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-500">Country</label>
+              <label className="text-sm font-medium text-gray-900">Country</label>
               <p className="text-gray-900">{profileData.country}</p>
             </div>
           </div>
@@ -128,15 +128,15 @@ const Profile = ({ profileData }) => {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <div>
-              <label className="text-sm font-medium text-gray-500">Name</label>
+              <label className="text-sm font-medium text-gray-900">Name</label>
               <p className="text-gray-900">{profileData.emergencyContact.name}</p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-500">Relationship</label>
+              <label className="text-sm font-medium text-gray-900">Relationship</label>
               <p className="text-gray-900">{profileData.emergencyContact.relationship}</p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-500">Phone</label>
+              <label className="text-sm font-medium text-gray-900">Phone</label>
               <p className="text-gray-900">{profileData.emergencyContact.phone}</p>
             </div>
           </div>

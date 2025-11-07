@@ -134,7 +134,7 @@ const Material = () => {
               name="fromDate"
               value={filters.fromDate}
               onChange={handleFilterChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800"
             />
           </div>
 
@@ -146,7 +146,7 @@ const Material = () => {
               name="toDate"
               value={filters.toDate}
               onChange={handleFilterChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800"
             />
           </div>
         </div>
@@ -194,7 +194,7 @@ const Material = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="4" className="text-center py-6 text-gray-500">
+                  <td colSpan="4" className="text-center py-6 text-gray-900">
                     No materials found.
                   </td>
                 </tr>

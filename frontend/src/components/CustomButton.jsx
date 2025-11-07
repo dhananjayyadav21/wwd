@@ -13,11 +13,11 @@ const CustomButton = ({
       case "primary":
         return "bg-gray-900 text-white hover:bg-gray-800";
       case "secondary":
-        return "bg-gray-500 text-white hover:bg-gray-600";
+        return "bg-gray-900 text-white hover:bg-gray-600";
       case "danger":
         return "bg-red-500 text-white hover:bg-red-600";
       default:
-        return "bg-blue-500 text-white hover:bg-blue-600";
+        return "bg-gray-900 text-white hover:bg-blue-600";
     }
   };
 

@@ -75,7 +75,7 @@ const UpdatePassword = () => {
               onChange={(e) => setNewPassword(e.target.value)}
               value={newPassword}
               required
-              className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
             />
           </div>
 
@@ -92,7 +92,7 @@ const UpdatePassword = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmPassword}
               required
-              className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
             />
           </div>
 

@@ -255,7 +255,7 @@ const Admin = () => {
           <div className="bg-white rounded-xl shadow-2xl w-full max-w-5xl max-h-[66vh] overflow-y-auto relative p-6 sm:p-8">
             <button
               onClick={resetForm}
-              className="absolute top-3 right-3 text-gray-500 hover:text-gray-900 p-2 rounded-full hover:bg-gray-100 transition-colors"
+              className="absolute top-3 right-3 text-gray-900 hover:text-gray-900 p-2 rounded-full hover:bg-gray-100 transition-colors"
               aria-label="Close form"
             >
               <IoMdClose className="text-2xl" />
@@ -278,7 +278,7 @@ const Admin = () => {
                   <input
                     type="file"
                     onChange={(e) => setFile(e.target.files[0])}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 text-sm"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 text-sm"
                     accept="image/*"
                   />
                 </div>
@@ -294,7 +294,7 @@ const Admin = () => {
                     onChange={(e) =>
                       handleInputChange("firstName", e.target.value)
                     }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
                     required
                   />
                 </div>
@@ -308,7 +308,7 @@ const Admin = () => {
                     onChange={(e) =>
                       handleInputChange("lastName", e.target.value)
                     }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
                     required
                   />
                 </div>
@@ -320,7 +320,7 @@ const Admin = () => {
                     type="email"
                     value={data.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
                     required
                   />
                 </div>
@@ -332,7 +332,7 @@ const Admin = () => {
                     type="tel"
                     value={data.phone}
                     onChange={(e) => handleInputChange("phone", e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
                     required
                   />
                 </div>
@@ -345,7 +345,7 @@ const Admin = () => {
                     onChange={(e) =>
                       handleInputChange("gender", e.target.value)
                     }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
                     required
                   >
                     <option value="">Select Gender</option>
@@ -362,7 +362,7 @@ const Admin = () => {
                     type="date"
                     value={data.dob}
                     onChange={(e) => handleInputChange("dob", e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
                     required
                   />
                 </div>
@@ -375,7 +375,7 @@ const Admin = () => {
                     onChange={(e) =>
                       handleInputChange("bloodGroup", e.target.value)
                     }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
                     required
                   >
                     <option value="">Select Blood Group</option>
@@ -401,7 +401,7 @@ const Admin = () => {
                     onChange={(e) =>
                       handleInputChange("designation", e.target.value)
                     }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
                     required
                   />
                 </div>
@@ -415,7 +415,7 @@ const Admin = () => {
                     onChange={(e) =>
                       handleInputChange("joiningDate", e.target.value)
                     }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
                     required
                   />
                 </div>
@@ -429,7 +429,7 @@ const Admin = () => {
                     onChange={(e) =>
                       handleInputChange("salary", e.target.value)
                     }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
                     required
                   />
                 </div>
@@ -445,7 +445,7 @@ const Admin = () => {
                     onChange={(e) =>
                       handleInputChange("address", e.target.value)
                     }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
                     required
                   />
                 </div>
@@ -459,7 +459,7 @@ const Admin = () => {
                     type="text"
                     value={data.city}
                     onChange={(e) => handleInputChange("city", e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
                     required
                   />
                 </div>
@@ -471,7 +471,7 @@ const Admin = () => {
                     type="text"
                     value={data.state}
                     onChange={(e) => handleInputChange("state", e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
                     required
                   />
                 </div>
@@ -485,7 +485,7 @@ const Admin = () => {
                     onChange={(e) =>
                       handleInputChange("pincode", e.target.value)
                     }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
                     required
                   />
                 </div>
@@ -499,7 +499,7 @@ const Admin = () => {
                     onChange={(e) =>
                       handleInputChange("country", e.target.value)
                     }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
                     required
                   />
                 </div>
@@ -520,7 +520,7 @@ const Admin = () => {
                         onChange={(e) =>
                           handleEmergencyContactChange("name", e.target.value)
                         }
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
                         required
                       />
                     </div>
@@ -537,7 +537,7 @@ const Admin = () => {
                             e.target.value
                           )
                         }
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
                         required
                       />
                     </div>
@@ -551,7 +551,7 @@ const Admin = () => {
                         onChange={(e) =>
                           handleEmergencyContactChange("phone", e.target.value)
                         }
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
                         required
                       />
                     </div>
@@ -630,7 +630,7 @@ const Admin = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6" className="text-center text-base py-10 text-gray-500">
+                  <td colSpan="6" className="text-center text-base py-10 text-gray-900">
                     No Admins found.
                   </td>
                 </tr>

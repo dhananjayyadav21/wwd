@@ -170,7 +170,7 @@ const Subject = () => {
         {!dataLoading && branch.length > 0 && (
           <div className="overflow-x-auto rounded-lg border border-gray-200">
             {subject.length === 0 ? (
-              <div className="text-center py-10 text-gray-500">No subjects found</div>
+              <div className="text-center py-10 text-gray-900">No subjects found</div>
             ) : (
               <table className="min-w-full bg-white">
                 <thead className="bg-gray-100 border-b">

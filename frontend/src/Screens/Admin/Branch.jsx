@@ -133,7 +133,7 @@ const Branch = () => {
             setSelectedBranchId(null);
           }
         }}
-        className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-500 hover:to-gray-600 text-white shadow-lg !rounded-full !p-4 transition-transform transform hover:scale-105"
+        className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 bg-gradient-to-r from-gray-900 to-gray-600 hover:from-gray-900 hover:to-gray-600 text-white shadow-lg !rounded-full !p-4 transition-transform transform hover:scale-105"
       >
         {showAddForm ? <IoMdClose className="text-3xl" /> : <IoMdAdd className="text-3xl" />}
       </CustomButton>
@@ -151,7 +151,7 @@ const Branch = () => {
               </h2>
               <button
                 onClick={() => setShowAddForm(false)}
-                className="text-gray-500 hover:text-red-500 transition"
+                className="text-gray-900 hover:text-red-500 transition"
               >
                 <IoMdClose className="text-2xl" />
               </button>
@@ -167,7 +167,7 @@ const Branch = () => {
                   value={data.name}
                   onChange={(e) => setData({ ...data, name: e.target.value })}
                   placeholder="e.g. Batch 1"
-                  className="w-full px-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-gray-500 outline-none transition"
+                  className="w-full px-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-gray-900 outline-none transition"
                 />
               </div>
 
@@ -180,7 +180,7 @@ const Branch = () => {
                   value={data.branchId}
                   onChange={(e) => setData({ ...data, branchId: e.target.value })}
                   placeholder="e.g. 001"
-                  className="w-full px-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-gray-500 outline-none transition"
+                  className="w-full px-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-gray-900 outline-none transition"
                 />
               </div>
 

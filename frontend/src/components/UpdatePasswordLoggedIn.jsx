@@ -99,7 +99,7 @@ const UpdatePasswordLoggedIn = ({ onClose }) => {
           {/* Close Button: Replaced IoMdClose with Inline SVG to fix the import error */}
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-900 transition duration-150 p-1 rounded-full hover:bg-gray-100"
+            className="text-gray-900 hover:text-gray-900 transition duration-150 p-1 rounded-full hover:bg-gray-100"
             aria-label="Close modal"
           >
             {/* Inline SVG for Close Icon (IoMdClose replacement) */}

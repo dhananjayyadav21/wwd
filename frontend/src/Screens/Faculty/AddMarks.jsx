@@ -282,7 +282,7 @@ const AddMarks = () => {
                 name="branch"
                 value={selectedBranch?._id || ""}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900"
               >
                 <option value="">Select Batch</option>
                 {branches?.map((branch) => (
@@ -299,10 +299,10 @@ const AddMarks = () => {
                 value={selectedSubject?._id || ""}
                 onChange={handleInputChange}
                 disabled={!selectedBranch}
-                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${!selectedBranch ? "bg-gray-100 cursor-not-allowed" : ""}`}
+                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900 ${!selectedBranch ? "bg-gray-100 cursor-not-allowed" : ""}`}
               >
                 <option value="">{!selectedBranch ? (
-                  <p className="text-xs text-gray-500">Please select a Batch first</p>
+                  <p className="text-xs text-gray-900">Please select a Batch first</p>
                 ) : <p>Select Subject</p>}</option>
                 {subjects?.map((subject) => (
                   <option key={subject._id} value={subject._id}>{subject.name}</option>
@@ -318,10 +318,10 @@ const AddMarks = () => {
                 value={selectedExam?._id || ""}
                 onChange={handleInputChange}
                 disabled={!selectedBranch}
-                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${!selectedSubject ? "bg-gray-100 cursor-not-allowed" : ""}`}
+                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900 ${!selectedSubject ? "bg-gray-100 cursor-not-allowed" : ""}`}
               >
                 <option value="">{!selectedSubject ? (
-                  <p className="text-xs text-gray-500 mt-1">Please select a subject first</p>
+                  <p className="text-xs text-gray-900 mt-1">Please select a subject first</p>
                 ) : <p>Select Exam</p>}</option>
                 {exams?.map((exam) => (
                   <option key={exam._id} value={exam._id}>{exam.name}</option>
@@ -364,7 +364,7 @@ const AddMarks = () => {
                   { label: "Subject", value: selectedSubject?.name || "Not Selected" },
                 ].map((item) => (
                   <div key={item.label} className="border p-3 rounded-md shadow">
-                    <span className="text-sm text-gray-500">{item.label}:</span>
+                    <span className="text-sm text-gray-900">{item.label}:</span>
                     <p className="text-gray-800">{item.value}</p>
                   </div>
                 ))}
@@ -387,7 +387,7 @@ const AddMarks = () => {
                   { label: "Students", value: masterMarksData.length || "Not Selected" },
                 ].map((item) => (
                   <div key={item.label} className="border p-3 rounded-md shadow">
-                    <span className="text-sm text-gray-500">{item.label}:</span>
+                    <span className="text-sm text-gray-900">{item.label}:</span>
                     <p className="text-gray-800">{item.value}</p>
                   </div>
                 ))}
@@ -416,7 +416,7 @@ const AddMarks = () => {
                   type="number"
                   min={0}
                   max={selectedExam?.totalMarks || 100}
-                  className="px-4 py-2 border rounded-md focus:outline-none bg-gray-50 border-gray-200 focus:ring-2 focus:ring-blue-500 flex-1 mt-2 sm:mt-0"
+                  className="px-4 py-2 border rounded-md focus:outline-none bg-gray-50 border-gray-200 focus:ring-2 focus:ring-gray-900 flex-1 mt-2 sm:mt-0"
                   value={marksData[student._id] || ""}
                   placeholder="Enter Marks"
                   onChange={(e) =>
@@ -438,7 +438,7 @@ const AddMarks = () => {
                 id="consent"
                 checked={consent}
                 onChange={(e) => setConsent(e.target.checked)}
-                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-gray-900"
               />
               <label htmlFor="consent" className="text-sm text-gray-700">
                 I confirm that all marks entered are correct and verified

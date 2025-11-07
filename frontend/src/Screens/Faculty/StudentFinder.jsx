@@ -93,7 +93,7 @@ const StudentFinder = () => {
               value={searchParams.enrollmentNo}
               onChange={handleInputChange}
               placeholder="Enter enrollment number"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900"
             />
           </div>
 
@@ -105,7 +105,7 @@ const StudentFinder = () => {
               value={searchParams.name}
               onChange={handleInputChange}
               placeholder="Enter student name"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900"
             />
           </div>
 
@@ -115,7 +115,7 @@ const StudentFinder = () => {
               name="branch"
               value={searchParams.branch}
               onChange={handleInputChange}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900"
             >
               <option value="">Select Branch</option>
               {branches?.map((branch) => (

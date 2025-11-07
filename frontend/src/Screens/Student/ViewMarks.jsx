@@ -52,7 +52,7 @@ const ViewMarks = () => {
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-xl font-semibold mb-4">Mid Term Marks</h2>
           {dataLoading ? (
-            <p className="text-gray-500">Loading...</p>
+            <p className="text-gray-900">Loading...</p>
           ) : midTermMarks.length > 0 ? (
             <div className="space-y-4">
               {midTermMarks.map((mark) => (
@@ -65,7 +65,7 @@ const ViewMarks = () => {
                       <p className="font-medium text-gray-800">
                         {mark?.subjectId?.name}
                       </p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-900">
                         {mark?.examId?.name}
                       </p>
                     </div>
@@ -73,7 +73,7 @@ const ViewMarks = () => {
                       <p className="text-lg font-semibold text-blue-600">
                         {mark?.marksObtained}
                       </p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-900">
                         out of {mark?.examId?.totalMarks}
                       </p>
                     </div>
@@ -82,14 +82,14 @@ const ViewMarks = () => {
               ))}
             </div>
           ) : (
-            <p className="text-gray-500">No mid term marks available</p>
+            <p className="text-gray-900">No mid term marks available</p>
           )}
         </div>
 
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-xl font-semibold mb-4">End Term Marks</h2>
           {dataLoading ? (
-            <p className="text-gray-500">Loading...</p>
+            <p className="text-gray-900">Loading...</p>
           ) : endTermMarks.length > 0 ? (
             <div className="space-y-4">
               {endTermMarks.map((mark) => (
@@ -102,7 +102,7 @@ const ViewMarks = () => {
                       <p className="font-medium text-gray-800">
                         {/* {mark?.subjectId?.name} */}
                       </p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-900">
                         {mark?.examId?.name}
                       </p>
                     </div>
@@ -110,7 +110,7 @@ const ViewMarks = () => {
                       <p className="text-lg font-semibold text-blue-600">
                         {mark?.marksObtained}
                       </p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-900">
                         out of {mark?.examId?.totalMarks}
                       </p>
                     </div>
@@ -119,7 +119,7 @@ const ViewMarks = () => {
               ))}
             </div>
           ) : (
-            <p className="text-gray-500">No end term marks available</p>
+            <p className="text-gray-900">No end term marks available</p>
           )}
         </div>
       </div>

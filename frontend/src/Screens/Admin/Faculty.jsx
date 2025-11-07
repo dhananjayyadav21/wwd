@@ -247,7 +247,7 @@ const Faculty = () => {
                     type={type}
                     value={data[field]}
                     onChange={(e) => handleInputChange(field, e.target.value)}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all text-gray-800 placeholder-gray-400"
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-gray-800 placeholder-gray-400"
                     placeholder={`Enter ${label.toLowerCase()}`}
                     required
                   />
@@ -260,7 +260,7 @@ const Faculty = () => {
                 <select
                   value={data.gender}
                   onChange={(e) => handleInputChange("gender", e.target.value)}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
                   required
                 >
                   <option value="">Select Gender</option>
@@ -278,7 +278,7 @@ const Faculty = () => {
                 <select
                   value={data.branchId}
                   onChange={(e) => handleInputChange("branchId", e.target.value)}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
                   required
                 >
                   <option value="">Select Batch</option>
@@ -297,7 +297,7 @@ const Faculty = () => {
                   type="text"
                   value={data.address}
                   onChange={(e) => handleInputChange("address", e.target.value)}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
                   placeholder="Enter complete address"
                   required
                 />
@@ -316,7 +316,7 @@ const Faculty = () => {
                       placeholder={`Enter ${f.charAt(0).toUpperCase() + f.slice(1)}`}
                       value={data.emergencyContact[f]}
                       onChange={(e) => handleEmergencyContactChange(f, e.target.value)}
-                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all"
+                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
                       required
                     />
                   ))}
@@ -388,7 +388,7 @@ const Faculty = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" className="text-center py-6 text-gray-500">
+                  <td colSpan="5" className="text-center py-6 text-gray-900">
                     No faculty found.
                   </td>
                 </tr>

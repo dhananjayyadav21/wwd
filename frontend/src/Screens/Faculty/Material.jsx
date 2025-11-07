@@ -336,7 +336,7 @@ const Material = () => {
       {/* Materials List/Table */}
       <section className="w-full">
         {materials.length === 0 ? (
-          <div className="text-center py-12 bg-white rounded-lg shadow-md text-gray-500">
+          <div className="text-center py-12 bg-white rounded-lg shadow-md text-gray-900">
             No materials found matching the filters.
           </div>
         ) : (
@@ -459,7 +459,7 @@ const Material = () => {
                   resetForm();
                 }}
                 variant="secondary"
-                className="!p-2 text-gray-500 hover:text-gray-800"
+                className="!p-2 text-gray-900 hover:text-gray-800"
               >
                 <AiOutlineClose size={24} />
               </CustomButton>

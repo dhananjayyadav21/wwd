@@ -149,7 +149,7 @@ const Exam = () => {
   };
 
   return (
-    <div className="w-full mx-auto mt-10 flex flex-col mb-10 px-1 sm:px-6 lg:px-8">
+    <div className="w-full mx-auto mt-10 flex flex-col mb-10 px-2 sm:px-6 lg:px-8">
       <div className="flex flex-row justify-between items-center w-full gap-4">
         <Heading title="Exam Details" />
         {loginType !== "Student" && (
@@ -222,7 +222,7 @@ const Exam = () => {
                 <tr>
                   <td
                     colSpan={loginType !== "Student" ? 6 : 5}
-                    className="text-center py-6 text-gray-500"
+                    className="text-center py-6 text-gray-900"
                   >
                     No exams found.
                   </td>
@@ -253,7 +253,7 @@ const Exam = () => {
                   type="text"
                   value={data.name}
                   onChange={(e) => setData({ ...data, name: e.target.value })}
-                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-gray-900 outline-none"
                 />
               </div>
 
@@ -263,7 +263,7 @@ const Exam = () => {
                   type="date"
                   value={data.date}
                   onChange={(e) => setData({ ...data, date: e.target.value })}
-                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-gray-900 outline-none"
                 />
               </div>
 
@@ -272,7 +272,7 @@ const Exam = () => {
                 <select
                   value={data.examType}
                   onChange={(e) => setData({ ...data, examType: e.target.value })}
-                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-gray-900 outline-none"
                 >
                   <option value="mid">Mid Term</option>
                   <option value="end">End Term</option>
@@ -285,7 +285,7 @@ const Exam = () => {
                   type="number"
                   value={data.totalMarks}
                   onChange={(e) => setData({ ...data, totalMarks: e.target.value })}
-                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-gray-900 outline-none"
                 />
               </div>
 
@@ -298,7 +298,7 @@ const Exam = () => {
                   value={data.examLink}
                   onChange={(e) => setData({ ...data, examLink: e.target.value })}
                   placeholder="https://example.com/exam-link"
-                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-gray-900 outline-none"
                 />
               </div>
             </div>

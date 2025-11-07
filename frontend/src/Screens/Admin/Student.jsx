@@ -351,7 +351,7 @@ const Student = () => {
                   name="enrollmentNo"
                   value={searchParams.enrollmentNo}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900 transition duration-150"
                   placeholder="Enter enrollment number"
                 />
               </div>
@@ -366,7 +366,7 @@ const Student = () => {
                   name="name"
                   value={searchParams.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900 transition duration-150"
                   placeholder="Enter student name"
                 />
               </div>
@@ -380,7 +380,7 @@ const Student = () => {
                   name="branch"
                   value={searchParams.branch}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 bg-white"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900 transition duration-150 bg-white"
                 >
                   <option value="">Select Batch</option>
                   {branches?.map((branch) => (
@@ -409,7 +409,7 @@ const Student = () => {
 
       {/* Search Instructions */}
       {!hasSearched && branches.length > 0 && (
-        <div className="text-center mt-12 text-gray-500 flex flex-col items-center justify-center p-10 bg-gray-50 rounded-xl shadow-inner mx-auto max-w-lg">
+        <div className="text-center mt-12 text-gray-900 flex flex-col items-center justify-center p-10 bg-gray-50 rounded-xl shadow-inner mx-auto max-w-lg">
 
           <p className="mt-4 text-base">
             Please use the filters above to search for students.
@@ -434,22 +434,22 @@ const Student = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                     Profile
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                     Name
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                     E. No
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                     Batch
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider hidden sm:table-cell">
                     Email
                   </th>
-                  <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-center text-xs font-medium text-gray-900 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -471,10 +471,10 @@ const Student = () => {
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       {student.firstName} {student.middleName} {student.lastName}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {student.enrollmentNo}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {student.branchId?.name || "N/A"}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-600 hidden sm:table-cell">
@@ -515,7 +515,7 @@ const Student = () => {
             {/* Close Button */}
             <button
               onClick={resetForm}
-              className="absolute top-4 right-4 text-gray-500 hover:text-red-600 p-2 rounded-full bg-gray-100 hover:bg-red-50 transition-colors shadow-md"
+              className="absolute top-4 right-4 text-gray-900 hover:text-red-600 p-2 rounded-full bg-gray-100 hover:bg-red-50 transition-colors shadow-md"
             >
               <IoMdClose className="text-2xl" />
             </button>
@@ -582,7 +582,7 @@ const Student = () => {
                             onChange={(e) =>
                               handleFormInputChange(key, e.target.value)
                             }
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900 transition duration-150"
                             placeholder={`Enter ${labelMap[key] || key}`}
                             required={!["middleName", "profile"].includes(key)}
                           />
@@ -600,7 +600,7 @@ const Student = () => {
                       onChange={(e) =>
                         handleFormInputChange("branchId", e.target.value)
                       }
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 bg-white"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900 transition duration-150 bg-white"
                       required
                     >
                       <option value="">Select Batch</option>
@@ -622,7 +622,7 @@ const Student = () => {
                       onChange={(e) =>
                         handleFormInputChange("gender", e.target.value)
                       }
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 bg-white"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900 transition duration-150 bg-white"
                       required
                     >
                       <option value="">Select Gender</option>
@@ -642,7 +642,7 @@ const Student = () => {
                       onChange={(e) =>
                         handleFormInputChange("bloodGroup", e.target.value)
                       }
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 bg-white"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900 transition duration-150 bg-white"
                       required
                     >
                       <option value="">Select Blood Group</option>
@@ -693,7 +693,7 @@ const Student = () => {
                               onChange={(e) =>
                                 handleEmergencyContactChange(key, e.target.value)
                               }
-                              className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150"
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900 transition duration-150"
                               placeholder={`Enter ${labelMap[key]}`}
                               required
                             />

@@ -162,7 +162,7 @@ const Notice = () => {
       {!dataLoading && (
         <div className="mt-8">
           {notices.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-gray-900">
               No notices found
             </div>
           ) : (
@@ -183,7 +183,7 @@ const Notice = () => {
                       >
                         {notice.title}
                         {notice.link && (
-                          <IoMdLink className="ml-2 flex-shrink-0 text-xl opacity-70 group-hover:opacity-100 group-hover:text-blue-500" />
+                          <IoMdLink className="ml-2 flex-shrink-0 text-xl opacity-70 group-hover:opacity-100 group-hover:text-gray-900" />
                         )}
                       </h3>
                       {(router.pathname === "/faculty" ||
@@ -216,7 +216,7 @@ const Notice = () => {
                       {notice.description}
                     </p>
 
-                    <div className="flex items-center justify-between text-xs text-gray-500">
+                    <div className="flex items-center justify-between text-xs text-gray-900">
                       <div className="flex items-center">
                         <HiOutlineCalendar className="mr-1" />
                         {new Date(notice.createdAt).toLocaleString("en-GB", {
@@ -252,7 +252,7 @@ const Notice = () => {
                   setShowAddModal(false);
                   setEditingNotice(null);
                 }}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-gray-900 hover:text-gray-700"
               >
                 <IoMdClose className="text-3xl" />
               </button>
@@ -269,7 +269,7 @@ const Notice = () => {
                   onChange={(e) =>
                     setFormData({ ...formData, title: e.target.value })
                   }
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900"
                 />
               </div>
 
@@ -283,7 +283,7 @@ const Notice = () => {
                   onChange={(e) =>
                     setFormData({ ...formData, description: e.target.value })
                   }
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900"
                 />
               </div>
 
@@ -297,7 +297,7 @@ const Notice = () => {
                   onChange={(e) =>
                     setFormData({ ...formData, link: e.target.value })
                   }
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900"
                 />
               </div>
 
@@ -310,7 +310,7 @@ const Notice = () => {
                   onChange={(e) =>
                     setFormData({ ...formData, type: e.target.value })
                   }
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900"
                 >
                   <option value="">Select Type</option>
                   <option value="student">Student</option>

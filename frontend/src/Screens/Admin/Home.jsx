@@ -92,7 +92,7 @@ const Home = () => {
       px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl
       font-medium text-sm sm:text-base transition-all duration-300
       ${isSelected
-        ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md scale-105"
+        ? "bg-gradient-to-r from-gray-900 to-indigo-600 text-white shadow-md scale-105"
         : "bg-white/40 text-gray-700 backdrop-blur-md border border-gray-200 hover:bg-white/60 hover:text-blue-700"
       }
     `;

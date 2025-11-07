@@ -16,12 +16,8 @@ const Material = new mongoose.Schema(
       ref: "FacultyDetail",
       required: true,
     },
-    file: {
+    materialLink: {
       type: String,
-      required: true,
-    },
-    semester: {
-      type: Number,
     },
     branch: {
       type: mongoose.Schema.Types.ObjectId,

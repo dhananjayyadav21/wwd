@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { FiUpload, FiEdit2, FiTrash2, FiSearch } from "react-icons/fi";
+import { FiEdit2, FiTrash2, FiSearch } from "react-icons/fi";
 import Heading from "../../components/Heading";
 import { AiOutlineClose } from "react-icons/ai";
 import toast from "react-hot-toast";
@@ -24,8 +24,9 @@ const Material = () => {
     subject: "",
     branch: "",
     type: "notes",
+    materialLink: "",
   });
-  const [file, setFile] = useState(null);
+
   const [filters, setFilters] = useState({
     subject: "",
     branch: "",
@@ -33,7 +34,6 @@ const Material = () => {
     fromDate: "",
     toDate: "",
   });
-  const [error, setError] = useState(null);
 
   // --- Logic remains identical ---
 
@@ -143,51 +143,42 @@ const Material = () => {
     }));
   };
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
-
   const resetForm = () => {
     setFormData({
       title: "",
       subject: "",
       branch: "",
       type: "notes",
+      materialLink: "",
     });
-    setFile(null);
     setEditingMaterial(null);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setDataLoading(true);
-    toast.loading(
-      editingMaterial ? "Updating material..." : "Adding material..."
-    );
+    toast.loading(editingMaterial ? "Updating material..." : "Adding material...");
 
     try {
-      const formDataToSend = new FormData();
-      Object.keys(formData).forEach((key) => {
-        formDataToSend.append(key, formData[key]);
-      });
-      if (file) {
-        formDataToSend.append("file", file);
+      if (!formData.materialLink.trim()) {
+        toast.error("Please enter a material link");
+        setDataLoading(false);
+        toast.dismiss();
+        return;
       }
 
       if (editingMaterial) {
-        await axiosWrapper.put(
-          `/material/${editingMaterial._id}`,
-          formDataToSend, {
+        await axiosWrapper.put(`/material/${editingMaterial._id}`, formData, {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("userToken")}`,
           },
         });
         toast.success("Material updated successfully");
       } else {
-        await axiosWrapper.post("/material", formDataToSend, {
+        await axiosWrapper.post("/material", formData, {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("userToken")}`,
           },
         });
@@ -204,6 +195,7 @@ const Material = () => {
       toast.dismiss();
     }
   };
+
 
   const handleEdit = (material) => {
     setEditingMaterial(material);
@@ -244,7 +236,7 @@ const Material = () => {
         <CustomButton onClick={() => {
           setShowModal(true);
           resetForm(); // Ensure form is reset for new material
-        }} className="flex items-center space-x-2 bg-gray-900 hover:bg-gray-800 text-white rounded-lg px-4 py-2 transition duration-200">
+        }} className="flex items-center space-x-2 bg-gray-800 hover:bg-gray-800 text-white rounded-lg px-4 py-2 transition duration-200">
           <IoMdAdd className="text-xl" />
           <span className="hidden sm:inline">Add Material</span>
         </CustomButton>
@@ -253,7 +245,7 @@ const Material = () => {
       {/* Filters Section */}
       <section className="bg-white p-4 rounded-lg shadow-md mb-8">
         <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-          <FiSearch className="mr-2 text-blue-500" /> Filter Materials
+          <FiSearch className="mr-2 text-gray-800" /> Filter Materials
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4">
           {/* Subject Filter */}
@@ -265,7 +257,7 @@ const Material = () => {
               name="subject"
               value={filters.subject}
               onChange={handleFilterChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800 transition duration-150"
             >
               <option value="">All Subjects</option>
               {subjects.map((subject) => (
@@ -285,7 +277,7 @@ const Material = () => {
               name="branch"
               value={filters.branch}
               onChange={handleFilterChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800 transition duration-150"
             >
               <option value="">All Branches</option>
               {branches.map((branch) => (
@@ -305,7 +297,7 @@ const Material = () => {
               name="type"
               value={filters.type}
               onChange={handleFilterChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800 transition duration-150"
             >
               <option value="">All Types</option>
               <option value="notes">Notes</option>
@@ -323,7 +315,7 @@ const Material = () => {
               name="fromDate"
               value={filters.fromDate}
               onChange={handleFilterChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800"
             />
           </div>
 
@@ -335,7 +327,7 @@ const Material = () => {
               name="toDate"
               value={filters.toDate}
               onChange={handleFilterChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800"
             />
           </div>
         </div>
@@ -351,7 +343,7 @@ const Material = () => {
           <div className="overflow-x-auto hidden lg:block rounded-lg shadow-md">
             {/* Table View for large screens */}
             <table className="min-w-full text-sm">
-              <thead className="bg-blue-600 text-white">
+              <thead className="bg-gray-900 text-white">
                 <tr>
                   <th className="py-3 px-4 text-left font-semibold">Title</th>
                   <th className="py-3 px-4 text-left font-semibold">Subject</th>
@@ -364,8 +356,8 @@ const Material = () => {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {materials.map((material) => (
-                  <tr key={material._id} className="hover:bg-blue-50 transition duration-150">
-                    <td className="py-4 px-4 font-medium text-gray-900">{material.title}</td>
+                  <tr key={material._id} className="hover:bg-gray-50 transition duration-150">
+                    <td className="py-4 px-4 font-medium text-gray-800">{material.title}</td>
                     <td className="py-4 px-4 text-gray-700">{material.subject.name}</td>
                     <td className="py-4 px-4 text-gray-700">{material.branch.name}</td>
                     <td className="py-4 px-4 text-gray-700 capitalize">{material.type}</td>
@@ -373,16 +365,13 @@ const Material = () => {
                     <td className="py-4 px-4">
                       <CustomButton
                         variant="primary"
-                        onClick={() => {
-                          window.open(
-                            `${process.env.REACT_APP_MEDIA_LINK}/${material.file}`
-                          );
-                        }}
+                        onClick={() => window.open(material.materialLink)}
                         className="!p-2 !text-sm flex items-center space-x-1"
                       >
                         <MdLink className="text-lg" />
-                        <span className="hidden sm:inline">View</span>
+                        <span className="hidden sm:inline">Open Link</span>
                       </CustomButton>
+
                     </td>
                     <td className="py-4 px-4">
                       <div className="flex gap-2">
@@ -416,7 +405,7 @@ const Material = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:hidden">
           {materials.map((material) => (
             <div key={material._id} className="bg-white p-4 rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition duration-300">
-              <h4 className="text-lg font-bold text-blue-600 mb-2">{material.title}</h4>
+              <h4 className="text-lg font-bold text-gray-900 mb-2">{material.title}</h4>
               <div className="space-y-1 text-sm text-gray-700">
                 <p><strong>Subject:</strong> {material.subject.name}</p>
                 <p><strong>Batch:</strong> {material.branch.name}</p>
@@ -425,15 +414,11 @@ const Material = () => {
               <div className="mt-4 flex justify-between items-center gap-2">
                 <CustomButton
                   variant="primary"
-                  onClick={() => {
-                    window.open(
-                      `${process.env.REACT_APP_MEDIA_LINK}/${material.file}`
-                    );
-                  }}
-                  className="flex items-center space-x-1 !py-2 !px-3"
+                  onClick={() => window.open(material.materialLink)}
+                  className="!p-2 !text-sm flex items-center space-x-1"
                 >
-                  <MdLink className="text-xl" />
-                  <span>View File</span>
+                  <MdLink className="text-lg" />
+                  <span className="hidden sm:inline">Open Link</span>
                 </CustomButton>
                 <div className="flex gap-2">
                   <CustomButton
@@ -492,7 +477,7 @@ const Material = () => {
                   value={formData.title}
                   onChange={handleInputChange}
                   placeholder="Enter material title"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800"
                   required
                 />
               </div>
@@ -508,7 +493,7 @@ const Material = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800"
                     required
                   >
                     <option value="">Select Subject</option>
@@ -529,7 +514,7 @@ const Material = () => {
                     name="branch"
                     value={formData.branch}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800"
                     required
                   >
                     <option value="">Select Branch</option>
@@ -550,7 +535,7 @@ const Material = () => {
                     name="type"
                     value={formData.type}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800"
                     required
                   >
                     <option value="notes">Notes</option>
@@ -561,35 +546,22 @@ const Material = () => {
                 </div>
               </div>
 
-              {/* File Upload */}
+              {/* Material Link */}
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-1">
-                  Material File
+                  Material Link
                 </label>
-                <div className="flex items-center space-x-3">
-                  <label className="flex-1 flex items-center justify-center px-4 py-3 border-2 border-dashed border-blue-400 text-blue-600 bg-blue-50 rounded-lg cursor-pointer hover:bg-blue-100 transition duration-150">
-                    <FiUpload className="mr-2 text-xl" />
-                    <span className="truncate">
-                      {file ? file.name : (editingMaterial && !file) ? "Select a new file (optional)" : "Choose File"}
-                    </span>
-                    <input
-                      type="file"
-                      onChange={handleFileChange}
-                      className="hidden"
-                      required={!editingMaterial && !file}
-                    />
-                  </label>
-                  {file && (
-                    <CustomButton
-                      onClick={() => setFile(null)}
-                      variant="danger"
-                      className="!p-3 !text-lg"
-                    >
-                      <AiOutlineClose />
-                    </CustomButton>
-                  )}
-                </div>
+                <input
+                  type="url"
+                  name="materialLink"
+                  value={formData.materialLink}
+                  onChange={handleInputChange}
+                  placeholder="Enter Google Drive, YouTube, or website link"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800"
+                  required
+                />
               </div>
+
 
               {/* Form Actions */}
               <div className="flex justify-end space-x-3 pt-4 border-t">

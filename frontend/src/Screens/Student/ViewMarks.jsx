@@ -63,18 +63,18 @@ const ViewMarks = () => {
                   <div className="flex justify-between items-center">
                     <div>
                       <p className="font-medium text-gray-800">
-                        {mark.subjectId.name}
+                        {mark?.subjectId?.name}
                       </p>
                       <p className="text-sm text-gray-500">
-                        {mark.examId.name}
+                        {mark?.examId?.name}
                       </p>
                     </div>
                     <div className="text-right">
                       <p className="text-lg font-semibold text-blue-600">
-                        {mark.marksObtained}
+                        {mark?.marksObtained}
                       </p>
                       <p className="text-sm text-gray-500">
-                        out of {mark.examId.totalMarks}
+                        out of {mark?.examId?.totalMarks}
                       </p>
                     </div>
                   </div>
@@ -100,18 +100,18 @@ const ViewMarks = () => {
                   <div className="flex justify-between items-center">
                     <div>
                       <p className="font-medium text-gray-800">
-                        {mark.subjectId.name}
+                        {/* {mark?.subjectId?.name} */}
                       </p>
                       <p className="text-sm text-gray-500">
-                        {mark.examId.name}
+                        {mark?.examId?.name}
                       </p>
                     </div>
                     <div className="text-right">
                       <p className="text-lg font-semibold text-blue-600">
-                        {mark.marksObtained}
+                        {mark?.marksObtained}
                       </p>
                       <p className="text-sm text-gray-500">
-                        out of {mark.examId.totalMarks}
+                        out of {mark?.examId?.totalMarks}
                       </p>
                     </div>
                   </div>

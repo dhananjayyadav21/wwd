@@ -9,7 +9,6 @@ const marksSchema = new mongoose.Schema({
   subjectId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Subject",
-    required: true,
   },
   marksObtained: {
     type: Number,

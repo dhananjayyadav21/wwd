@@ -116,13 +116,13 @@ const deleteMarksController = async (req, res) => {
 
 const addBulkMarksController = async (req, res) => {
   try {
-    const { marks, examId, subjectId, semester } = req.body;
+    const { marks, examId } = req.body;
 
     if (!marks || !Array.isArray(marks) || !examId) {
       return res.status(400).json({
         success: false,
         message:
-          "Invalid input data. Required: marks array, examId, subjectId",
+          "Invalid input data. Required: marks array, examId",
       });
     }
 

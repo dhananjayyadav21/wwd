@@ -156,7 +156,7 @@ const Material = () => {
 
       {/* Materials Table */}
       {!dataLoading && (
-        <div className="overflow-x-auto mt-6">
+        <div className="overflow-x-auto mt-6 hidden sm:flex">
           <table className="min-w-full bg-white rounded-lg shadow-md divide-y divide-gray-200">
             <thead className="bg-gray-900 text-white">
               <tr>

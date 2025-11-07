@@ -172,7 +172,7 @@ const StudentFinder = () => {
                         className="w-12 h-12 rounded-full object-cover"
                         onError={(e) => {
                           e.target.src =
-                            "https://images.unsplash.com/photo-1744315900478-fa44dc6a4e89?q=80&w=3087&auto=format&fit=crop";
+                            "/assets/user.avif";
                         }}
                       />
                     </td>

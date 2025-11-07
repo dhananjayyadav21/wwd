@@ -20,7 +20,11 @@ const Profile = ({ profileData }) => {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12 border-b pb-8">
         <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-10">
           <img
-            src={`${process.env.REACT_APP_MEDIA_LINK}/${profileData?.profile}` || "/assets/user.avif"}
+            src={
+              profileData?.profile
+                ? `${process.env.REACT_APP_MEDIA_LINK}/${profileData.profile}`
+                : "/assets/user.avif"
+            }
             alt="Profile"
             className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover ring-4 ring-green-400 ring-offset-4 shadow-md transition-transform hover:scale-105"
           />

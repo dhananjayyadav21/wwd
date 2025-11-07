@@ -1,5 +1,8 @@
 const Notice = require("../models/notice.model");
 const ApiResponse = require("../utils/ApiResponse");
+const Student = require("../models/details/student-details.model");
+const Faculty = require("../models/details/faculty-details.model");
+const sendNoticeMail = require("../utils/sendNoticeMail");
 
 const getNoticeController = async (req, res) => {
   try {
@@ -21,18 +24,41 @@ const addNoticeController = async (req, res) => {
   }
 
   try {
+    // Create the notice
     const notice = await Notice.create({
       title,
-      type,
       description,
+      type,
       link,
     });
 
-    return ApiResponse.created(notice, "Notice Added Successfully!").send(res);
+    // Determine recipients
+    let recipients = [];
+    if (type === "student") {
+      recipients = await Student.find();
+    } else if (type === "faculty") {
+      recipients = await Faculty.find();
+    } else if (type === "both") {
+      const students = await Student.find();
+      const faculties = await Faculty.find();
+      recipients = [...students, ...faculties];
+    }
+
+    // Send emails (in parallel)
+    if (recipients.length > 0) {
+      const emailPromises = recipients.map((user) => {
+        return sendNoticeMail(user.email, title, description, link);
+      });
+      await Promise.all(emailPromises);
+    }
+
+    return ApiResponse.created(notice, "Notice added and emails sent!").send(res);
   } catch (error) {
+    console.error("Error adding notice:", error);
     return ApiResponse.error(error.message).send(res);
   }
 };
+
 
 const updateNoticeController = async (req, res) => {
   const { title, description, type, link } = req.body;
@@ -54,6 +80,33 @@ const updateNoticeController = async (req, res) => {
 
     if (!notice) {
       return ApiResponse.error("Notice Not Found!", 404).send(res);
+    }
+
+    if (notice) {
+      console.log("type--", type)
+
+      // Determine recipients
+      let recipients = [];
+      if (type === "student") {
+        recipients = await Student.find();
+      } else if (type === "faculty") {
+        recipients = await Faculty.find();
+      } else if (type === "both") {
+        const students = await Student.find();
+        const faculties = await Faculty.find();
+        recipients = [...students, ...faculties];
+      }
+
+      console.log("recipients.length---", recipients.length)
+
+      // Send emails (in parallel)
+      if (recipients.length > 0) {
+        const emailPromises = recipients.map((user) => {
+          console.log("Sending to:", user.email);
+          return sendNoticeMail(user.email, title, description, link);
+        });
+        await Promise.all(emailPromises);
+      }
     }
 
     return ApiResponse.success(notice, "Notice Updated Successfully!").send(

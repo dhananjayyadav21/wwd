@@ -194,7 +194,7 @@ const Faculty = () => {
     setData({ ...data, emergencyContact: { ...data.emergencyContact, [field]: value } });
 
   return (
-    <div className="w-full mx-auto mt-10 flex flex-col items-start mb-10 relative">
+    <div className="w-full mx-auto mt-10 flex flex-col items-start mb-10 relative p-2">
       <div className="flex justify-between items-center w-full mb-6">
         <Heading title="Faculty Management" />
         <button

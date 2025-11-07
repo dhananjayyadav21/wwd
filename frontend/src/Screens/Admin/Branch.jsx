@@ -120,7 +120,7 @@ const Branch = () => {
   };
 
   return (
-    <div className="w-full mx-auto mt-10 flex flex-col items-start mb-10 sm:px-8">
+    <div className="w-full mx-auto mt-10 flex flex-col items-start mb-10 sm:px-8 p-2">
       <Heading title="Batch Management" />
 
       {/* Floating Add Button */}

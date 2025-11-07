@@ -34,6 +34,7 @@ const Student = () => {
     email: "",
     branchId: "",
     gender: "",
+    aspiring: "",
     dob: "",
     address: "",
     city: "",
@@ -226,6 +227,7 @@ const Student = () => {
       email: student.email || "",
       branchId: student.branchId?._id || "",
       gender: student.gender || "",
+      aspiring: student.aspiring || "",
       dob: student.dob?.split("T")[0] || "",
       address: student.address || "",
       city: student.city || "",
@@ -282,6 +284,7 @@ const Student = () => {
       email: "",
       branchId: "",
       gender: "",
+      aspiring: "",
       dob: "",
       address: "",
       city: "",
@@ -446,6 +449,9 @@ const Student = () => {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                     Batch
                   </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
+                    Career Aspiring
+                  </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider hidden sm:table-cell">
                     Email
                   </th>
@@ -469,16 +475,19 @@ const Student = () => {
                       />
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {student.firstName} {student.middleName} {student.lastName}
+                      {student?.firstName} {student?.middleName} {student?.lastName}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {student.enrollmentNo}
+                      {student?.enrollmentNo}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {student.branchId?.name || "N/A"}
+                      {student?.branchId?.name || "N/A"}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {student?.aspiring}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-600 hidden sm:table-cell">
-                      {student.email}
+                      {student?.email}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                       <div className="flex justify-center space-x-2">
@@ -542,6 +551,7 @@ const Student = () => {
                         key !== "status" &&
                         key !== "branchId" &&
                         key !== "gender" &&
+                        key !== "aspiring" &&
                         key !== "bloodGroup"
                     )
                     .map((key) => {
@@ -609,6 +619,26 @@ const Student = () => {
                           {branch.name}
                         </option>
                       ))}
+                    </select>
+                  </div>
+
+                  {/* Aspiring Select */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Aspiring
+                    </label>
+                    <select
+                      value={formData.aspiring}
+                      onChange={(e) =>
+                        handleFormInputChange("aspiring", e.target.value)
+                      }
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900 transition duration-150 bg-white"
+                      required
+                    >
+                      <option value="">Career Aspiring</option>
+                      <option value="Data Analytics">Data Analytics</option>
+                      <option value="Software Engineer">Software Engineer</option>
+                      <option value="ML Engineer">ML Engineer</option>
                     </select>
                   </div>
 

@@ -155,6 +155,7 @@ const StudentFinder = () => {
                   <th className="px-4 py-3 text-left">Name</th>
                   <th className="px-4 py-3 text-left">Enrollment No</th>
                   <th className="px-4 py-3 text-left">Batch</th>
+                  <th className="px-4 py-3 text-left">Career Aspiring</th>
                   <th className="px-4 py-3 text-left">Email</th>
                 </tr>
               </thead>
@@ -176,10 +177,11 @@ const StudentFinder = () => {
                         }}
                       />
                     </td>
-                    <td className="px-4 py-3">{`${student.firstName} ${student.middleName} ${student.lastName}`}</td>
-                    <td className="px-4 py-3">{student.enrollmentNo}</td>
-                    <td className="px-4 py-3">{student.branchId?.name}</td>
-                    <td className="px-4 py-3">{student.email}</td>
+                    <td className="px-4 py-3">{`${student?.firstName} ${student?.middleName} ${student?.lastName}`}</td>
+                    <td className="px-4 py-3">{student?.enrollmentNo}</td>
+                    <td className="px-4 py-3">{student?.branchId?.name}</td>
+                    <td className="px-4 py-3">{student?.aspiring}</td>
+                    <td className="px-4 py-3">{student?.email}</td>
                   </tr>
                 ))}
               </tbody>

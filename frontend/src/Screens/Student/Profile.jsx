@@ -56,7 +56,7 @@ const Profile = ({ profileData }) => {
       )}
 
       {/* Info Sections */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-8 sm:my-16">
         {/* Personal Information */}
         <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
           <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 border-b border-gray-200 pb-2">
@@ -65,23 +65,23 @@ const Profile = ({ profileData }) => {
           <div className="space-y-3">
             <div>
               <label className="text-sm font-medium text-gray-900">Email</label>
-              <p className="text-gray-900">{profileData.email}</p>
+              <p className="text-gray-900">{profileData?.email}</p>
             </div>
             <div>
               <label className="text-sm font-medium text-gray-900">Phone</label>
-              <p className="text-gray-900">{profileData.phone}</p>
+              <p className="text-gray-900">{profileData?.phone}</p>
             </div>
             <div>
               <label className="text-sm font-medium text-gray-900">Gender</label>
-              <p className="text-gray-900 capitalize">{profileData.gender}</p>
+              <p className="text-gray-900 capitalize">{profileData?.gender}</p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-900">Blood Group</label>
-              <p className="text-gray-900">{profileData.bloodGroup}</p>
+              <label className="text-sm font-medium text-gray-900">Career Aspiring</label>
+              <p className="text-gray-900">{profileData?.aspiring}</p>
             </div>
             <div>
               <label className="text-sm font-medium text-gray-900">Date of Birth</label>
-              <p className="text-gray-900">{formatDate(profileData.dob)}</p>
+              <p className="text-gray-900">{formatDate(profileData?.dob)}</p>
             </div>
           </div>
         </div>

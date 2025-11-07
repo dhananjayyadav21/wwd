@@ -78,7 +78,7 @@ const Subject = () => {
       };
       let response;
       if (isEditing) {
-        response = await axiosWrapper.patch(`/subject/${selectedSubjectId}`, data, { headers });
+        response = await axiosWrapper.put(`/subject/${selectedSubjectId}`, data, { headers });
       } else {
         response = await axiosWrapper.post(`/subject`, data, { headers });
       }
@@ -146,7 +146,7 @@ const Subject = () => {
 
   return (
     <div className="min-h-[70vh] md:p-8">
-      <div className="max-w-7xl mx-auto px-1">
+      <div className="max-w-7xl mx-auto px-2">
         <div className="flex justify-between items-center w-full mb-5">
           <Heading title="Subject Details" />
           {branch.length > 0 && (

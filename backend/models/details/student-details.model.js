@@ -34,6 +34,11 @@ const studentDetailsSchema = new mongoose.Schema(
       ref: "Branch",
       required: true,
     },
+    aspiring: {
+      type: String,
+      required: true,
+      enum: ["Data Analytics", "ML Engineer", "Software Engineer"],
+    },
     gender: {
       type: String,
       required: true,

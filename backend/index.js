@@ -12,7 +12,7 @@ app.use(
   })
 );
 
-app.use(express.json()); //to convert request data to json
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Hello 👋 I am Working Fine 🚀");

@@ -66,6 +66,10 @@ const facultyDetailsSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    isFaculty: {
+      type: Boolean,
+      default: true,
+    },
     status: {
       type: String,
       enum: ["active", "inactive"],

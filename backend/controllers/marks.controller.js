@@ -1,5 +1,6 @@
 const Marks = require("../models/marks.model");
 const Student = require("../models/details/student-details.model");
+const Exam = require("../models/exam.model")
 
 const getMarksController = async (req, res) => {
   try {
@@ -163,7 +164,7 @@ const addBulkMarksController = async (req, res) => {
 
 const getStudentsWithMarksController = async (req, res) => {
   try {
-    const { branch, subject, semester, examId } = req.query;
+    const { branch, examId } = req.query;
 
     if (!branch || !examId) {
       return res.status(400).json({
@@ -173,8 +174,17 @@ const getStudentsWithMarksController = async (req, res) => {
       });
     }
 
+    const exam = await Exam.findById(examId);
+    if (!exam) {
+      return res.status(404).json({
+        success: false,
+        message: "Exam not found",
+      });
+    }
+
     const students = await Student.find({
       branchId: branch,
+      aspiring: exam.aspiring,
     }).select("_id enrollmentNo firstName lastName");
 
     if (!students || students.length === 0) {

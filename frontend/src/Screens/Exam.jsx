@@ -16,6 +16,7 @@ const Exam = () => {
     name: "",
     date: "",
     examType: "mid",
+    aspiring: "",
     examLink: "",
     totalMarks: "",
   });
@@ -56,7 +57,7 @@ const Exam = () => {
   };
 
   const addExamHandler = async () => {
-    if (!data.name || !data.date || !data.examType || !data.totalMarks || !data.examLink) {
+    if (!data.name || !data.date || !data.examType || !data.aspiring || !data.totalMarks || !data.examLink) {
       toast.error("Please fill all fields");
       return;
     }
@@ -100,6 +101,7 @@ const Exam = () => {
       name: "",
       date: "",
       examType: "mid",
+      aspiring: "",
       examLink: "",
       totalMarks: "",
     });
@@ -118,6 +120,7 @@ const Exam = () => {
       name: exam.name,
       date: new Date(exam.date).toISOString().split("T")[0],
       examType: exam.examType,
+      aspiring: exam.aspiring,
       examLink: exam.examLink,
       totalMarks: exam.totalMarks,
     });
@@ -169,6 +172,7 @@ const Exam = () => {
                 <th className="py-3 px-4 text-left font-semibold">Exam Name</th>
                 <th className="py-3 px-4 text-left font-semibold">Date</th>
                 <th className="py-3 px-4 text-left font-semibold">Type</th>
+                <th className="py-3 px-4 text-left font-semibold">Aspiring</th>
                 <th className="py-3 px-4 text-left font-semibold">Total Marks</th>
                 <th className="py-3 px-4 text-left font-semibold">Exam Link</th>
                 {loginType !== "Student" && (
@@ -184,6 +188,9 @@ const Exam = () => {
                     <td className="py-3 px-4">{new Date(exam.date).toLocaleDateString()}</td>
                     <td className="py-3 px-4 capitalize">
                       {exam.examType === "mid" ? "Mid Term" : "End Term"}
+                    </td>
+                    <td className="py-3 px-4 capitalize">
+                      {exam.aspiring}
                     </td>
                     <td className="py-3 px-4">{exam.totalMarks}</td>
                     <td className="py-3 px-4 text-blue-600 underline">
@@ -268,6 +275,30 @@ const Exam = () => {
               </div>
 
               <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Total Marks</label>
+                <input
+                  type="number"
+                  value={data.totalMarks}
+                  onChange={(e) => setData({ ...data, totalMarks: e.target.value })}
+                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-gray-900 outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Career Aspiring</label>
+                <select
+                  value={data.aspiring}
+                  onChange={(e) => setData({ ...data, aspiring: e.target.value })}
+                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-gray-900 outline-none"
+                >
+                  <option value="">Select One</option>
+                  <option value="Data Analytics">Data Analytics</option>
+                  <option value="ML Engineer">ML Engineer</option>
+                  <option value="Software Engineer">Software Engineer</option>
+                </select>
+              </div>
+
+              <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Exam Type</label>
                 <select
                   value={data.examType}
@@ -279,15 +310,6 @@ const Exam = () => {
                 </select>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Total Marks</label>
-                <input
-                  type="number"
-                  value={data.totalMarks}
-                  onChange={(e) => setData({ ...data, totalMarks: e.target.value })}
-                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-gray-900 outline-none"
-                />
-              </div>
 
               <div className="col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">

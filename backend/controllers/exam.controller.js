@@ -1,41 +1,77 @@
 const Exam = require("../models/exam.model");
 const ApiResponse = require("../utils/ApiResponse");
 const StudentDetails = require("../models/details/student-details.model");
+const facultyDetails = require("../models/details/faculty-details.model");
+const adminDetails = require("../models/details/admin-details.model");
 const sendExamMail = require("../utils/sendExamMail");
 
 const getAllExamsController = async (req, res) => {
   try {
     const { search = "", examType = "" } = req.query;
+    const userId = req.userId;
 
-    let query = {};
-    if (examType) query.examType = examType;
+    // Check who the user is (Faculty, Admin, or Student)
+    let role = "student";
+    let aspiring = null;
 
-    // Optional: search filter by name (case-insensitive)
-    if (search) {
-      query.name = { $regex: search, $options: "i" };
+    // Check Faculty first
+    const faculty = await facultyDetails.findById(userId);
+    if (faculty) {
+      role = "faculty";
+    } else {
+      // Check SuperAdmin or Admin in your main User model
+      const admin = await adminDetails.findById(userId);
+      if (admin && admin.isSuperAdmin) {
+        role = "superadmin";
+      } else {
+        // If neither, it's a student
+        const student = await StudentDetails.findById(userId);
+        if (!student) {
+          return ApiResponse.error("User not found", 404).send(res);
+        }
+        aspiring = student.aspiring;
+      }
     }
 
+    // Step 2: Build base query
+    let query = {};
+
+    // If student, only filter by their aspiring field
+    if (role === "student") {
+      query.aspiring = aspiring;
+    }
+
+    // Optional filters
+    if (examType) query.examType = examType;
+    if (search) query.name = { $regex: search, $options: "i" };
+
+    // Step 3: Fetch exams
     const exams = await Exam.find(query).sort({ date: -1 });
 
     if (!exams.length) {
-      return ApiResponse.error("No Exams Found", 404).send(res);
+      return ApiResponse.error("No exams found", 404).send(res);
     }
 
-    return ApiResponse.success(exams, "All Exams Loaded!").send(res);
+    // Step 4: Send success response
+    return ApiResponse.success(
+      exams,
+      `Exams loaded successfully for ${role}`
+    ).send(res);
   } catch (error) {
+    console.error("Error in getAllExamsController:", error);
     return ApiResponse.error(error.message).send(res);
   }
 };
 
 const addExamController = async (req, res) => {
   try {
-    const { name, date, examType, totalMarks } = req.body;
+    const { name, date, examType, aspiring, totalMarks } = req.body;
 
-    if (!name || !date || !examType || !totalMarks) {
+    if (!name || !date || !examType || !aspiring || !totalMarks) {
       return ApiResponse.error("All fields are required", 400).send(res);
     }
 
-    const formData = { name, date, examType, totalMarks };
+    const formData = { name, date, examType, aspiring, totalMarks };
 
     // if file is uploaded, store filename as examLink
     if (req.file) {
@@ -55,6 +91,7 @@ const addExamController = async (req, res) => {
         name,
         date,
         examType,
+        aspiring,
         totalMarks,
         examLink: formData.examLink || "",
       });

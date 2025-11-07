@@ -9,6 +9,11 @@ const examSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  aspiring: {
+    type: String,
+    required: true,
+    enum: ["Data Analytics", "ML Engineer", "Software Engineer"],
+  },
   examType: {
     type: String,
     required: true,

@@ -55,7 +55,9 @@ const registerStudentController = async (req, res) => {
     const profile = req.file.filename;
 
     const enrollmentNo = Math.floor(100000 + Math.random() * 900000);
-    const email = `${enrollmentNo}@gmail.com`;
+    console.log("req.body--", req.body)
+    const email = req.body.email;
+
 
     const user = await studentDetails.create({
       ...req.body,

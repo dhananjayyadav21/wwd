@@ -31,6 +31,7 @@ const Student = () => {
     middleName: "",
     lastName: "",
     phone: "",
+    email: "",
     branchId: "",
     gender: "",
     dob: "",
@@ -222,6 +223,7 @@ const Student = () => {
       middleName: student.middleName || "",
       lastName: student.lastName || "",
       phone: student.phone || "",
+      email: student.email || "",
       branchId: student.branchId?._id || "",
       gender: student.gender || "",
       dob: student.dob?.split("T")[0] || "",
@@ -277,6 +279,7 @@ const Student = () => {
       middleName: "",
       lastName: "",
       phone: "",
+      email: "",
       branchId: "",
       gender: "",
       dob: "",
@@ -548,6 +551,7 @@ const Student = () => {
                         middleName: "Middle Name",
                         lastName: "Last Name",
                         phone: "Phone Number",
+                        email: "Email Address",
                         dob: "Date of Birth",
                         address: "Address",
                         city: "City",
@@ -559,6 +563,7 @@ const Student = () => {
                       // Custom types for better input experience
                       const typeMap = {
                         phone: "tel",
+                        email: "email",
                         dob: "date",
                         pincode: "text", // using text for flexibility with different formats
                       };
@@ -703,12 +708,6 @@ const Student = () => {
                 <div className="mt-10 pt-6 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-4">
                   {/* Default Login Info */}
                   <div className="text-sm text-gray-600 order-2 sm:order-1 text-center sm:text-left">
-                    <p>
-                      Default login:{" "}
-                      <span className="font-bold text-blue-600">
-                        {formData.enrollmentNo || "enrollment_no"}@gmail.com
-                      </span>
-                    </p>
                     <p>
                       Default password:{" "}
                       <span className="font-bold text-blue-600">student123</span>

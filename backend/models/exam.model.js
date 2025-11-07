@@ -9,15 +9,12 @@ const examSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  semester: {
-    type: Number,
-  },
   examType: {
     type: String,
     required: true,
     enum: ["mid", "end"],
   },
-  timetableLink: {
+  examLink: {
     type: String,
   },
   totalMarks: {

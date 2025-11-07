@@ -5,16 +5,19 @@ const sendExamMail = require("../utils/sendExamMail");
 
 const getAllExamsController = async (req, res) => {
   try {
-    const { search = "", examType = "", semester = "" } = req.query;
+    const { search = "", examType = "" } = req.query;
 
     let query = {};
-
-    if (semester) query.semester = semester;
     if (examType) query.examType = examType;
 
-    const exams = await Exam.find(query);
+    // Optional: search filter by name (case-insensitive)
+    if (search) {
+      query.name = { $regex: search, $options: "i" };
+    }
 
-    if (!exams || exams.length === 0) {
+    const exams = await Exam.find(query).sort({ date: -1 });
+
+    if (!exams.length) {
       return ApiResponse.error("No Exams Found", 404).send(res);
     }
 
@@ -28,36 +31,35 @@ const addExamController = async (req, res) => {
   try {
     const { name, date, examType, totalMarks } = req.body;
 
-    // Validation
     if (!name || !date || !examType || !totalMarks) {
       return ApiResponse.error("All fields are required", 400).send(res);
     }
 
-    // File handling
-    const formData = req.body;
+    const formData = { name, date, examType, totalMarks };
+
+    // if file is uploaded, store filename as examLink
     if (req.file) {
-      formData.timetableLink = req.file.filename;
+      formData.examLink = req.file.filename;
     }
 
-    // Create exam record
+    // Create exam entry
     const exam = await Exam.create(formData);
 
-    // ===== Get all student emails =====
+    // Get student emails only
     const students = await StudentDetails.find({}, "email");
     const studentEmails = students.map((s) => s.email);
 
-    // ===== Send exam emails =====
+    // Send mail to each student
     for (const email of studentEmails) {
       await sendExamMail(email, {
         name,
         date,
         examType,
         totalMarks,
-        timetableLink: formData.timetableLink || null,
+        examLink: formData.examLink || "",
       });
     }
 
-    // Response
     return ApiResponse.success(exam, "Exam added and emails sent to all students successfully!").send(res);
   } catch (error) {
     console.error("Error adding exam:", error);
@@ -65,16 +67,19 @@ const addExamController = async (req, res) => {
   }
 };
 
-
 const updateExamController = async (req, res) => {
   try {
     const formData = req.body;
     if (req.file) {
-      formData.timetableLink = req.file.filename;
+      formData.examLink = req.file.filename;
     }
+
     const exam = await Exam.findByIdAndUpdate(req.params.id, formData, {
       new: true,
     });
+
+    if (!exam) return ApiResponse.error("Exam not found", 404).send(res);
+
     return ApiResponse.success(exam, "Exam Updated Successfully!").send(res);
   } catch (error) {
     return ApiResponse.error(error.message).send(res);
@@ -84,6 +89,9 @@ const updateExamController = async (req, res) => {
 const deleteExamController = async (req, res) => {
   try {
     const exam = await Exam.findByIdAndDelete(req.params.id);
+
+    if (!exam) return ApiResponse.error("Exam not found", 404).send(res);
+
     return ApiResponse.success(exam, "Exam Deleted Successfully!").send(res);
   } catch (error) {
     return ApiResponse.error(error.message).send(res);

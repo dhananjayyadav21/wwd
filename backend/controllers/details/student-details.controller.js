@@ -52,14 +52,14 @@ const getAllDetailsController = async (req, res) => {
 
 const registerStudentController = async (req, res) => {
   try {
-    const profile = req.file.filename;
+    // const profile = req.file.filename;
 
     const enrollmentNo = Math.floor(100000 + Math.random() * 900000);
     const email = req.body.email;
 
     const user = await studentDetails.create({
       ...req.body,
-      profile,
+      // profile,
       password: "student123",
       email,
       enrollmentNo,

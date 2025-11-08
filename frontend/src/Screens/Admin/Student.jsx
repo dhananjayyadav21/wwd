@@ -470,7 +470,7 @@ const Student = () => {
                         className="w-10 h-10 object-cover rounded-full ring-2 ring-blue-400"
                         onError={(e) => {
                           e.target.src =
-                            "https://images.unsplash.com/photo-1744315900478-fa44dc6a4e89?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+                            "/assets/user.avif";
                         }}
                       />
                     </td>
@@ -688,7 +688,7 @@ const Student = () => {
                   </div>
 
                   {/* Profile Photo Upload */}
-                  <div>
+                  {/* <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Profile Photo
                     </label>
@@ -698,7 +698,7 @@ const Student = () => {
                       className="w-full text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition duration-150 border border-gray-300 rounded-lg shadow-sm"
                       accept="image/*"
                     />
-                  </div>
+                  </div> */}
 
                   {/* Emergency Contact Section */}
                   <div className="lg:col-span-3 pt-4 border-t mt-4 border-gray-200">

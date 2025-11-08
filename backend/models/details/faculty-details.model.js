@@ -64,7 +64,6 @@ const facultyDetailsSchema = new mongoose.Schema(
     },
     salary: {
       type: Number,
-      required: true,
     },
     isFaculty: {
       type: Boolean,

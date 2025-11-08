@@ -32,6 +32,8 @@ app.use("/api/material", require("./routes/material.route"));
 app.use("/api/exam", require("./routes/exam.route"));
 app.use("/api/marks", require("./routes/marks.route"));
 
+app.use("/api/dashboard", require("./routes/dashboard.route"));
+
 app.listen(port, () => {
   console.log(`Server Listening On http://localhost:${port}`);
 });

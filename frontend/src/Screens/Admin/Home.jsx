@@ -12,6 +12,7 @@ import { setUserData } from "../../redux/actions";
 import axiosWrapper from "../../utils/AxiosWrapper";
 import Profile from "./Profile";
 import Exam from "../Exam";
+import Dashboard from "../Dashboard";
 import { useNavigate, useLocation } from "react-router-dom";
 
 // ✅ Feather Icons
@@ -36,6 +37,7 @@ const MENU_ITEMS = [
   { id: "exam", label: "Exam", icon: <FiClipboard />, component: Exam },
   { id: "subjects", label: "Subjects", icon: <FiBook />, component: Subjects },
   { id: "admin", label: "Admin", icon: <FiUser />, component: Admin },
+  { id: "dashboard", label: "dashboard", icon: <FiClipboard />, component: Dashboard },
 ];
 
 const Home = () => {

@@ -189,7 +189,7 @@ const Exam = () => {
                     <td className="py-3 px-4">{exam.name}</td>
                     <td className="py-3 px-4">{new Date(exam.date).toLocaleDateString()}</td>
                     <td className="py-3 px-4 capitalize">
-                      {exam.examType === "mid" ? "Mid Term" : "End Term"}
+                      {exam.examType === "Surprise" ? "Surprise Test" : "Saturday Test"}
                     </td>
                     <td className="py-3 px-4 capitalize">
                       {exam.aspiring}
@@ -307,8 +307,8 @@ const Exam = () => {
                   onChange={(e) => setData({ ...data, examType: e.target.value })}
                   className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-gray-900 outline-none"
                 >
-                  <option value="mid">Mid Term</option>
-                  <option value="end">End Term</option>
+                  <option value="Surprise">Surprise Test</option>
+                  <option value="Saturday">Saturday Test</option>
                 </select>
               </div>
 

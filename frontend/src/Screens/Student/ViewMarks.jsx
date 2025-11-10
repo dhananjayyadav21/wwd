@@ -89,7 +89,7 @@ const ViewMarks = () => {
         </div>
 
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold mb-4">End Term Marks</h2>
+          <h2 className="text-xl font-semibold mb-4">Saturday Test Marks</h2>
           {dataLoading ? (
             <p className="text-gray-900">Loading...</p>
           ) : endTermMarks.length > 0 ? (
@@ -121,7 +121,7 @@ const ViewMarks = () => {
               ))}
             </div>
           ) : (
-            <p className="text-gray-900">No end term marks available</p>
+            <p className="text-gray-900">No saturday test marks available</p>
           )}
         </div>
       </div>

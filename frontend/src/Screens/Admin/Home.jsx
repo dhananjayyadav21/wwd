@@ -37,7 +37,7 @@ const MENU_ITEMS = [
   { id: "exam", label: "Exam", icon: <FiClipboard />, component: Exam },
   { id: "subjects", label: "Subjects", icon: <FiBook />, component: Subjects },
   { id: "admin", label: "Admin", icon: <FiUser />, component: Admin },
-  { id: "dashboard", label: "dashboard", icon: <FiClipboard />, component: Dashboard },
+  { id: "dashboard", label: "Dashboard", icon: <FiClipboard />, component: Dashboard },
 ];
 
 const Home = () => {

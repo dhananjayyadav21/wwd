@@ -363,7 +363,7 @@ const AddMarks = () => {
                   {
                     label: "Exam Type",
                     value:
-                      selectedExam?.examType === "mid" ? "Mid Term" : "End Term",
+                      selectedExam?.examType === "Surprise" ? "Surprise Test" : "Saturday Test",
                   },
                   { label: "Subject", value: selectedSubject?.name || "Not Selected" },
                 ].map((item) => (

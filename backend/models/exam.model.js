@@ -17,7 +17,7 @@ const examSchema = new mongoose.Schema({
   examType: {
     type: String,
     required: true,
-    enum: ["mid", "end"],
+    enum: ["Surprise", "Saturday"],
   },
   examLink: {
     type: String,

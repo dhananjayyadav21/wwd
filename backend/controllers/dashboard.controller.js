@@ -40,6 +40,7 @@ const getExamTypeCount = async (req, res) => {
     }
 };
 
+
 /* Average Marks by Field (Batch + Exam filter) */
 const getAvgMarksByField = async (req, res) => {
     try {

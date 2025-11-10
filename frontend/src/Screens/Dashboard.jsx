@@ -281,12 +281,16 @@ export default function Dashboard() {
                         </h2>
                         <div className="flex gap-3">
                             <select className={INPUT_CLASS} value={batch3} onChange={e => setBatch3(e.target.value)}>
-                                <option value="">Batch Vise</option>
+                                <option value="">By Batch </option>
                                 {batches.map(b => <option key={b._id} value={b._id}>{b.name}</option>)}
                             </select>
                             <select className={INPUT_CLASS} value={exam3} onChange={e => setExam3(e.target.value)}>
-                                <option value="">Exam Vise</option>
-                                {examTypes.map(ex => <option key={ex._id} value={ex.name}>{ex.name}</option>)}
+                                <option value="">By Exam </option>
+                                {examTypes.map(ex => <option key={ex._id} value={ex.name}>{new Date(ex.date).toLocaleDateString("en-GB", {
+                                    day: "2-digit",
+                                    month: "short",
+                                    year: "numeric",
+                                })}</option>)}
                             </select>
                         </div>
                     </div>
@@ -340,12 +344,16 @@ export default function Dashboard() {
                         </h2>
                         <div className="flex gap-3">
                             <select className={INPUT_CLASS} value={batch4} onChange={e => setBatch4(e.target.value)}>
-                                <option value="">Batch Vise</option>
+                                <option value="">By Batch</option>
                                 {batches.map(b => <option key={b._id} value={b._id}>{b.name}</option>)}
                             </select>
                             <select className={INPUT_CLASS} value={exam4} onChange={e => setExam4(e.target.value)}>
-                                <option value="">Exam Vise</option>
-                                {examTypes.map(ex => <option key={ex._id} value={ex.name}>{ex.name}</option>)}
+                                <option value="">By Exam </option>
+                                {examTypes.map(ex => <option key={ex._id} value={ex.name}>{new Date(ex.date).toLocaleDateString("en-GB", {
+                                    day: "2-digit",
+                                    month: "short",
+                                    year: "numeric",
+                                })}</option>)}
                             </select>
                         </div>
                     </div>
@@ -384,7 +392,7 @@ export default function Dashboard() {
                                 value={leaderBatch}
                                 onChange={(e) => setLeaderBatch(e.target.value)}
                             >
-                                <option value="">Batch Vise</option>
+                                <option value="">By Batch </option>
                                 {batches.map((b) => (
                                     <option key={b._id} value={b._id}>{b.name}</option>
                                 ))}
@@ -394,9 +402,13 @@ export default function Dashboard() {
                                 value={leaderExam}
                                 onChange={(e) => setLeaderExam(e.target.value)}
                             >
-                                <option value="">Exam Vise</option>
+                                <option value="">By Exam </option>
                                 {examTypes.map((ex) => (
-                                    <option key={ex._id} value={ex.name}>{ex.name}</option>
+                                    <option key={ex._id} value={ex.name}>{new Date(ex.date).toLocaleDateString("en-GB", {
+                                        day: "2-digit",
+                                        month: "short",
+                                        year: "numeric",
+                                    })}</option>
                                 ))}
                             </select>
                         </div>

@@ -204,6 +204,7 @@ const Material = () => {
       subject: material.subject._id,
       branch: material.branch._id,
       type: material.type,
+      materialLink: material.materialLink
     });
     setShowModal(true);
   };

@@ -195,8 +195,6 @@ const getMarksRangeDistribution = async (req, res) => {
 
         ]);
 
-        console.log("getMarksRangeDistribution -->", data);
-
         res.json({ success: true, data });
     } catch (err) {
         console.error(err);

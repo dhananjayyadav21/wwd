@@ -38,12 +38,15 @@ const Faculty = () => {
   const [selectedFacultyId, setSelectedFacultyId] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const userToken = localStorage.getItem("userToken");
+
+  // eslint-disable-next-line
   const [file, setFile] = useState(null);
   const [dataLoading, setDataLoading] = useState(null);
 
   useEffect(() => {
     getFacultyHandler();
     getBranchHandler();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getBranchHandler = async () => {

@@ -5,9 +5,10 @@ import Heading from "../../components/Heading";
 import { useSelector } from "react-redux";
 
 const ViewMarks = () => {
+  // eslint-disable-next-line
   const userData = useSelector((state) => state.userData);
+
   const [dataLoading, setDataLoading] = useState(false);
-  // semester removed from frontend UI
   const [marks, setMarks] = useState([]);
   const userToken = localStorage.getItem("userToken");
 
@@ -34,6 +35,7 @@ const ViewMarks = () => {
 
   useEffect(() => {
     fetchMarks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // semester selection removed from UI

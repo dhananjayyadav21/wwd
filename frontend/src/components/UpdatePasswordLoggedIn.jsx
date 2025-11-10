@@ -35,20 +35,6 @@ const UpdatePasswordLoggedIn = ({ onClose }) => {
 
     setIsLoading(true);
     try {
-      const apiUrl = `/api/${userType.toLowerCase()}/change-password`;
-
-      // const response = await fetch(apiUrl, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     Authorization: `Bearer ${userToken}`,
-      //   },
-      //   body: JSON.stringify({
-      //     currentPassword,
-      //     newPassword,
-      //   }),
-      // });
-
       const response = await axiosWrapper.post(
         `/${userType.toLowerCase()}/change-password`,
         {

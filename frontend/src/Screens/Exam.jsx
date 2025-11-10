@@ -25,6 +25,8 @@ const Exam = () => {
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
   const [selectedExamId, setSelectedExamId] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+
+  // eslint-disable-next-line 
   const userData = useSelector((state) => state.userData);
   const loginType = localStorage.getItem("userType");
   const [processLoading, setProcessLoading] = useState(false);

@@ -44,6 +44,7 @@ const Admin = () => {
 
   useEffect(() => {
     getAdminsHandler();
+    // eslint-disable-next-line 
   }, []);
 
   const getAdminsHandler = async () => {

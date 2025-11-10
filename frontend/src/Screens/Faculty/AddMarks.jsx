@@ -149,6 +149,7 @@ const AddMarks = () => {
     }
   };
 
+  // eslint-disable-next-line 
   const getMarks = async (e) => {
     setDataLoading(true);
     toast.loading("Getting marks...");
@@ -252,18 +253,21 @@ const AddMarks = () => {
 
   useEffect(() => {
     fetchBranches();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userToken]);
 
   useEffect(() => {
     if (selectedBranch) {
       fetchSubjects();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedBranch]);
 
   useEffect(() => {
     if (selectedBranch) {
       fetchExams();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedBranch]);
 
   return (

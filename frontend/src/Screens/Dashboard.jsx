@@ -374,11 +374,11 @@ export default function Dashboard() {
 
                 {/* 5️⃣ Leaderboard (Top Performing by Field) - Full width */}
                 <div className={`${CARD_CLASS} xl:col-span-3`}>
-                    <div className="flex justify-between items-center mb-4">
+                    <div className="md:flex justify-between items-center mb-4">
                         <h2 className={CHART_TITLE}>
                             🏆 Top Performing Students
                         </h2>
-                        <div className="flex gap-3">
+                        <div className="flex gap-3 mt-4 md:mt-0">
                             <select
                                 className={INPUT_CLASS}
                                 value={leaderBatch}

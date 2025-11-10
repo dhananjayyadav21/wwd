@@ -10,7 +10,7 @@ import { Loader2, TrendingUp, BookOpen, Users, BarChart2 } from "lucide-react";
 const COLORS = ["#10B981", "#3B82F6", "#F59E0B", "#EF4444", "#8B5CF6", "#14B8A6"];
 
 // Updated Tailwind Classes for a professional look
-const CARD_CLASS = "bg-white p-6 shadow-md rounded-xl border border-gray-100 transition-all duration-300 hover:shadow-3xl";
+const CARD_CLASS = "bg-white py-4 px-2 sm:p-6 shadow-md rounded-xl border border-gray-100 transition-all duration-300 hover:shadow-3xl";
 const CHART_TITLE = "text-lg sm:text-2xl font-medium text-gray-900 tracking-tight flex items-center gap-2";
 const INPUT_CLASS = "bg-white border border-gray-300 text-gray-700 rounded-lg py-2 px-4 focus:ring-blue-500 focus:border-blue-500 text-sm shadow-sm transition duration-150 ease-in-out cursor-pointer appearance-none";
 const HEADER_ICON_CLASS = "w-6 h-6 text-blue-600";
@@ -210,7 +210,7 @@ export default function Dashboard() {
         </div>;
 
     return (
-        <div className="min-h-screen p-6 sm:p-8">
+        <div className="min-h-screen p-2 sm:p-8">
             {/* Header */}
             <h1 className=" text:xl sm:text-2xl lg:text-4xl sm:font-bold text-gray-900 mb-10 tracking-tighter border-b pb-4 border-gray-200">
                 📊 Academic Performance Overview
@@ -295,7 +295,7 @@ export default function Dashboard() {
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
                         {/* By Aspiring Field */}
-                        <div className="border border-gray-100 p-4 rounded-lg shadow-inner">
+                        <div className="border border-gray-900 py-4 px-1 sm:p-4 rounded-lg shadow-inner">
                             <h3 className="text-xl font-bold text-gray-800 m-2 md:m-4 text-center">
                                 By Aspiring Field
                             </h3>
@@ -314,7 +314,7 @@ export default function Dashboard() {
                         </div>
 
                         {/* By Exam */}
-                        <div className="border border-gray-100 p-4 rounded-lg shadow-inner">
+                        <div className="border border-gray-900 py-4 px-1 sm:p-4 rounded-lg shadow-inner">
                             <h3 className="text-xl font-bold text-gray-800 m-2 md:m-4 text-center">
                                 By Exam Name
                             </h3>

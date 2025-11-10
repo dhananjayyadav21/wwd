@@ -30,6 +30,7 @@ const Subject = () => {
   useEffect(() => {
     getSubjectHandler();
     getBranchHandler();
+    // eslint-disable-next-line
   }, []);
 
   const getSubjectHandler = async () => {

@@ -4,11 +4,10 @@ import {
     PieChart, Pie, Cell, Tooltip, BarChart, Bar,
     XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer, LineChart, Line
 } from "recharts";
-import { Loader2, TrendingUp, TrendingDown, BookOpen, Users, BarChart2 } from "lucide-react"; // Added more relevant icons
-import NoData from "../components/NoData";
+import { Loader2, TrendingUp, BookOpen, Users, BarChart2 } from "lucide-react";
 
 // Modern, Professional Color Palette
-const COLORS = ["#10B981", "#3B82F6", "#F59E0B", "#EF4444", "#8B5CF6", "#14B8A6"]; // Emerald, Blue, Amber, Red, Violet, Teal
+const COLORS = ["#10B981", "#3B82F6", "#F59E0B", "#EF4444", "#8B5CF6", "#14B8A6"];
 
 // Updated Tailwind Classes for a professional look
 const CARD_CLASS = "bg-white p-6 shadow-md rounded-xl border border-gray-100 transition-all duration-300 hover:shadow-3xl";
@@ -49,7 +48,6 @@ export default function Dashboard() {
 
     // Independent Filters
     const [batch1, setBatch1] = useState("");
-    const [batch2, setBatch2] = useState(""); // Not used in original, keeping for structure
     const [batch3, setBatch3] = useState("");
     const [batch4, setBatch4] = useState("");
     const [exam3, setExam3] = useState("");
@@ -104,7 +102,6 @@ export default function Dashboard() {
     // 2️⃣ Exam Type Count
     const fetchExamTypeCount = async () => {
         try {
-            // Note: The original code didn't use batch2, I'll keep it as a constant for now.
             const url = `/dashboard/exam-type-count`;
             const res = await axiosWrapper.get(url, axiosConfig);
             setExamTypeData(res.data.data || []);
@@ -174,12 +171,35 @@ export default function Dashboard() {
     };
 
     // --- Effects (Unchanged) ---
-    useEffect(() => { fetchInitial(); }, []);
-    useEffect(() => { fetchAspiringDist(); }, [batch1, axiosConfig]);
-    useEffect(() => { fetchExamTypeCount(); }, [axiosConfig]);
-    useEffect(() => { fetchAvgMarks(); }, [batch3, exam3, axiosConfig]);
-    useEffect(() => { fetchMarksRange(); }, [batch4, exam4, axiosConfig]);
-    useEffect(() => { fetchLeaderboard(); }, [leaderExam, leaderBatch, axiosConfig]);
+    useEffect(() => {
+        fetchInitial();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        fetchAspiringDist();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [batch1, axiosConfig]);
+
+    useEffect(() => {
+        fetchExamTypeCount();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [axiosConfig]);
+
+    useEffect(() => {
+        fetchAvgMarks();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [batch3, exam3, axiosConfig]);
+
+    useEffect(() => {
+        fetchMarksRange();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [batch4, exam4, axiosConfig]);
+
+    useEffect(() => {
+        fetchLeaderboard();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [leaderExam, leaderBatch, axiosConfig]);
 
 
     if (loading)

@@ -15,9 +15,9 @@ const CustomButton = ({
       case "secondary":
         return "bg-gray-900 text-white hover:bg-gray-600";
       case "danger":
-        return "bg-red-500 text-white hover:bg-red-600";
+        return "bg-gradient-to-l from-gray-900 to-red-600 text-white hover:bg-red-600";
       default:
-        return "bg-gray-900 text-white hover:bg-blue-600";
+        return "bg-gray-900 text-white hover:bg-gray-800";
     }
   };
 

@@ -7,6 +7,7 @@ import axiosWrapper from "../../utils/AxiosWrapper";
 import DeleteConfirm from "../../components/DeleteConfirm";
 import CustomButton from "../../components/CustomButton";
 
+// ------------------ Add/Edit Timetable Modal ------------------
 const AddTimetableModal = ({
   isOpen,
   onClose,
@@ -15,30 +16,34 @@ const AddTimetableModal = ({
   branches,
 }) => {
   const [formData, setFormData] = useState({
-    branch: initialData?.branch || "",
-    file: null,
-    previewUrl: initialData?.file || "",
+    branch: initialData?.branch?._id || "",
+    link: initialData?.link || "",
   });
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFormData({
-      ...formData,
-      file,
-      previewUrl: URL.createObjectURL(file),
-    });
-  };
+  // ✅ When editing — auto-fill modal with existing data
+  useEffect(() => {
+    if (initialData) {
+      setFormData({
+        branch: initialData?.branch?._id || "",
+        link: initialData?.link || "",
+      });
+    } else {
+      setFormData({
+        branch: "",
+        link: "",
+      });
+    }
+  }, [initialData]);
 
   const handleSubmit = () => {
     onSubmit(formData);
-    onClose();
   };
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-2">
-      <div className="bg-white p-8 rounded-lg w-[full] max-h-[90vh] overflow-y-auto">
+      <div className="bg-white p-8 rounded-lg w-full max-w-lg max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold">
             {initialData ? "Edit Timetable" : "Add New Timetable"}
@@ -53,7 +58,7 @@ const AddTimetableModal = ({
 
         <div className="space-y-4">
           <div>
-            <label className="block mb-2">Batch</label>
+            <label className="block mb-2 font-medium">Batch</label>
             <select
               value={formData.branch}
               onChange={(e) =>
@@ -70,27 +75,18 @@ const AddTimetableModal = ({
             </select>
           </div>
 
-          {/* Semester removed from Timetable modal */}
-
           <div>
-            <label className="block mb-2">Timetable File</label>
+            <label className="block mb-2 font-medium">Timetable File Link</label>
             <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              className="w-full"
+              type="text"
+              placeholder="Enter file link (e.g., https://drive.google.com/...)"
+              value={formData.link}
+              onChange={(e) =>
+                setFormData({ ...formData, link: e.target.value })
+              }
+              className="w-full px-4 py-2 border rounded-md"
             />
           </div>
-
-          {formData.previewUrl && (
-            <div className="mt-4">
-              <img
-                src={formData.previewUrl}
-                alt="Preview"
-                className="max-w-full h-auto"
-              />
-            </div>
-          )}
 
           <div className="flex justify-end gap-4 mt-6">
             <CustomButton variant="secondary" onClick={onClose}>
@@ -106,8 +102,9 @@ const AddTimetableModal = ({
   );
 };
 
+// ------------------ Main Timetable Component ------------------
 const Timetable = () => {
-  const [branch, setBranch] = useState();
+  const [branch, setBranch] = useState([]);
   const [timetables, setTimetables] = useState([]);
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
   const [selectedTimetableId, setSelectedTimetableId] = useState(null);
@@ -121,12 +118,11 @@ const Timetable = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // ------------------ Fetch Branches ------------------
   const getBranchHandler = async () => {
     try {
       const response = await axiosWrapper.get(`/branch`, {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
+        headers: { Authorization: `Bearer ${userToken}` },
       });
       if (response.data.success) {
         setBranch(response.data.data);
@@ -139,12 +135,11 @@ const Timetable = () => {
     }
   };
 
+  // ------------------ Fetch Timetables ------------------
   const getTimetablesHandler = async () => {
     try {
       const response = await axiosWrapper.get(`/timetable`, {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
+        headers: { Authorization: `Bearer ${userToken}` },
       });
       if (response.data.success) {
         setTimetables(response.data.data);
@@ -157,40 +152,33 @@ const Timetable = () => {
     }
   };
 
+  // ------------------ Add / Update Timetable ------------------
   const handleSubmitTimetable = async (formData) => {
     const headers = {
-      "Content-Type": "multipart/form-data",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${userToken}`,
     };
 
-    const submitData = new FormData();
-    submitData.append("branch", formData.branch);
-    if (formData.file) {
-      submitData.append("file", formData.file);
-    }
-
     try {
-      toast.loading(
-        editingTimetable ? "Updating Timetable" : "Adding Timetable"
-      );
+      toast.loading(editingTimetable ? "Updating Timetable..." : "Adding Timetable...");
 
       let response;
       if (editingTimetable) {
         response = await axiosWrapper.put(
           `/timetable/${editingTimetable._id}`,
-          submitData,
+          formData,
           { headers }
         );
       } else {
-        response = await axiosWrapper.post("/timetable", submitData, {
-          headers,
-        });
+        response = await axiosWrapper.post("/timetable", formData, { headers });
       }
 
       toast.dismiss();
+
       if (response.data.success) {
         toast.success(response.data.message);
         getTimetablesHandler();
+        // ✅ Close modal only after successful update
         setShowAddModal(false);
         setEditingTimetable(null);
       } else {
@@ -198,10 +186,11 @@ const Timetable = () => {
       }
     } catch (error) {
       toast.dismiss();
-      toast.error(error.response?.data?.message || "Error with timetable");
+      toast.error(error.response?.data?.message || "Error saving timetable");
     }
   };
 
+  // ------------------ Delete Timetable ------------------
   const deleteTimetableHandler = async (id) => {
     setIsDeleteConfirmOpen(true);
     setSelectedTimetableId(id);
@@ -209,16 +198,13 @@ const Timetable = () => {
 
   const confirmDelete = async () => {
     try {
-      toast.loading("Deleting Timetable");
+      toast.loading("Deleting Timetable...");
       const response = await axiosWrapper.delete(
         `/timetable/${selectedTimetableId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        }
+        { headers: { Authorization: `Bearer ${userToken}` } }
       );
       toast.dismiss();
+
       if (response.data.success) {
         toast.success("Timetable deleted successfully");
         setIsDeleteConfirmOpen(false);
@@ -232,6 +218,7 @@ const Timetable = () => {
     }
   };
 
+  // ------------------ Edit Timetable ------------------
   const editTimetableHandler = (timetable) => {
     setEditingTimetable(timetable);
     setShowAddModal(true);
@@ -266,7 +253,7 @@ const Timetable = () => {
               >
                 <td className="py-3 px-4 sm:py-4 sm:px-6">
                   <a
-                    href={`${process.env.REACT_APP_MEDIA_LINK}/${item.link}`}
+                    href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:text-blue-800 text-lg"
@@ -274,7 +261,7 @@ const Timetable = () => {
                     <MdLink />
                   </a>
                 </td>
-                <td className="py-3 px-4 sm:py-4 sm:px-6">{item.branch.name}</td>
+                <td className="py-3 px-4 sm:py-4 sm:px-6">{item.branch?.name}</td>
                 <td className="py-3 px-4 sm:py-4 sm:px-6">
                   {new Date(item.createdAt).toLocaleDateString()}
                 </td>
@@ -319,7 +306,6 @@ const Timetable = () => {
         message="Are you sure you want to delete this timetable?"
       />
     </div>
-
   );
 };
 

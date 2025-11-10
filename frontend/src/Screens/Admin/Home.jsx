@@ -158,7 +158,7 @@ const Home = () => {
         <div
           className="
             bg-white/70 backdrop-blur-lg
-            sm:p-4 md:p-8 mt-4 sm:mt-6
+            sm:p-4 md:p-8 
             min-h-[90vh] transition-all
           "
         >

@@ -2,7 +2,7 @@ import React from "react";
 const heading = (props) => {
   return (
     <div className="flex justify-between items-center w-full">
-      <p className="font-semibold text-lg sm:text-xl md:text-2xl border-l-8 border-red-500 pl-3">
+      <p className="font-semibold text-lg sm:text-xl md:text-2xl text-gray-800 border-l-8 border-indigo-500 pl-3">
         {props.title}
       </p>
     </div>

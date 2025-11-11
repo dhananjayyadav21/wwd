@@ -154,7 +154,7 @@ const Exam = () => {
   };
 
   return (
-    <div className="w-full mx-auto mt-10 flex flex-col mb-10 px-2 sm:px-6 lg:px-8">
+    <div className="w-full mx-auto flex flex-col mb-10 px-2 sm:px-6 lg:px-8">
       <div className="flex flex-row justify-between items-center w-full gap-4">
         <Heading title="Exam Details" />
         {loginType !== "Student" && (
@@ -169,7 +169,7 @@ const Exam = () => {
       ) : (
         <div className="mt-8 w-full overflow-x-auto bg-white shadow rounded-md">
           <table className="min-w-full text-sm text-gray-700">
-            <thead className="bg-black text-white">
+            <thead className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
               <tr>
                 <th className="py-3 px-4 text-left font-semibold">Exam Name</th>
                 <th className="py-3 px-4 text-left font-semibold">Date</th>

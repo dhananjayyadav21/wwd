@@ -172,7 +172,7 @@ const Notice = () => {
   const isAdminOrFaculty = router.pathname === "/faculty" || router.pathname === "/admin";
 
   return (
-    <div className="w-full mx-auto p-4 md:p-10 bg-white rounded-xl shadow-lg">
+    <div className="w-full mx-auto sm:p-6 md:p-10 sm:rounded-xl sm:shadow-lg">
       {/* --- Header Section --- */}
       <div className="flex justify-between items-center pb-6 border-b border-gray-100 mb-8">
         <Heading title="Official Announcements & Notices" />

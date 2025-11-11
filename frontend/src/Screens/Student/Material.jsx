@@ -13,7 +13,9 @@ const Material = () => {
   const [dataLoading, setDataLoading] = useState(false);
   const userData = useSelector((state) => state.userData);
   const [filters, setFilters] = useState({
-    subject: "", type: "", fromDate: "",
+    subject: "",
+    type: "",
+    fromDate: "",
     toDate: "",
   });
 
@@ -85,21 +87,21 @@ const Material = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-2 sm:p-6 lg:p-8 space-y-8">
+    <div className="w-full mx-auto sm:p-6 md:p-10 sm:rounded-xl sm:shadow-lg space-y-8">
       <Heading title="Study Materials" />
 
       {/* Filters */}
       {!dataLoading && (
-        <div className="flex flex-col sm:flex-row flex-wrap gap-4 mt-4">
-          <div className="flex-1 min-w-[150px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-white shadow-sm rounded-2xl p-4">
+          <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Filter by Subject
+              Subject
             </label>
             <select
               name="subject"
               value={filters.subject}
               onChange={handleFilterChange}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900"
+              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-900 focus:outline-none"
             >
               <option value="">All Subjects</option>
               {subjects.map((subject) => (
@@ -110,15 +112,15 @@ const Material = () => {
             </select>
           </div>
 
-          <div className="flex-1 min-w-[150px]">
+          <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Filter by Type
+              Type
             </label>
             <select
               name="type"
               value={filters.type}
               onChange={handleFilterChange}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900"
+              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-900 focus:outline-none"
             >
               <option value="">All Types</option>
               <option value="notes">Notes</option>
@@ -128,27 +130,29 @@ const Material = () => {
             </select>
           </div>
 
-          {/* From Date */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">From Date</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              From Date
+            </label>
             <input
               type="date"
               name="fromDate"
               value={filters.fromDate}
               onChange={handleFilterChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800"
+              className="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-900 focus:outline-none"
             />
           </div>
 
-          {/* To Date */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">To Date</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              To Date
+            </label>
             <input
               type="date"
               name="toDate"
               value={filters.toDate}
               onChange={handleFilterChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-800"
+              className="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-900 focus:outline-none"
             />
           </div>
         </div>
@@ -156,85 +160,54 @@ const Material = () => {
 
       {dataLoading && <Loading />}
 
-      {/* Materials Table */}
+      {/* Materials */}
       {!dataLoading && (
-        <div className="overflow-x-auto mt-6 hidden sm:flex">
-          <table className="min-w-full bg-white rounded-lg shadow-md divide-y divide-gray-200">
-            <thead className="bg-gray-900 text-white">
-              <tr>
-                <th className="py-3 px-4 text-left font-semibold">File</th>
-                <th className="py-3 px-4 text-left font-semibold">Title</th>
-                <th className="py-3 px-4 text-left font-semibold">Subject</th>
-                <th className="py-3 px-4 text-left font-semibold">Type</th>
-                <th className="py-3 px-4 text-left font-semibold">Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {materials.length > 0 ? (
-                materials.map((material) => (
-                  <tr
-                    key={material._id}
-                    className="border-b hover:bg-gray-50 transition-colors duration-200"
-                  >
-                    <td className="py-3 px-4 ">
-                      <CustomButton
-                        variant="primary"
-                        onClick={() =>
-                          window.open(
-                            `${material.materialLink}`
-                          )
-                        }
-                      >
-                        <MdLink className="text-xl" />
-                      </CustomButton>
-                    </td>
-                    <td className="py-3 px-4">{material.title}</td>
-                    <td className="py-3 px-4">{material.subject.name}</td>
-                    <td className="py-3 px-4 capitalize">{material.type}</td>
-                    <td className="py-3 px-4 capitalize">{material.date ? new Date(material.date).toISOString().split("T")[0] : "Not Available"}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="4" className="text-center py-6 text-gray-900">
-                    No materials found.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-
-          {/* Mobile Card Layout */}
-          {materials.length > 0 && (
-            <div className="block sm:hidden mt-4 space-y-4">
+        <div>
+          {materials.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {materials.map((material) => (
                 <div
                   key={material._id}
-                  className="bg-white rounded-xl shadow-md p-4 flex flex-col gap-2"
+                  className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow p-6 flex flex-col justify-between  border-2"
                 >
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-semibold">{material.title}</h3>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      {material.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-1">
+                      <span className="font-medium text-gray-800">Subject:</span>{" "}
+                      {material.subject?.name}
+                    </p>
+                    <p className="text-sm text-gray-600 mb-1">
+                      <span className="font-medium text-gray-800">Type:</span>{" "}
+                      {material.type}
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      <span className="font-medium text-gray-800">Date:</span>{" "}
+                      {material.date
+                        ? new Date(material.date).toISOString().split("T")[0]
+                        : "Not Available"}
+                    </p>
+                  </div>
+
+                  <div className="mt-4 flex justify-end">
                     <CustomButton
                       variant="primary"
-                      onClick={() =>
-                        window.open(
-                          `${process.env.REACT_APP_MEDIA_LINK}/${material.file}`
-                        )
-                      }
+                      onClick={() => window.open(material.materialLink)}
+                      className="flex items-center gap-2"
                     >
                       <MdLink className="text-xl" />
+                      Open
                     </CustomButton>
                   </div>
-                  <p>
-                    <span className="font-medium">Subject:</span>{" "}
-                    {material.subject.name}
-                  </p>
-                  <p>
-                    <span className="font-medium">Type:</span>{" "}
-                    {material.type}
-                  </p>
                 </div>
               ))}
+            </div>
+          ) : (
+            <div className="text-center py-12 bg-gray-50 rounded-2xl shadow-inner">
+              <p className="text-gray-700 font-medium text-lg">
+                No materials found.
+              </p>
             </div>
           )}
         </div>

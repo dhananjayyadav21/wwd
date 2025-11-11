@@ -73,7 +73,7 @@ const UpdatePasswordLoggedIn = ({ onClose }) => {
 
   return (
     // Outer Overlay: Fixed position, dark semi-transparent background, full screen
-    <div className="fixed inset-0 min-h-full z-50 flex items-start justify-center p-2 backdrop-blur-sm bg-black/40">
+    <div className="fixed inset-0 min-h-full z-50 flex items-start md:items-center justify-center p-2 backdrop-blur-sm bg-black/40">
 
       {/* Modal Container: Modern Card Styling with responsiveness */}
       <div className="relative w-full max-w-md mx-auto bg-white rounded-xl shadow-2xl p-6 sm:p-8 transition-all duration-300 transform scale-100 opacity-100">

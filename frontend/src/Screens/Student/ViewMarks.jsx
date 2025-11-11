@@ -40,11 +40,11 @@ const ViewMarks = () => {
 
   // semester selection removed from UI
 
-  const midTermMarks = marks.filter((mark) => mark.examId.examType === "mid");
-  const endTermMarks = marks.filter((mark) => mark.examId.examType === "end");
+  const midTermMarks = marks.filter((mark) => mark.examId.examType === "Surprise");
+  const endTermMarks = marks.filter((mark) => mark.examId.examType === "Saturday");
 
   return (
-    <div className="w-full mx-auto p-2 mt-10 flex justify-center items-start flex-col mb-10">
+    <div className="w-full mx-auto sm:p-6 md:p-10 sm:rounded-xl sm:shadow-lg space-y-8">
       <div className="flex justify-between items-center w-full mb-6">
         <Heading title="View Marks" />
         {/* Semester filter removed from View Marks UI */}

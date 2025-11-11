@@ -324,7 +324,7 @@ const Faculty = () => {
 
       {/* Faculty List */}
       {!dataLoading && !showAddForm && (
-        <div className="w-full bg-white rounded-md shadow-md overflow-hidden mt-6">
+        <div className="w-full overflow-x-auto bg-white rounded-md shadow-md overflow-hidden mt-6">
           <table className="min-w-full text-sm">
             <thead className="bg-gradient-to-r from-gray-900 to-gray-600 text-white">
               <tr>

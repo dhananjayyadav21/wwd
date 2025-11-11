@@ -15,7 +15,7 @@ const Profile = ({ profileData }) => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto min-h-[70h] p-4 sm:p-6 lg:p-8">
+    <div className="max-w-7xl mx-auto min-h-[70h] sm:p-6 lg:p-8">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12 border-b pb-8">
         <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-10">
@@ -61,7 +61,7 @@ const Profile = ({ profileData }) => {
       {/* Main Grid Sections */}
       <div className="grid grid-cols-1 gap-10">
         {/* Personal Information */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 hover:shadow-xl transition">
+        <div className="bg-white rounded-2xl shadow-lg p-2 sm:p-8 hover:shadow-xl transition">
           <h2 className="text-2xl font-semibold text-gray-800 mb-6 pb-3 border-b border-gray-200">
             Personal Information
           </h2>

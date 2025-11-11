@@ -132,9 +132,9 @@ const Home = () => {
       <div className="w-full min-h-screen bg-gradient-to-br from-indigo-100 via-white to-purple-200">
         <div className="mx-auto">
           {/* 🌟 Sticky Top Menu */}
-          <div className="w-full sticky top-[57px] sm:top-[65px] lg:top-[0px] z-30">
+          <div className="w-full sticky top-[57px] sm:top-[65px] lg:top-[0px] z-30 bg-white/70 backdrop-blur-md">
             <motion.div
-              className="flex justify-center overflow-x-auto gap-3 py-3 px-3 bg-white/50 backdrop-blur-md shadow-md border border-gray-100 scrollbar-hide"
+              className="flex justify-start lg:justify-center overflow-x-auto gap-3 py-3 px-3 shadow-md border-b border-gray-100 scrollbar-hide touch-pan-x"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
@@ -153,6 +153,7 @@ const Home = () => {
               ))}
             </motion.div>
           </div>
+
 
           {/* 🌈 Main Content Section */}
           <AnimatePresence mode="wait">

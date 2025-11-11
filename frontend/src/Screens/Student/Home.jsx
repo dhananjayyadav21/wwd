@@ -120,7 +120,7 @@ const Home = () => {
           {/* 🌟 Sticky Navigation Bar */}
           <div className="w-full sticky top-[57px] sm:top-[65px] z-30">
             <motion.div
-              className="flex justify-center overflow-x-auto gap-3 py-3 px-3  bg-white/40 backdrop-blur-md shadow-lg border border-gray-100 scrollbar-hide"
+              className="flex justify-start lg:justify-center overflow-x-auto gap-3 py-3 px-3 shadow-md border-b border-gray-100 scrollbar-hide touch-pan-x backdrop-blur-md"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}

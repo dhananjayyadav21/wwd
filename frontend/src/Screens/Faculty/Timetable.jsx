@@ -42,8 +42,8 @@ const AddTimetableModal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-2">
-      <div className="bg-white p-8 rounded-lg w-full max-w-lg max-h-[90vh] overflow-y-auto">
+    <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black/50 z-50 backdrop-blur-sm px-2">
+      <div className="bg-white/90 backdrop-blur-md shadow-2xl rounded-md my-4 p-8 w-[98%] md:w-[80%] lg:w-[60%] max-h-[90vh] overflow-y-auto relative">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold">
             {initialData ? "Edit Timetable" : "Add New Timetable"}
@@ -225,7 +225,7 @@ const Timetable = () => {
   };
 
   return (
-    <div className="w-full mx-auto mt-10 flex flex-col justify-center items-start mb-10 relative px-2 sm:px-6 lg:px-8">
+    <div className="w-full mx-auto mt-10 flex flex-col justify-center items-start mb-10 relative p-2 sm:p-6 lg:p-8 sm:rounded-xl sm:shadow-lg">
       {/* Header Section */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center w-full gap-4">
         <Heading title="Timetable Management" />

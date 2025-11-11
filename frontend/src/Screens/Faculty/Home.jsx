@@ -12,49 +12,54 @@ import { useDispatch } from "react-redux";
 import { setUserData } from "../../redux/actions";
 import axiosWrapper from "../../utils/AxiosWrapper";
 import { useNavigate, useLocation } from "react-router-dom";
-
-// ✅ Feather Icons
-import { FiHome, FiBook, FiBell, FiClipboard, FiUserCheck } from "react-icons/fi";
+import {
+  FiHome,
+  FiBook,
+  FiBell,
+  FiClipboard,
+  FiUserCheck,
+} from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
 
 // ✅ Menu Configuration
 const MENU_ITEMS = [
-  { id: "home", label: "Home", icon: <FiHome />, component: Profile },
-  { id: "timetable", label: "Timetable", icon: <FiClipboard />, component: Timetable },
-  { id: "material", label: "Material", icon: <FiBook />, component: Material },
-  { id: "notice", label: "Notice", icon: <FiBell />, component: Notice },
-  { id: "student", label: "Student Info", icon: <FiUserCheck />, component: StudentFinder },
-  { id: "marks", label: "Marks", icon: <FiUserCheck />, component: Marks },
-  { id: "exam", label: "Exam", icon: <FiClipboard />, component: Exam },
+  { id: "home", label: "Home", icon: <FiHome className="w-5 h-5" />, component: Profile },
+  { id: "timetable", label: "Timetable", icon: <FiClipboard className="w-5 h-5" />, component: Timetable },
+  { id: "material", label: "Material", icon: <FiBook className="w-5 h-5" />, component: Material },
+  { id: "notice", label: "Notice", icon: <FiBell className="w-5 h-5" />, component: Notice },
+  { id: "student", label: "Student Info", icon: <FiUserCheck className="w-5 h-5" />, component: StudentFinder },
+  { id: "marks", label: "Marks", icon: <FiClipboard className="w-5 h-5" />, component: Marks },
+  { id: "exam", label: "Exam", icon: <FiClipboard className="w-5 h-5" />, component: Exam },
 ];
 
 const Home = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [selectedMenu, setSelectedMenu] = useState("home");
-  const [profileData, setProfileData] = useState(null);
+  const [profileData, setProfileData] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const userToken = localStorage.getItem("userToken");
-  const location = useLocation();
-  const navigate = useNavigate();
 
   // ✅ Fetch Faculty Details
   const fetchUserDetails = async () => {
     setIsLoading(true);
     try {
-      toast.loading("Loading profile...");
-      const response = await axiosWrapper.get("/faculty/my-details", {
+      toast.loading("Loading faculty details...", { id: "faculty-profile" });
+      const response = await axiosWrapper.get(`/faculty/my-details`, {
         headers: { Authorization: `Bearer ${userToken}` },
       });
       if (response.data.success) {
         setProfileData(response.data.data);
         dispatch(setUserData(response.data.data));
+        toast.success("Profile loaded!", { id: "faculty-profile" });
       } else {
-        toast.error(response.data.message);
+        toast.error(response.data.message, { id: "faculty-profile" });
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Failed to load profile");
+      toast.error(error.response?.data?.message || "Error fetching profile", { id: "faculty-profile" });
     } finally {
       setIsLoading(false);
-      toast.dismiss();
     }
   };
 
@@ -63,7 +68,7 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, userToken]);
 
-  // ✅ Handle URL Query Parameter
+  // ✅ Handle URL Query Parameter for Navigation
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const pathMenuId = urlParams.get("page") || "home";
@@ -76,31 +81,37 @@ const Home = () => {
   const getMenuItemClass = (menuId) => {
     const isSelected = selectedMenu === menuId;
     return `
-      flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-sm sm:text-base
-      transition-all duration-300 cursor-pointer
+      flex items-center gap-2 px-5 py-2.5 rounded-2xl font-medium text-sm sm:text-base
+      transition-all duration-300 cursor-pointer whitespace-nowrap
       ${isSelected
-        ? "bg-gradient-to-r from-gray-900 to-indigo-600 text-white shadow-md scale-105"
-        : "bg-white/40 text-gray-700 backdrop-blur-md border border-gray-200 hover:bg-white/60 hover:text-blue-700"
+        ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg scale-[1.03]"
+        : "bg-white/80 text-gray-700 border border-gray-200 hover:bg-indigo-50 hover:text-indigo-600 hover:shadow-md"
       }
     `;
   };
 
-  // ✅ Render Content
+  // ✅ Render Page Content
   const renderContent = () => {
     if (isLoading) {
       return (
-        <div className="flex justify-center items-center h-64 text-gray-600">
-          Loading...
+        <div className="p-8 space-y-4 animate-pulse">
+          <div className="h-8 bg-gray-200 rounded w-1/3"></div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-32 bg-gray-100 rounded-xl"></div>
+            ))}
+          </div>
         </div>
       );
     }
+
+    const MenuItem = MENU_ITEMS.find((item) => item.id === selectedMenu)?.component;
 
     if (selectedMenu === "home" && profileData) {
       return <Profile profileData={profileData} />;
     }
 
-    const MenuItem = MENU_ITEMS.find((item) => item.id === selectedMenu)?.component;
-    return MenuItem && <MenuItem />;
+    return MenuItem ? <MenuItem /> : null;
   };
 
   const handleMenuClick = (menuId) => {
@@ -111,25 +122,44 @@ const Home = () => {
   return (
     <>
       <Navbar />
-
-      <div className="w-full mx-auto bg-white">
-        {/* ✅ Modern Scrollable Top Menu */}
-        <div className="flex overflow-x-auto sm:overflow-visible gap-3 sm:gap-5 py-4 px-2 sm:py-6 scrollbar-hide justify-start sm:justify-center sticky top-14 z-20 bg-white">
-          {MENU_ITEMS.map((item) => (
-            <button
-              key={item.id}
-              className={getMenuItemClass(item.id)}
-              onClick={() => handleMenuClick(item.id)}
+      <div className="w-full min-h-screen bg-gradient-to-br from-indigo-100 via-white to-purple-200">
+        <div className="mx-auto">
+          {/* 🌟 Sticky Top Menu */}
+          <div className="w-full sticky top-[57px] sm:top-[65px] lg:top-[0px] z-30">
+            <motion.div
+              className="flex justify-center overflow-x-auto gap-3 py-3 px-3 bg-white/50 backdrop-blur-md shadow-md border border-gray-100 scrollbar-hide"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
             >
-              {item.icon}
-              <span>{item.label}</span>
-            </button>
-          ))}
-        </div>
+              {MENU_ITEMS.map((item) => (
+                <motion.button
+                  key={item.id}
+                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ y: -2 }}
+                  className={getMenuItemClass(item.id)}
+                  onClick={() => handleMenuClick(item.id)}
+                >
+                  {item.icon}
+                  <span className="hidden sm:inline">{item.label}</span>
+                </motion.button>
+              ))}
+            </motion.div>
+          </div>
 
-        {/* ✅ Main Content Area */}
-        <div className="bg-white/70 backdrop-blur-lg p-1 sm:p-4 md:p-8 mt-4 sm:mt-6 min-h-[90vh] transition-all">
-          {renderContent()}
+          {/* 🌈 Main Content Section */}
+          <AnimatePresence mode="wait">
+            <motion.main
+              key={selectedMenu}
+              className="w-full mx-auto px-3 sm:px-6 md:px-8 py-8"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.35 }}
+            >
+              {renderContent()}
+            </motion.main>
+          </AnimatePresence>
         </div>
       </div>
 

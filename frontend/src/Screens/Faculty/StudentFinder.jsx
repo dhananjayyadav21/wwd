@@ -77,7 +77,7 @@ const StudentFinder = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto mt-10 mb-10 p-4 sm:p-6 md:p-8 flex flex-col">
+    <div className="w-full mx-auto mt-10 mb-10 p-4 sm:p-6 md:p-8 flex flex-col">
       <div className="flex justify-between items-center mb-6">
         <Heading title="Student Finder" />
       </div>

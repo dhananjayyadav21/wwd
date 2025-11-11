@@ -271,7 +271,7 @@ const AddMarks = () => {
   }, [selectedBranch]);
 
   return (
-    <div className="w-full max-w-7xl mx-auto mt-10 flex flex-col gap-6 p-2">
+    <div className="w-full mx-auto mt-10 flex flex-col gap-6 p-2 md:p-6 lg:p-8 sm:rounded-xl sm:shadow-lg">
       <div className="flex justify-between items-center w-full">
         <Heading title="Add Marks" />
       </div>

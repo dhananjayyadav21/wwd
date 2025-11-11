@@ -120,7 +120,7 @@ const Branch = () => {
   };
 
   return (
-    <div className="w-full mx-auto mt-10 flex flex-col items-start mb-10 sm:px-8 p-2">
+    <div className="w-full mx-auto sm:p-6 md:p-10 sm:rounded-xl sm:shadow-lg space-y-8">
       <Heading title="Batch Management" />
 
       {/* Floating Add Button */}
@@ -143,8 +143,8 @@ const Branch = () => {
 
       {/* Add / Edit Modal */}
       {showAddForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-3">
-          <div className="bg-white/90 backdrop-blur-lg rounded-2xl w-full max-w-lg shadow-2xl animate-fadeIn">
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black/50 z-50 backdrop-blur-sm px-2" style={{ marginBlock: "unset" }}>
+          <div className="bg-white/90 backdrop-blur-md shadow-2xl rounded-md my-4 p-8 w-[98%] md:w-[80%] lg:w-[60%] max-h-[90vh] overflow-y-auto relative">
             <div className="flex justify-between items-center p-5 border-b border-gray-200">
               <h2 className="text-xl font-semibold text-gray-800">
                 {isEditing ? "Edit Batch" : "Add New Batch"}

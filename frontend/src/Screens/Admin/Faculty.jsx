@@ -197,7 +197,7 @@ const Faculty = () => {
     setData({ ...data, emergencyContact: { ...data.emergencyContact, [field]: value } });
 
   return (
-    <div className="w-full mx-auto mt-10 flex flex-col items-start mb-10 relative p-2">
+    <div className="w-full mx-auto sm:p-6 md:p-10 sm:rounded-xl sm:shadow-lg space-y-8">
       <div className="flex justify-between items-center w-full mb-6">
         <Heading title="Faculty Management" />
         <button
@@ -212,8 +212,8 @@ const Faculty = () => {
 
       {/* Add/Edit Form Modal */}
       {showAddForm && (
-        <div className="fixed inset-0 flex justify-center items-center bg-black/50 z-50 backdrop-blur-sm">
-          <div className="bg-white/90 backdrop-blur-md shadow-2xl rounded-md my-4 p-8 w-[98%] md:w-[80%] lg:w-[60%] max-h-[68vh] overflow-y-auto relative">
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black/50 z-50 backdrop-blur-sm px-2" style={{ marginBlock: "unset" }}>
+          <div className="bg-white/90 backdrop-blur-md shadow-2xl rounded-md my-4 p-8 w-[98%] md:w-[80%] lg:w-[60%] max-h-[90vh] overflow-y-auto relative">
             <button
               onClick={resetForm}
               className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 transition-all"

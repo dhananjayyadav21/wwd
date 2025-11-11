@@ -309,7 +309,7 @@ const Student = () => {
 
   // --- Start of JSX with Modern and Responsive Styles ---
   return (
-    <div className="w-full max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+    <div className="w-full mx-auto sm:p-6 md:p-10 sm:rounded-xl sm:shadow-lg space-y-8">
       {/* Header and Add Button */}
       <div className="flex justify-between items-center mb-6 border-b pb-4">
         <Heading title="Student Management" />
@@ -520,8 +520,8 @@ const Student = () => {
 
       {/* Add/Edit Student Modal Form */}
       {showAddForm && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-75 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg md:rounded-xl shadow-2xl w-full max-w-4xl max-h-[100vh] md:max-h-[70vh] overflow-y-auto relative transform transition-all duration-300 scale-100 opacity-100">
+        <div className="fixed inset-0 bg-black/50 bg-opacity-75 backdrop-blur-sm flex items-center justify-center z-50 p-4" style={{ marginBlock: "unset" }}>
+          <div className="bg-white rounded-lg md:rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] md:max-h-[90vh] overflow-y-auto relative transform transition-all duration-300 scale-100 opacity-100">
             {/* Close Button */}
             <button
               onClick={resetForm}

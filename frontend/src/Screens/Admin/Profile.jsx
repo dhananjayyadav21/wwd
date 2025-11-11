@@ -69,7 +69,6 @@ const Profile = ({ profileData }) => {
             <ProfileField label="Email" value={profileData.email} />
             <ProfileField label="Phone" value={profileData.phone} />
             <ProfileField label="Gender" value={profileData.gender} capitalize />
-            <ProfileField label="Blood Group" value={profileData.bloodGroup} />
             <ProfileField
               label="Date of Birth"
               value={formatDate(profileData.dob)}
@@ -77,10 +76,6 @@ const Profile = ({ profileData }) => {
             <ProfileField
               label="Joining Date"
               value={formatDate(profileData.joiningDate)}
-            />
-            <ProfileField
-              label="Salary"
-              value={`₹${profileData.salary.toLocaleString()}`}
             />
             <ProfileField
               label="Status"

@@ -271,8 +271,8 @@ const Notice = () => {
 
       {/* --- Professional Modal UI for Add/Edit --- */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-70 backdrop-blur-sm flex justify-center items-center z-50 p-4">
-          <div className="bg-white rounded-xl w-full max-w-xl shadow-2xl max-h-[90vh] flex flex-col border border-gray-200">
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black/50 z-50 backdrop-blur-sm px-2" style={{ marginBlock: "unset" }}>
+          <div className="bg-white/90 backdrop-blur-md shadow-2xl rounded-md my-4 p-8 w-[98%] md:w-[80%] lg:w-[60%] max-h-[90vh] overflow-y-auto relative">
             {/* Modal Header */}
             <div className="flex justify-between items-center p-6 border-b border-gray-100">
               <h2 className="text-xl font-bold text-gray-900">

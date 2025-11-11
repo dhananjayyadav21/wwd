@@ -234,7 +234,7 @@ const Admin = () => {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto p-1 sm:p-6 lg:p-8 mt-4 md:mt-10 mb-10 relative">
+    <div className="w-full mx-auto sm:p-6 md:p-10 sm:rounded-xl sm:shadow-lg space-y-8">
       <div className="flex justify-between items-center w-full mb-6">
         <Heading title="Admin Management" />
         <CustomButton
@@ -252,8 +252,8 @@ const Admin = () => {
 
       {/* Add/Edit Form Modal - Highly responsive */}
       {showAddForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-2xl w-full max-w-5xl max-h-[66vh] overflow-y-auto relative p-6 sm:p-8">
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black/50 z-50 backdrop-blur-sm px-2" style={{ marginBlock: "unset" }}>
+          <div className="bg-white/90 backdrop-blur-md shadow-2xl rounded-md my-4 p-8 w-[98%] md:w-[80%] lg:w-[60%] max-h-[90vh] overflow-y-auto relative">
             <button
               onClick={resetForm}
               className="absolute top-3 right-3 text-gray-900 hover:text-gray-900 p-2 rounded-full hover:bg-gray-100 transition-colors"

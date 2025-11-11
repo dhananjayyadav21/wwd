@@ -154,7 +154,7 @@ const Exam = () => {
   };
 
   return (
-    <div className="w-full mx-auto flex flex-col mb-10 px-2 sm:px-6 lg:px-8">
+    <div className="w-full mx-auto sm:p-6 md:p-10 sm:rounded-xl sm:shadow-lg space-y-8">
       <div className="flex flex-row justify-between items-center w-full gap-4">
         <Heading title="Exam Details" />
         {loginType !== "Student" && (
@@ -169,7 +169,7 @@ const Exam = () => {
       ) : (
         <div className="mt-8 w-full overflow-x-auto bg-white shadow rounded-md">
           <table className="min-w-full text-sm text-gray-700">
-            <thead className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+            <thead className="bg-black text-white">
               <tr>
                 <th className="py-3 px-4 text-left font-semibold">Exam Name</th>
                 <th className="py-3 px-4 text-left font-semibold">Date</th>
@@ -244,8 +244,8 @@ const Exam = () => {
 
       {/* Add/Edit Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-lg sm:max-w-2xl">
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black/50 z-50 backdrop-blur-sm px-2" style={{ marginBlock: "unset" }}>
+          <div className="bg-white/90 backdrop-blur-md shadow-2xl rounded-md my-4 p-8 w-[98%] md:w-[80%] lg:w-[60%] max-h-[90vh] overflow-y-auto relative">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-semibold text-gray-800">
                 {isEditing ? "Edit Exam" : "Add New Exam"}

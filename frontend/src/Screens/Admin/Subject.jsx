@@ -146,7 +146,7 @@ const Subject = () => {
   };
 
   return (
-    <div className="min-h-[70vh] md:p-8">
+    <div className="w-full mx-auto sm:p-6 md:p-10 sm:rounded-xl sm:shadow-lg space-y-8">
       <div className="max-w-7xl mx-auto px-2">
         <div className="flex justify-between items-center w-full mb-5">
           <Heading title="Subject Details" />
@@ -215,8 +215,8 @@ const Subject = () => {
 
       {/* Add/Edit Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-40 bg-black/40 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl p-6 md:p-8 relative animate-fadeIn">
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black/50 z-50 backdrop-blur-sm px-2" style={{ marginBlock: "unset" }}>
+          <div className="bg-white/90 backdrop-blur-md shadow-2xl rounded-md my-4 p-8 w-[98%] md:w-[80%] lg:w-[60%] max-h-[90vh] overflow-y-auto relative">
             <button
               className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
               onClick={resetForm}

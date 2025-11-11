@@ -27,23 +27,18 @@ const facultyDetailsSchema = new mongoose.Schema(
     },
     address: {
       type: String,
-      required: true,
     },
     city: {
       type: String,
-      required: true,
     },
     state: {
       type: String,
-      required: true,
     },
     pincode: {
       type: String,
-      required: true,
     },
     country: {
       type: String,
-      required: true,
     },
     gender: {
       type: String,
@@ -52,15 +47,9 @@ const facultyDetailsSchema = new mongoose.Schema(
     },
     dob: {
       type: Date,
-      required: true,
     },
     designation: {
       type: String,
-      required: true,
-    },
-    joiningDate: {
-      type: Date,
-      required: true,
     },
     salary: {
       type: Number,
@@ -79,10 +68,10 @@ const facultyDetailsSchema = new mongoose.Schema(
       relationship: String,
       phone: String,
     },
-    bloodGroup: {
-      type: String,
-      enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
-    },
+    // bloodGroup: {
+    //   type: String,
+    //   enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
+    // },
     branchId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Branch",

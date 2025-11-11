@@ -46,27 +46,21 @@ const studentDetailsSchema = new mongoose.Schema(
     },
     dob: {
       type: Date,
-      required: true,
     },
     address: {
       type: String,
-      required: true,
     },
     city: {
       type: String,
-      required: true,
     },
     state: {
       type: String,
-      required: true,
     },
     pincode: {
       type: String,
-      required: true,
     },
     country: {
       type: String,
-      required: true,
     },
     profile: {
       type: String,

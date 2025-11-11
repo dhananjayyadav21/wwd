@@ -234,77 +234,51 @@ const Faculty = () => {
             >
               {/* Inputs */}
               {[
-                ["First Name", "firstName"],
-                ["Last Name", "lastName"],
-                ["Email", "email", "email"],
-                ["Phone", "phone", "tel"],
-                ["Designation", "designation"],
-                ["Salary", "salary", "number"],
-                ["City", "city"],
-                ["State", "state"],
-                ["Country", "country"],
-              ].map(([label, field, type = "text"]) => (
+                ["First Name", "firstName", true],
+                ["Last Name", "lastName", true],
+                ["Email", "email", true, "email"],
+                ["Phone", "phone", true, "tel"],
+                ["Gender", "gender", true],
+                ["Batch", "branchId", true],
+                ["Address", "address", false],
+                ["Designation", "designation", false],
+                ["Salary", "salary", false, "number"],
+              ].map(([label, field, required, type = "text"]) => (
                 <div key={field} className="flex flex-col">
-                  <label className="text-sm font-medium text-gray-700 mb-1">{label}</label>
-                  <input
-                    type={type}
-                    value={data[field]}
-                    onChange={(e) => handleInputChange(field, e.target.value)}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all text-gray-800 placeholder-gray-400"
-                    placeholder={`Enter ${label.toLowerCase()}`}
-                    required
-                  />
+                  <label className="text-sm font-medium text-gray-700 mb-1">
+                    {label}
+                    {required && <span className="text-red-500 ml-1">*</span>}
+                  </label>
+
+                  {field === "gender" ? (
+                    <select value={data.gender} onChange={(e) => handleInputChange("gender", e.target.value)} className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all" required > <option value="">Select Gender</option> {["Male", "Female", "Other"].map((g) => (<option key={g} value={g.toLowerCase()}> {g} </option>))} </select>
+                  ) : field === "branchId" ? (
+                    <select
+                      value={data.branchId}
+                      onChange={(e) => handleInputChange("branchId", e.target.value)}
+                      required={required}
+                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 transition-all"
+                    >
+                      <option value="">Select Batch</option>
+                      {branch.map((b) => (
+                        <option key={b._id} value={b._id}>
+                          {b.name}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input
+                      type={type}
+                      value={data[field]}
+                      onChange={(e) => handleInputChange(field, e.target.value)}
+                      required={required}
+                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 transition-all"
+                      placeholder={`Enter ${label.toLowerCase()}`}
+                    />
+                  )}
                 </div>
               ))}
 
-              {/* Gender */}
-              <div className="flex flex-col">
-                <label className="text-sm font-medium text-gray-700 mb-1">Gender</label>
-                <select
-                  value={data.gender}
-                  onChange={(e) => handleInputChange("gender", e.target.value)}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
-                  required
-                >
-                  <option value="">Select Gender</option>
-                  {["Male", "Female", "Other"].map((g) => (
-                    <option key={g} value={g.toLowerCase()}>
-                      {g}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Batch */}
-              <div className="flex flex-col">
-                <label className="text-sm font-medium text-gray-700 mb-1">Batch</label>
-                <select
-                  value={data.branchId}
-                  onChange={(e) => handleInputChange("branchId", e.target.value)}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
-                  required
-                >
-                  <option value="">Select Batch</option>
-                  {branch.map((b) => (
-                    <option key={b._id} value={b._id}>
-                      {b.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Address */}
-              <div className="md:col-span-2 flex flex-col">
-                <label className="text-sm font-medium text-gray-700 mb-1">Address</label>
-                <input
-                  type="text"
-                  value={data.address}
-                  onChange={(e) => handleInputChange("address", e.target.value)}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
-                  placeholder="Enter complete address"
-                  required
-                />
-              </div>
 
               {/* Emergency Contact */}
               <div className="md:col-span-2">
@@ -320,7 +294,6 @@ const Faculty = () => {
                       value={data.emergencyContact[f]}
                       onChange={(e) => handleEmergencyContactChange(f, e.target.value)}
                       className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
-                      required
                     />
                   ))}
                 </div>

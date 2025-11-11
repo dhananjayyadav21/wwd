@@ -543,7 +543,6 @@ const Student = () => {
                 {/* Form Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {/* Basic Details */}
-                  {/* Repeated input fields with modern styling */}
                   {Object.keys(formData)
                     .filter(
                       (key) =>
@@ -576,7 +575,7 @@ const Student = () => {
                         phone: "tel",
                         email: "email",
                         dob: "date",
-                        pincode: "text", // using text for flexibility with different formats
+                        pincode: "text",
                       };
 
                       // Address takes full width
@@ -595,7 +594,6 @@ const Student = () => {
                             }
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900 transition duration-150"
                             placeholder={`Enter ${labelMap[key] || key}`}
-                            required={!["middleName", "profile"].includes(key)}
                           />
                         </div>
                       );
@@ -726,7 +724,6 @@ const Student = () => {
                               }
                               className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900 transition duration-150"
                               placeholder={`Enter ${labelMap[key]}`}
-                              required
                             />
                           </div>
                         );

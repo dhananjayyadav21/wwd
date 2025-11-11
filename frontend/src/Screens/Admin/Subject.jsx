@@ -55,7 +55,10 @@ const Subject = () => {
       const response = await axiosWrapper.get(`/branch`, {
         headers: { Authorization: `Bearer ${userToken}` },
       });
-      if (response.data.success) setBranches(response.data.data);
+      if (response.data.success) {
+        setBranches(response.data.data);
+        toast.success("load subjects !");
+      }
       else toast.error(response.data.message);
     } catch (error) {
       if (error.response?.status === 404) setBranches([]);

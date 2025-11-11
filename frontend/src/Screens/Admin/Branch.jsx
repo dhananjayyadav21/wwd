@@ -32,6 +32,7 @@ const Branch = () => {
       });
       if (response.data.success) {
         setBranch(response.data.data);
+        toast.success("load batch !");
       } else {
         toast.error(response.data.message);
       }

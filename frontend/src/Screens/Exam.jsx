@@ -47,6 +47,7 @@ const Exam = () => {
       });
       if (response.data.success) {
         setExams(response.data.data);
+        toast.success("found exams !")
       } else {
         toast.error(response.data.message);
       }

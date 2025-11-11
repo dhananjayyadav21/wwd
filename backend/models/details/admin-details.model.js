@@ -27,23 +27,18 @@ const adminDetailsSchema = new mongoose.Schema(
     },
     address: {
       type: String,
-      required: true,
     },
     city: {
       type: String,
-      required: true,
     },
     state: {
       type: String,
-      required: true,
     },
     pincode: {
       type: String,
-      required: true,
     },
     country: {
       type: String,
-      required: true,
     },
     gender: {
       type: String,
@@ -52,19 +47,15 @@ const adminDetailsSchema = new mongoose.Schema(
     },
     dob: {
       type: Date,
-      required: true,
     },
     designation: {
       type: String,
-      required: true,
     },
     joiningDate: {
       type: Date,
-      required: true,
     },
     salary: {
       type: Number,
-      required: true,
     },
     status: {
       type: String,

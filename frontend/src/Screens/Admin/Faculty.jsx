@@ -71,13 +71,17 @@ const Faculty = () => {
       const response = await axiosWrapper.get(`/faculty`, {
         headers: { Authorization: `Bearer ${userToken}` },
       });
-      if (response.data.success) setFaculty(response.data.data);
+      toast.dismiss();
+      if (response.data.success) {
+        setFaculty(response.data.data);
+        toast.success("load faculty !");
+      }
       else toast.error(response.data.message);
     } catch (error) {
       if (error.response?.status === 404) setFaculty([]);
       else toast.error(error.response?.data?.message || "Error fetching faculty");
     } finally {
-      toast.dismiss();
+      console.log("load faculty")
     }
   };
 

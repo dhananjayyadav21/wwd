@@ -39,7 +39,6 @@ const Admin = () => {
   const [selectedAdminId, setSelectedAdminId] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const userToken = localStorage.getItem("userToken");
-  const [file, setFile] = useState(null);
   const [dataLoading, setDataLoading] = useState(false);
 
   useEffect(() => {
@@ -57,6 +56,7 @@ const Admin = () => {
       });
       if (response.data.success) {
         setAdmins(response.data.data);
+        toast.success("load admins !");
       } else {
         toast.error(response.data.message);
       }
@@ -92,10 +92,6 @@ const Admin = () => {
         } else {
           formData.append(key, data[key]);
         }
-      }
-
-      if (file) {
-        formData.append("file", file);
       }
 
       let response;
@@ -272,7 +268,7 @@ const Admin = () => {
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {/* Profile Photo */}
-                <div>
+                {/* <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-1">
                     Profile Photo
                   </label>
@@ -282,7 +278,7 @@ const Admin = () => {
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 text-sm"
                     accept="image/*"
                   />
-                </div>
+                </div> */}
 
                 {/* Personal Information */}
                 <div>
@@ -364,7 +360,7 @@ const Admin = () => {
                     value={data.dob}
                     onChange={(e) => handleInputChange("dob", e.target.value)}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
-                    required
+
                   />
                 </div>
                 <div>
@@ -403,7 +399,7 @@ const Admin = () => {
                       handleInputChange("designation", e.target.value)
                     }
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
-                    required
+
                   />
                 </div>
                 <div>
@@ -417,7 +413,7 @@ const Admin = () => {
                       handleInputChange("joiningDate", e.target.value)
                     }
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
-                    required
+
                   />
                 </div>
                 <div>
@@ -431,7 +427,7 @@ const Admin = () => {
                       handleInputChange("salary", e.target.value)
                     }
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
-                    required
+
                   />
                 </div>
 
@@ -447,7 +443,7 @@ const Admin = () => {
                       handleInputChange("address", e.target.value)
                     }
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
-                    required
+
                   />
                 </div>
 
@@ -461,7 +457,7 @@ const Admin = () => {
                     value={data.city}
                     onChange={(e) => handleInputChange("city", e.target.value)}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
-                    required
+
                   />
                 </div>
                 <div>
@@ -473,7 +469,7 @@ const Admin = () => {
                     value={data.state}
                     onChange={(e) => handleInputChange("state", e.target.value)}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
-                    required
+
                   />
                 </div>
                 <div>
@@ -487,7 +483,7 @@ const Admin = () => {
                       handleInputChange("pincode", e.target.value)
                     }
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
-                    required
+
                   />
                 </div>
                 <div>
@@ -501,7 +497,7 @@ const Admin = () => {
                       handleInputChange("country", e.target.value)
                     }
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
-                    required
+
                   />
                 </div>
 
@@ -522,7 +518,7 @@ const Admin = () => {
                           handleEmergencyContactChange("name", e.target.value)
                         }
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
-                        required
+
                       />
                     </div>
                     <div>
@@ -539,7 +535,7 @@ const Admin = () => {
                           )
                         }
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
-                        required
+
                       />
                     </div>
                     <div>
@@ -553,7 +549,7 @@ const Admin = () => {
                           handleEmergencyContactChange("phone", e.target.value)
                         }
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
-                        required
+
                       />
                     </div>
                   </div>

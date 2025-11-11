@@ -64,8 +64,10 @@ const Student = () => {
           Authorization: `Bearer ${userToken}`,
         },
       });
+      toast.dismiss();
       if (response.data.success) {
         setBranches(response.data.data);
+        toast.success("load students !");
       } else {
         toast.error(response.data.message);
       }
@@ -77,7 +79,7 @@ const Student = () => {
         toast.error(error.response?.data?.message || "Error fetching branches");
       }
     } finally {
-      toast.dismiss();
+      console.log("student load")
     }
   };
 

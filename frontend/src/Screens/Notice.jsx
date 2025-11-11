@@ -68,6 +68,7 @@ const Notice = () => {
       });
       if (response.data.success) {
         setNotices(response.data.data);
+        toast.success("found notices !")
       } else {
         toast.error(response.data.message);
       }

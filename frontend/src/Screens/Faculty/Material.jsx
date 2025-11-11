@@ -111,8 +111,11 @@ const Material = () => {
           Authorization: `Bearer ${localStorage.getItem("userToken")}`,
         },
       });
+      toast.dismiss();
+
       if (response.data.success) {
         setMaterials(response.data.data);
+        toast.success("load materials !");
       }
     } catch (error) {
       if (error.response?.status === 404) {
@@ -123,7 +126,7 @@ const Material = () => {
         );
       }
     } finally {
-      toast.dismiss();
+      console.log("load materials")
     }
   };
 

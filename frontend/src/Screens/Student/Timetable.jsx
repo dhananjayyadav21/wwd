@@ -25,6 +25,7 @@ const Timetable = () => {
         );
         if (response.data.success && response.data.data.length > 0) {
           setTimetable(response.data.data[0]);
+          toast.success("load timtable")
         } else {
           setTimetable(null);
         }

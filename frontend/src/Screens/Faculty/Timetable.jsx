@@ -138,11 +138,15 @@ const Timetable = () => {
   // ------------------ Fetch Timetables ------------------
   const getTimetablesHandler = async () => {
     try {
+      toast.loading("Loding timetables..");
       const response = await axiosWrapper.get(`/timetable`, {
         headers: { Authorization: `Bearer ${userToken}` },
       });
+      toast.dismiss();
+
       if (response.data.success) {
         setTimetables(response.data.data);
+        toast.success("found timetables !");
       } else {
         toast.error(response.data.message);
       }

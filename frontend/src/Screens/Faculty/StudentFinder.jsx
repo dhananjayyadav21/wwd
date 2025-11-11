@@ -26,13 +26,17 @@ const StudentFinder = () => {
         const response = await axiosWrapper.get("/branch", {
           headers: { Authorization: `Bearer ${userToken}` },
         });
-        if (response.data.success) setBranches(response.data.data);
+        toast.dismiss();
+        if (response.data.success) {
+          setBranches(response.data.data);
+          toast.success("found students !");
+        }
         else toast.error(response.data.message);
       } catch (error) {
         if (error.response?.status === 404) setBranches([]);
         else toast.error(error.response?.data?.message || "Failed to load branches");
       } finally {
-        toast.dismiss();
+        console.log("found students")
       }
     };
     fetchBranches();

@@ -122,15 +122,13 @@ const Login = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
-
+      toast.dismiss();
       const { token } = response.data.data;
-      console.log("token---", token)
       localStorage.setItem("userToken", token);
       localStorage.setItem("userType", selected);
       dispatch(setUserToken(token));
       navigate(`/${selected.toLowerCase()}`);
     } catch (error) {
-      toast.dismiss();
       console.error(error);
       toast.error(error.response?.data?.message || "Login failed");
     } finally {

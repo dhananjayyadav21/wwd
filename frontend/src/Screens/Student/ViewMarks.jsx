@@ -19,9 +19,10 @@ const ViewMarks = () => {
       const response = await axiosWrapper.get(`/marks/student`, {
         headers: { Authorization: `Bearer ${userToken}` },
       });
-
+      toast.dismiss();
       if (response.data.success) {
         setMarks(response.data.data);
+        toast.success("load marks");
       } else {
         toast.error(response.data.message);
       }
@@ -29,7 +30,6 @@ const ViewMarks = () => {
       toast.error(error.response?.data?.message || "Error fetching marks");
     } finally {
       setDataLoading(false);
-      toast.dismiss();
     }
   };
 

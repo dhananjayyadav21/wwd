@@ -55,7 +55,7 @@ const registerAdminController = async (req, res, next) => {
   try {
     const { email, phone } = req.body;
 
-    const profile = req.file.filename;
+    // const profile = req.file.filename;
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return ApiResponse.badRequest("Invalid email format").send(res);
@@ -80,7 +80,7 @@ const registerAdminController = async (req, res, next) => {
     const user = await adminDetails.create({
       ...req.body,
       employeeId,
-      profile,
+      // profile,
       password: "admin123",
     });
 

@@ -61,7 +61,7 @@ const Profile = ({ profileData }) => {
       {/* Main Grid Sections */}
       <div className="grid grid-cols-1 gap-10">
         {/* Personal Information */}
-        <div className="bg-white rounded-2xl shadow-lg p-2 sm:p-8 hover:shadow-xl transition">
+        <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 hover:shadow-xl transition">
           <h2 className="text-2xl font-semibold text-gray-800 mb-6 pb-3 border-b border-gray-200">
             Personal Information
           </h2>

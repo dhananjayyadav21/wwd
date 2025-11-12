@@ -73,10 +73,14 @@ const Faculty = () => {
       });
       toast.dismiss();
       if (response.data.success) {
+        toast.dismiss();
         setFaculty(response.data.data);
         toast.success("load faculty !");
       }
-      else toast.error(response.data.message);
+      else {
+        toast.error(response.data.message);
+        toast.dismiss();
+      }
     } catch (error) {
       if (error.response?.status === 404) setFaculty([]);
       else toast.error(error.response?.data?.message || "Error fetching faculty");

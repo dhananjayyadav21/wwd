@@ -14,14 +14,15 @@ const {
 } = require("../../controllers/details/student-details.controller");
 const upload = require("../../middlewares/multer.middleware");
 const auth = require("../../middlewares/auth.middleware");
+const isAdmin = require("../../middlewares/isAdmin.middleware")
 
-router.post("/register", upload.single("file"), registerStudentController);
+router.post("/register", auth, isAdmin, upload.single("file"), registerStudentController);
 router.post("/login", loginStudentController);
 router.get("/my-details", auth, getMyDetailsController);
 
 router.get("/", auth, getAllDetailsController);
-router.patch("/:id", auth, upload.single("file"), updateDetailsController);
-router.delete("/:id", auth, deleteDetailsController);
+router.patch("/:id", auth, isAdmin, upload.single("file"), updateDetailsController);
+router.delete("/:id", auth, isAdmin, deleteDetailsController);
 router.post("/forget-password", sendForgetPasswordEmail);
 router.post("/update-password/:resetId", updatePasswordHandler);
 router.post("/change-password", auth, updateLoggedInPasswordController);

@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const upload = require("../middlewares/multer.middleware");
 const auth = require("../middlewares/auth.middleware");
+const isAdminOrFaculty = require("../middlewares/isAdminOrFaculty.middleware");
+
 const {
   getMaterialsController,
   addMaterialController,
@@ -10,8 +12,8 @@ const {
 } = require("../controllers/material.controller");
 
 router.get("/", auth, getMaterialsController);
-router.post("/", auth, upload.single("file"), addMaterialController);
-router.put("/:id", auth, upload.single("file"), updateMaterialController);
-router.delete("/:id", auth, deleteMaterialController);
+router.post("/", auth, isAdminOrFaculty, upload.single("file"), addMaterialController);
+router.put("/:id", auth, isAdminOrFaculty, upload.single("file"), updateMaterialController);
+router.delete("/:id", auth, isAdminOrFaculty, deleteMaterialController);
 
 module.exports = router;

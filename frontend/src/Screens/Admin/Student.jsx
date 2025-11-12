@@ -605,6 +605,7 @@ const Student = () => {
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Batch
+                      <span className="text-red-500 ml-1">*</span>
                     </label>
                     <select
                       value={formData.branchId}
@@ -627,6 +628,7 @@ const Student = () => {
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Aspiring
+                      <span className="text-red-500 ml-1">*</span>
                     </label>
                     <select
                       value={formData.aspiring}
@@ -647,6 +649,7 @@ const Student = () => {
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Gender
+                      <span className="text-red-500 ml-1">*</span>
                     </label>
                     <select
                       value={formData.gender}
@@ -667,6 +670,7 @@ const Student = () => {
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Blood Group
+                      <span className="text-red-500 ml-1">*</span>
                     </label>
                     <select
                       value={formData.bloodGroup}

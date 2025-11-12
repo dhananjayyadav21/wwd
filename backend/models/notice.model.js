@@ -17,7 +17,16 @@ const noticeSchema = new mongoose.Schema({
   },
   link: {
     type: String,
-    required: false,
+  },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    refPath: "createdByRole",
+  },
+  createdByRole: {
+    type: String,
+    required: true,
+    enum: ["AdminDetail", "FacultyDetail"],
   },
   createdAt: {
     type: Date,

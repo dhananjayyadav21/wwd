@@ -221,28 +221,36 @@ const Notice = () => {
                       </h3>
                       {/* Admin/Faculty Actions */}
                       {isAdminOrFaculty && (
-                        <div className="flex gap-1 ml-4 flex-shrink-0">
-                          <CustomButton
-                            onClick={() => handleEdit(notice)}
-                            variant="icon"
-                            className="text-gray-500 hover:text-blue-600 !p-2 rounded-lg transition duration-150"
-                            title="Edit Notice"
-                          >
-                            <MdEditNote size={20} />
-                          </CustomButton>
-                          <CustomButton
-                            onClick={() => {
-                              setSelectedNoticeId(notice._id);
-                              setIsDeleteConfirmOpen(true);
-                            }}
-                            variant="icon"
-                            className="text-gray-500 hover:text-red-600 !p-2 rounded-lg transition duration-150"
-                            title="Delete Notice"
-                          >
-                            <MdDeleteOutline size={20} />
-                          </CustomButton>
-                        </div>
+                        <>
+                          {(localStorage.getItem("userType") === "Admin" ||
+                            (localStorage.getItem("userType") === "Faculty" && notice.isCreatedByMe)) && (
+                              <div className="flex gap-1 ml-4 flex-shrink-0">
+                                <CustomButton
+                                  onClick={() => handleEdit(notice)}
+                                  variant="icon"
+                                  className="text-gray-500 hover:text-blue-600 !p-2 rounded-lg transition duration-150"
+                                  title="Edit Notice"
+                                >
+                                  <MdEditNote size={20} />
+                                </CustomButton>
+
+                                <CustomButton
+                                  onClick={() => {
+                                    setSelectedNoticeId(notice._id);
+                                    setIsDeleteConfirmOpen(true);
+                                  }}
+                                  variant="icon"
+                                  className="text-gray-500 hover:text-red-600 !p-2 rounded-lg transition duration-150"
+                                  title="Delete Notice"
+                                >
+                                  <MdDeleteOutline size={20} />
+                                </CustomButton>
+                              </div>
+                            )}
+                        </>
                       )}
+
+
                     </div>
 
                     {/* Notice Description */}

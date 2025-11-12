@@ -53,60 +53,69 @@ const UpdatePassword = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-gray-100 via-white to-gray-100 flex items-center justify-center px-4">
-      <div className="w-full max-w-2xl lg:w-1/2 px-6 py-12">
-        <h1 className="text-4xl font-bold text-gray-800 text-center mb-6">
-          Update Password
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-white to-blue-100 px-4">
+      <div className="w-full max-w-lg px-8 py-12 bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-gray-100">
+        <h1 className="text-2xl sm:text-4xl font-semibold sm:font-extrabold text-center mb-8">
+          🔒 <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-500"> Update Password</span>
         </h1>
-        <form
-          className="w-full p-8 bg-white rounded-2xl shadow-xl border border-gray-200"
-          onSubmit={onSubmit}
-        >
-          <div className="mb-6">
+
+        <form onSubmit={onSubmit} className="space-y-6 animate-fadeIn">
+          {/* New Password */}
+          <div>
             <label
-              className="block text-gray-800 text-sm font-medium mb-2"
               htmlFor="newPassword"
+              className="block text-gray-700 text-sm font-semibold mb-2"
             >
               New Password
             </label>
             <input
               type="password"
               id="newPassword"
-              onChange={(e) => setNewPassword(e.target.value)}
-              value={newPassword}
               required
-              className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder="Enter your new password"
+              className="w-full px-4 py-2 text-sm border border-gray-300 rounded-xl 
+                     focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-500
+                     transition duration-200 bg-gray-50 hover:bg-white"
             />
           </div>
 
-          <div className="mb-6">
+          {/* Confirm Password */}
+          <div>
             <label
-              className="block text-gray-800 text-sm font-medium mb-2"
               htmlFor="confirmPassword"
+              className="block text-gray-700 text-sm font-semibold mb-2"
             >
               Confirm Password
             </label>
             <input
               type="password"
               id="confirmPassword"
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              value={confirmPassword}
               required
-              className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirm your new password"
+              className="w-full px-4 py-2 text-sm border border-gray-300 rounded-xl 
+                     focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-500
+                     transition duration-200 bg-gray-50 hover:bg-white"
             />
           </div>
 
+          {/* Submit Button */}
           <CustomButton
             type="submit"
             disabled={isLoading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-200"
+            className="w-full bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-all duration-300 flex justify-center items-center gap-2 shadow-md hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed"
           >
             {isLoading ? "Resetting..." : "Reset Password"}
           </CustomButton>
         </form>
       </div>
+
       <Toaster position="bottom-center" />
     </div>
+
   );
 };
 

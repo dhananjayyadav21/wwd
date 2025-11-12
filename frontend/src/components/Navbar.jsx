@@ -38,7 +38,7 @@ const Navbar = () => {
               <RxDashboard className="w-6 h-6" />
             </span>
             {/* Title text styling */}
-            {dashboardTitle} WWD
+            {dashboardTitle} ML-DAV
           </div>
 
           {/* Logout Button */}

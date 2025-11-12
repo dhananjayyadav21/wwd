@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { FiLogIn } from "react-icons/fi";
+import { FiLogIn, FiEye, FiEyeOff } from "react-icons/fi";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { setUserToken } from "../redux/actions";
 import { useDispatch } from "react-redux";
 import CustomButton from "../components/CustomButton";
 import axiosWrapper from "../utils/AxiosWrapper";
+
 const USER_TYPES = {
   STUDENT: "Student",
   FACULTY: "Faculty",
   ADMIN: "Admin",
 };
 
-const LoginForm = ({ selected, onSubmit, formData, setFormData, isLoading }) => (
+// ✅ FIXED: added showPassword & setShowPassword props
+const LoginForm = ({
+  selected,
+  onSubmit,
+  formData,
+  setFormData,
+  isLoading,
+  showPassword,
+  setShowPassword,
+}) => (
   <form
     onSubmit={onSubmit}
     className="w-full bg-white/80 backdrop-blur-md border border-gray-200/60 rounded-2xl p-8 transition-all duration-300"
@@ -23,7 +33,7 @@ const LoginForm = ({ selected, onSubmit, formData, setFormData, isLoading }) => 
         htmlFor="email"
         className="block text-sm font-semibold text-gray-700 mb-2"
       >
-        {selected} Email
+        Email
       </label>
       <div className="relative">
         <input
@@ -32,14 +42,10 @@ const LoginForm = ({ selected, onSubmit, formData, setFormData, isLoading }) => 
           required
           placeholder="Enter your email"
           value={formData.email}
-          onChange={(e) =>
-            setFormData({ ...formData, email: e.target.value })
-          }
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           className="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400"
         />
-        <span className="absolute right-3 top-2.5 text-gray-400 text-lg">
-          ✉️
-        </span>
+        <span className="absolute right-3 top-2.5 text-gray-400 text-lg">✉️</span>
       </div>
     </div>
 
@@ -53,7 +59,7 @@ const LoginForm = ({ selected, onSubmit, formData, setFormData, isLoading }) => 
       </label>
       <div className="relative">
         <input
-          type="password"
+          type={showPassword ? "text" : "password"}
           id="password"
           required
           placeholder="Enter your password"
@@ -61,11 +67,15 @@ const LoginForm = ({ selected, onSubmit, formData, setFormData, isLoading }) => 
           onChange={(e) =>
             setFormData({ ...formData, password: e.target.value })
           }
-          className="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400"
+          className="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400 pr-10"
         />
-        <span className="absolute right-3 top-2.5 text-gray-400 text-lg">
-          🔒
-        </span>
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute right-3 top-2.5 text-gray-500 hover:text-gray-700 focus:outline-none"
+        >
+          {showPassword ? <FiEyeOff /> : <FiEye />}
+        </button>
       </div>
     </div>
 
@@ -104,14 +114,12 @@ const UserTypeSelector = ({ selected, onSelect }) => (
         <button
           key={type}
           onClick={() => onSelect(type)}
-          className={`
-          relative px-4 sm:px-6 py-2.5 text-xs sm:text-sm font-semibold rounded-full 
-          transition-all duration-300 transform
-          ${isSelected
+          className={`relative px-4 sm:px-6 py-2.5 text-xs sm:text-sm font-semibold rounded-full 
+            transition-all duration-300 transform
+            ${isSelected
               ? "bg-gradient-to-r from-indigo-600 via-blue-300 to-blue-500 text-white shadow-lg scale-105"
               : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 hover:shadow-md"
-            }
-        `}
+            }`}
         >
           {isSelected && (
             <span className="absolute inset-0 rounded-full bg-indigo-500/20 blur-md"></span>
@@ -121,7 +129,6 @@ const UserTypeSelector = ({ selected, onSelect }) => (
       );
     })}
   </div>
-
 );
 
 const Login = () => {
@@ -136,6 +143,7 @@ const Login = () => {
     password: "",
   });
 
+  const [showPassword, setShowPassword] = useState(false);
   const [selected, setSelected] = useState(USER_TYPES.STUDENT);
 
   const handleUserTypeSelect = (type) => {
@@ -153,7 +161,6 @@ const Login = () => {
     }
 
     const toastId = toast.loading("Logging in...");
-
     try {
       setIsLoading(true);
 
@@ -166,7 +173,6 @@ const Login = () => {
       if (response.data.success) {
         const { token } = response.data.data;
 
-        // Save token & user type
         localStorage.setItem("userToken", token);
         localStorage.setItem("userType", selected);
 
@@ -187,7 +193,6 @@ const Login = () => {
     }
   };
 
-
   useEffect(() => {
     const userToken = localStorage.getItem("userToken");
     if (userToken) {
@@ -204,42 +209,35 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-white to-blue-100 px-4 relative overflow-hidden">
-
-      {/* Decorative Gradient Blobs */}
+      {/* Decorative Blobs */}
       <div className="absolute top-[-10%] left-[-10%] w-64 h-64 bg-indigo-300 rounded-full blur-3xl opacity-30 animate-pulse"></div>
       <div className="absolute bottom-[-10%] right-[-10%] w-64 h-64 bg-blue-300 rounded-full blur-3xl opacity-30 animate-pulse"></div>
 
       <div className="relative w-full max-w-2xl bg-white/70 backdrop-blur-md shadow-xl rounded-3xl px-4 py-8 lg:p-10 border border-gray-200/50 transition-transform duration-300 hover:scale-[1.01]">
-
-        {/* Title */}
         <h1 className="text-2xl lg:text-4xl font-extrabold text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-500 mb-8 drop-shadow-sm">
           {selected} Login
         </h1>
 
-        {/* User Type Selector */}
-        <div className="mb-6">
-          <UserTypeSelector selected={selected} onSelect={handleUserTypeSelect} />
-        </div>
+        <UserTypeSelector selected={selected} onSelect={handleUserTypeSelect} />
 
-        {/* Login Form */}
+        {/* ✅ Pass showPassword props */}
         <LoginForm
           selected={selected}
           isLoading={isLoading}
           onSubmit={handleSubmit}
           formData={formData}
           setFormData={setFormData}
+          showPassword={showPassword}
+          setShowPassword={setShowPassword}
         />
 
-        {/* Footer Text */}
         <p className="text-center text-sm text-gray-500 mt-8">
           © {new Date().getFullYear()} YourCompany. All rights reserved.
         </p>
       </div>
 
-      {/* Toaster for notifications */}
       <Toaster position="bottom-center" />
     </div>
-
   );
 };
 
